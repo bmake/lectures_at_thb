@@ -32,7 +32,7 @@ export default {
     getData() {
       store.dispatch('setLoading', true);
       axios
-        .get('http://localhost:3030/lecotures_at_thb/query', {
+        .get('http://localhost:3030/lectures_at_thb/query', {
           params: {
             query: queries.query
           }
