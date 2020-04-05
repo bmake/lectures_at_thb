@@ -1,9 +1,7 @@
 <template>
   <v-app>
+    <nav-drawer></nav-drawer>
     <toolbar></toolbar>
-
-    <navdrawer></navdrawer>
-
     <v-content transition="slide-x-transition">
       <router-view></router-view>
     </v-content>
@@ -12,11 +10,11 @@
 
 <script>
 import Toolbar from './components/Toolbar';
-import Navdrawer from './components/Navdrawer';
+import NavDrawer from './components/NavDrawer';
 
 export default {
   name: 'App',
-  components: { Toolbar, Navdrawer }
+  components: { Toolbar, NavDrawer }
 };
 </script>
 

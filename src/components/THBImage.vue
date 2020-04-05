@@ -1,7 +1,7 @@
 <template>
   <v-parallax
     src="https://www.stuermer-draenger.de/wp-content/uploads/2019/04/SuD_Case_FHB-Foto-02_LY01.jpg"
-    height="700"
+    height="900"
   >
     <v-row align="center" justify="center">
       <v-card color="rgb(255,255,255,0.6)">
