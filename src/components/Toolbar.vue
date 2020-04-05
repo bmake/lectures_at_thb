@@ -1,6 +1,6 @@
 <template>
   <v-toolbar dense dark>
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="negate"></v-app-bar-nav-icon>
     <v-app-bar-nav-icon>
       <v-img src="../assets/mstile-150x150.png" height="50" width="50"></v-img>
     </v-app-bar-nav-icon>
@@ -17,16 +17,28 @@
 
 <script>
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Toolbar',
-  data() {
-    return {
-      appTitle: 'lectures@THB',
-      items: [{ title: 'About' }, { title: 'Team' }, { title: 'Impressum' }]
-    };
+    data() {
+      return {
+        appTitle: 'lectures@THB',
+        items: [{ title: 'About' }, { title: 'Team' }, { title: 'Impressum' }]
+      };
+    },
+  methods: {
+
+    ...mapActions({
+      negate: 'negateDrawer'
+    })
+
   }
-};
+
+
+
+}
+
 </script>
 
 <style scoped></style>
