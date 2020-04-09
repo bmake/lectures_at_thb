@@ -1,6 +1,6 @@
 <template>
   <v-toolbar dense dark>
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="negateDrawer"></v-app-bar-nav-icon>
     <v-app-bar-nav-icon>
       <v-img src="../assets/mstile-150x150.png" height="50" width="50"></v-img>
     </v-app-bar-nav-icon>
@@ -17,6 +17,7 @@
 
 <script>
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
+import store from '../store/store';
 
 export default {
   name: 'Toolbar',
@@ -25,6 +26,11 @@ export default {
       appTitle: 'lectures@THB',
       items: [{ title: 'About' }, { title: 'Team' }, { title: 'Impressum' }]
     };
+  },
+  methods: {
+    negateDrawer() {
+      store.dispatch('negateDrawer');
+    }
   }
 };
 </script>

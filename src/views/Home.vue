@@ -1,9 +1,13 @@
 <template>
-  <span>
+  <div>
     <background></background>
-    <v-progress-circular v-if="$store.loading"></v-progress-circular>
+    <v-progress-circular
+      v-if="loading"
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
     <lectures v-else></lectures>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -12,6 +16,7 @@ import Lectures from '../components/Lectures';
 import axios from 'axios';
 import queries from '../../config';
 import store from '../store/store.js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'home',
@@ -21,10 +26,11 @@ export default {
   },
   data() {
     this.getData();
-    return { videoLectrues: store.state.videoLectures };
+    return { data: this.videoLectures };
   },
   methods: {
     getData() {
+      store.dispatch('setLoading', true);
       axios
         .get('http://localhost:3030/lectures_at_thb/query', {
           params: {
@@ -33,14 +39,22 @@ export default {
         })
         .then(response => {
           let videoLectures = response.data.results.bindings;
-          store.replaceState({ videoLectures: videoLectures });
+          store.dispatch('addVideoLectures', videoLectures);
+          store.dispatch('setLoading', false);
         })
         .catch(function(error) {
-          print(error);
+          // eslint-disable-next-line no-console
+          console.log(error);
           // TODO: implement catch functionality
-        })
-        .finally(store.replaceState({ loading: false }));
+        });
     }
+  },
+  computed: {
+    ...mapGetters({
+      videoLectures: 'getVideoLectures',
+      loading: 'getLoading'
+    })
   }
 };
 </script>
+<style scoped></style>
