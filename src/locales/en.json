@@ -1,0 +1,13 @@
+{
+  "page": {
+    "description": "for students of Brandenburg University of Applied Sciences"
+  },
+  "toolbar": {
+    "description": "Choose your language"
+  },
+  "navbar": {
+    "home": "Home",
+    "help": "Help",
+    "contact": "Contact"
+  }
+}

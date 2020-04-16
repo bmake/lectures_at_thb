@@ -1,0 +1,13 @@
+{
+  "page": {
+    "description": "für Studenten der Technischen Hochschule Brandenburg"
+  },
+  "toolbar": {
+    "description": "Wähle deine Sprache aus"
+  },
+  "navbar": {
+    "home": "Hauptseite",
+    "help": "Hilfe",
+    "contact": "Kontakt"
+  }
+}
