@@ -20,10 +20,6 @@ yarn-error.log*
 *.sln
 *.sw?
 
-# docker files
-docker-compose.yml
-docker-compose_production.yml
-.dockerignore
-Dockerfile
-Dockerfile_production
+# service directories files
 nginx.conf
+fuseki/*
