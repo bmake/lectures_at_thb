@@ -10,39 +10,8 @@
           v-for="videoLecture in getVideoLectures"
           :key="videoLecture.label.value"
         >
-          <v-hover v-slot:default="{ hover }">
-            <v-card
-              class="text-xs-center ma-3"
-              :elevation="hover ? 12 : 2"
-              min-height="430"
-            >
-              <v-responsive class="pt-4">
-                <v-img
-                  :src="
-                    require(`@/assets/logos/${videoLecture.thumbnailName.value}`)
-                  "
-                  min-height="150"
-                  contain
-                >
-                </v-img>
-              </v-responsive>
-              <v-card-text>
-                <div class="subheading">{{ videoLecture.label.value }}</div>
-              </v-card-text>
-              <v-card-text>
-                <div class="text-justify">
-                  {{
-                    hover
-                      ? videoLecture.description.value
-                      : videoLecture.description.value.substring(
-                          0,
-                          videoLecture.description.value.indexOf('. ') + 1
-                        )
-                  }}
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-hover>
+          <lecture-card :video-lecture="videoLecture">
+          </lecture-card>
         </v-flex>
       </v-layout>
     </v-layout>
@@ -50,14 +19,23 @@
 </template>
 
 <script>
+import LectureCard from './LectureCard';
+
 export default {
   name: 'Lectures',
+  components: {
+    LectureCard
+  },
   computed: {
     getVideoLectures() {
       return this.$store.getters.getVideoLectures;
     }
-  }
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.hyphens {
+  hyphens: auto;
+}
+</style>
