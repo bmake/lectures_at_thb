@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  fuseki:
+    image: stain/jena-fuseki:latest
+    container_name: fuseki
+    volumes:
+      - "./fuseki/databases:/fuseki/databases"
+      - "./fuseki/configuration:/fuseki/configuration"
+      - "./fuseki/backups:/fuseki/backups"
+    ports:
+      - "3030:3030"
+    environment:
+      - ADMIN_PASSWORD=admin
+  nodejs:
+    container_name: nodejs
+    build:
+      context: .
+      dockerfile: Dockerfile_production
+    ports:
+      - "8080:80"
