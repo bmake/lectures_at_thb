@@ -16,14 +16,14 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on: tooltip }">
                 <v-btn icon dark v-on="{ ...tooltip, ...menu }">
-                  <v-icon>mdi-view-dashboard</v-icon>
+                 <flag :iso="$t(flag)"/>
                 </v-btn>
               </template>
               <span>{{ $t(description)}}</span>
             </v-tooltip>
           </template>
           <v-list>
-            <v-list-item v-for="(item, index) in items" :key="index" @click="setLocale(item.locale)">
+            <v-list-item v-for="(item, index) in items" :key="index" v-on:click="setLocale(item.locale); ">
               <v-list-item-title><flag :iso="item.flag" />{{ item.title }}</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -49,6 +49,7 @@ export default {
       items: [{ title: " DE", locale: 'de', flag: "de" }, { title: " ENG", locale: 'en', flag: "gb" }],
       langs: ['de', 'en'],
       description: 'toolbar.description',
+      flag: 'fl.current_flag'
     };
   },
   methods: {

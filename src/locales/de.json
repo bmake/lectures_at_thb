@@ -9,5 +9,8 @@
     "home": "Hauptseite",
     "help": "Hilfe",
     "contact": "Kontakt"
+  },
+  "fl": {
+    "current_flag": "de"
   }
 }

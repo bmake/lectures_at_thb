@@ -9,5 +9,8 @@
     "home": "Home",
     "help": "Help",
     "contact": "Contact"
+  },
+  "fl": {
+    "current_flag": "gb"
   }
 }

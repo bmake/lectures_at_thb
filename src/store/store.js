@@ -9,7 +9,7 @@ const state = {
   videoLectures: [],
   loading: false,
   drawer: false,
-  dropdown: false
+  dropdown: false,
 };
 
 const mutations = {
