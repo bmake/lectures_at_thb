@@ -1,11 +1,6 @@
 <template>
   <div>
     <background></background>
-    <v-progress-circular
-      v-if="loading"
-      indeterminate
-      color="primary"
-    ></v-progress-circular>
     <lectures v-else></lectures>
   </div>
 </template>
