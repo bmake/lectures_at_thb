@@ -30,12 +30,12 @@
             v-if="!flipped"
           >
           </v-img>
-        <v-card-text class="hyphens text-justify">
-          <v-clamp autoresize :max-lines="4" :expanded="overlay">
-            {{ videoLecture.description.value }}
-          </v-clamp>
-        </v-card-text>
-          </v-card>
+          <v-card-text class="hyphens text-justify">
+            <v-clamp autoresize :max-lines="4" :expanded="overlay">
+              {{ videoLecture.description.value }}
+            </v-clamp>
+          </v-card-text>
+        </v-card>
       </v-overlay>
       <v-card-actions>
         <v-list-item class="grow">
@@ -85,4 +85,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.hyphens {
+  hyphens: auto;
+}
+</style>
