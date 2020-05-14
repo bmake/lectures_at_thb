@@ -16,15 +16,22 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on: tooltip }">
                 <v-btn icon dark v-on="{ ...tooltip, ...menu }">
-                 <flag :iso="$t(flag)"/>
+                  <flag :iso="$t(flag)" />
                 </v-btn>
               </template>
-              <span>{{ $t(description)}}</span>
+              <span>{{ $t(description) }}</span>
             </v-tooltip>
           </template>
           <v-list>
-            <v-list-item v-for="(item, index) in items" :key="index" v-on:click="setLocale(item.locale); ">
-              <v-list-item-title><flag :iso="item.flag" />{{ item.title }}</v-list-item-title>
+            <v-list-item
+              v-for="(item, index) in items"
+              :key="index"
+              v-on:click="setLocale(item.locale)"
+            >
+              <v-list-item-title>
+                <flag :iso="item.flag" />
+                {{ item.title }}
+              </v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -46,7 +53,10 @@ export default {
   data() {
     return {
       appTitle: 'lectures@THB',
-      items: [{ title: " DE", locale: 'de', flag: "de" }, { title: " ENG", locale: 'en', flag: "gb" }],
+      items: [
+        { title: ' DE', locale: 'de', flag: 'de' },
+        { title: ' ENG', locale: 'en', flag: 'gb' }
+      ],
       langs: ['de', 'en'],
       description: 'toolbar.description',
       flag: 'fl.current_flag'
@@ -59,8 +69,8 @@ export default {
     negateDropdown() {
       store.dispatch('negateDropdown');
     },
-    setLocale(locale){
-      this.$i18n.locale = locale
+    setLocale(locale) {
+      this.$i18n.locale = locale;
     }
   }
 };

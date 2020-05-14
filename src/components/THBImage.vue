@@ -8,7 +8,7 @@
         <v-col class="text-center" cols="12">
           <h1 class="display-3 font-weight-bold mb-4">Video lectures</h1>
           <h4 class="display-1">
-            {{ $t('page.description')}}
+            {{ $t('page.description') }}
           </h4>
         </v-col>
       </v-card>
