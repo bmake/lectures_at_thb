@@ -55,7 +55,7 @@ export default {
       appTitle: 'lectures@THB',
       items: [
         { title: ' DE', locale: 'de', flag: 'de' },
-        { title: ' ENG', locale: 'en', flag: 'gb' }
+        { title: ' EN', locale: 'en', flag: 'gb' }
       ],
       langs: ['de', 'en'],
       description: 'toolbar.description',

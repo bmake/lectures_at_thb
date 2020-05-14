@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import FlagIcon from 'vue-flag-icon';
 
 Vue.use(VueI18n);
+Vue.use(FlagIcon);
 
 function loadLocaleMessages() {
   const locales = require.context(
@@ -21,7 +23,7 @@ function loadLocaleMessages() {
 }
 
 export default new VueI18n({
-  locale: navigator.language.split("-")[0],
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'de',
+  locale: navigator.language.split('-')[0],
+  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
   messages: loadLocaleMessages()
 });
