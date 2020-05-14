@@ -1,7 +1,7 @@
 <template>
   <v-hover v-slot:default="{ hover }">
     <v-card
-
+      :elevation="hover ? 16 : 2"
       class="text-xs-center ma-2"
       @click="overlay = !overlay"
       @mouseleave="flipped = false"
@@ -34,11 +34,11 @@
             <div class="black--text heading">{{ videoLecture.label.value }}</div>
           </v-card-title>
         <v-card-text class="hyphens text-justify black--text">
-          <v-clamp autoresize :max-lines="4" :expanded="overlay">
-            {{ videoLecture.description.value }}
-          </v-clamp>
-        </v-card-text>
-          </v-card>
+            <v-clamp autoresize :max-lines="4" :expanded="overlay">
+              {{ videoLecture.description.value }}
+            </v-clamp>
+          </v-card-text>
+        </v-card>
       </v-overlay>
       <v-card-actions>
         <v-list-item class="grow">
@@ -88,4 +88,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.hyphens {
+  hyphens: auto;
+}
+</style>
