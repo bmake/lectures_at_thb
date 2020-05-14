@@ -1,7 +1,7 @@
 <template>
   <v-hover v-slot:default="{ hover }">
     <v-card
-      :elevation="hover ? 16 : 2"
+
       class="text-xs-center ma-2"
       @click="overlay = !overlay"
       @mouseleave="flipped = false"
@@ -22,7 +22,7 @@
         </v-clamp>
       </v-card-text>
       <v-overlay :value="overlay">
-        <v-card class="text-xs-center ma-2" max-width="300">
+        <v-card class="text-xs-center ma-2" max-width="300" color="white">
           <v-img
             :src="require(`@/assets/logos/${videoLecture.thumbnailName.value}`)"
             height="16vh"
@@ -30,7 +30,10 @@
             v-if="!flipped"
           >
           </v-img>
-        <v-card-text class="hyphens text-justify">
+          <v-card-title>
+            <div class="black--text heading">{{ videoLecture.label.value }}</div>
+          </v-card-title>
+        <v-card-text class="hyphens text-justify black--text">
           <v-clamp autoresize :max-lines="4" :expanded="overlay">
             {{ videoLecture.description.value }}
           </v-clamp>
