@@ -1,7 +1,7 @@
 <template>
   <div>
     <background></background>
-    <lectures v-else></lectures>
+    <lectures></lectures>
   </div>
 </template>
 
