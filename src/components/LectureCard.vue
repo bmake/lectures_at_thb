@@ -1,7 +1,6 @@
 <template>
   <v-hover v-slot:default="{ hover }">
     <v-card
-      :elevation="hover ? 16 : 2"
       class="text-xs-center ma-2"
       @click="overlay = !overlay"
       @mouseleave="flipped = false"
