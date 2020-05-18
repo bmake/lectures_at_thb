@@ -5,6 +5,11 @@
       @click="overlay = !overlay"
       @mouseleave="flipped = false"
     >
+      <v-fade-transition>
+        <v-overlay v-if="hover" absolute color="grey" z-index="0">
+          <v-icon>mdi-magnify</v-icon>
+        </v-overlay>
+      </v-fade-transition>
       <v-img
         :src="require(`@/assets/logos/${videoLecture.thumbnailName.value}`)"
         height="16vh"
@@ -30,9 +35,11 @@
           >
           </v-img>
           <v-card-title>
-            <div class="black--text heading">{{ videoLecture.label.value }}</div>
+            <div class="black--text heading">
+              {{ videoLecture.label.value }}
+            </div>
           </v-card-title>
-        <v-card-text class="hyphens text-justify black--text">
+          <v-card-text class="hyphens text-justify black--text">
             <v-clamp autoresize :max-lines="4" :expanded="overlay">
               {{ videoLecture.description.value }}
             </v-clamp>
