@@ -8,7 +8,7 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-btn :to="item.route">{{ item.title }}</v-btn>
+            <v-btn :to="item.route">{{ $t(item.title) }}</v-btn>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -21,9 +21,13 @@ export default {
   data() {
     return {
       links: [
-        { icon: 'mdi-view-dashboard', title: 'Home', route: '/' },
-        { icon: 'mdi-view-dashboard', title: 'Hilfe', route: '/help' },
-        { icon: 'mdi-view-dashboard', title: 'Kontakt', route: '/contact' }
+        { icon: 'mdi-view-dashboard', title: 'navbar.home', route: '/' },
+        { icon: 'mdi-view-dashboard', title: 'navbar.help', route: '/help' },
+        {
+          icon: 'mdi-view-dashboard',
+          title: 'navbar.contact',
+          route: '/contact'
+        }
       ]
     };
   }
