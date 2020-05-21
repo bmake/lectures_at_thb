@@ -6,7 +6,8 @@ Vue.use(Vuex);
 const state = {
   videoLectures: [],
   loading: false,
-  drawer: false
+  drawer: false,
+  dropdown: false,
 };
 
 const mutations = {
@@ -18,6 +19,9 @@ const mutations = {
   },
   NEGATE_DRAWER(state) {
     state.drawer = !state.drawer;
+  },
+  NEGATE_DROPDOWN(state) {
+    state.dropdown = !state.dropdown;
   }
 };
 
@@ -30,15 +34,17 @@ const actions = {
   },
   negateDrawer(context) {
     context.commit('NEGATE_DRAWER');
+    // eslint-disable-next-line no-console
+    console.log(navigator.language.split("-")[0])
+  },
+  negateDropdown(context) {
+    context.commit('NEGATE_DROPDOWN');
   }
 };
 
 const getters = {
   getVideoLectures(state) {
     return state.videoLectures;
-  },
-  getDrawer(state) {
-    return state.drawer;
   },
   getLoading(state) {
     return state.loading;
