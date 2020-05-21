@@ -26,7 +26,7 @@
         </v-clamp>
       </v-card-text>
       <v-overlay :value="overlay">
-        <v-card class="text-xs-center ma-2" max-width="300" color="white">
+        <v-card class="text-xs-center ma-2" max-width="400" color="white" elevation="24">
           <v-img
             :src="require(`@/assets/logos/${videoLecture.thumbnailName.value}`)"
             height="16vh"
