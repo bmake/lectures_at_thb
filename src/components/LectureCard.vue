@@ -7,7 +7,7 @@
             color="red darken-4"
             :to="createLinToVideoLecture(videoLecture.videoLecture.value)"
           >
-            <v-icon>ondemand_video</v-icon>
+            <v-icon>description</v-icon>
           </v-btn>
         </v-overlay>
       </v-fade-transition>
@@ -49,18 +49,20 @@
             </v-clamp>
           </v-card-text>
           <v-card-actions z-index="1">
-            <v-row align="center" justify="center">
-              <v-btn icon="close" color="black" v-on:click="overlay = !overlay">
-                <v-icon large dark>close</v-icon>
-              </v-btn>
-              <v-btn
-                icon="close"
-                color="black"
-                :to="createLinToVideoLecture(videoLecture.videoLecture.value)"
-              >
-                <v-icon large dark>ondemand_video</v-icon>
-              </v-btn>
-            </v-row>
+            <v-list-item class="grow">
+              <v-row align="center" justify="space-around">
+                <v-btn color="red darken-4" v-on:click="overlay = !overlay">
+                  <v-icon large dark>close</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="red darken-4"
+                  :to="createLinToVideoLecture(videoLecture.videoLecture.value)"
+                >
+                  <v-icon large dark>description</v-icon>
+                </v-btn>
+              </v-row>
+            </v-list-item>
           </v-card-actions>
         </v-card>
       </v-overlay>
@@ -68,7 +70,12 @@
       <v-card-actions z-index="1">
         <v-list-item class="grow">
           <v-row align="center" justify="space-around">
-            <v-btn text color="red darken-4" v-on:click="overlay = !overlay">
+            <v-btn
+              x-small
+              text
+              color="red darken-4"
+              v-on:click="overlay = !overlay"
+            >
               More
             </v-btn>
             <v-spacer></v-spacer>
