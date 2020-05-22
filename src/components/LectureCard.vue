@@ -1,13 +1,15 @@
 <template>
   <v-hover v-slot:default="{ hover }">
-    <v-card
-      class="text-xs-center ma-2"
-      @click="overlay = !overlay"
-      @mouseleave="flipped = false"
-    >
+    <v-card class="text-xs-center ma-2" @mouseleave="flipped = false">
       <v-fade-transition>
-        <v-overlay v-if="hover" absolute color="grey" z-index="0">
-          <v-icon>mdi-magnify</v-icon>
+        <v-overlay v-if="hover" absolute color="grey" z-index="0" opacity="0">
+          <v-btn
+            x-large
+            color="red darken-4"
+            :to="createLinToVideoLecture(videoLecture.videoLecture.value)"
+          >
+            <v-icon>mdi-arrow-right</v-icon>
+          </v-btn>
         </v-overlay>
       </v-fade-transition>
       <v-img
@@ -25,8 +27,14 @@
           {{ videoLecture.description.value }}
         </v-clamp>
       </v-card-text>
-      <v-overlay :value="overlay">
-        <v-card class="text-xs-center ma-2" max-width="400" color="white" elevation="24">
+      <v-overlay :value="overlay" v-if="hover">
+        <v-card
+          v-on:click="overlay = !overlay"
+          class="text-xs-center ma-2"
+          max-width="400"
+          color="white"
+          elevation="24"
+        >
           <v-img
             :src="require(`@/assets/logos/${videoLecture.thumbnailName.value}`)"
             height="16vh"
@@ -46,16 +54,19 @@
           </v-card-text>
         </v-card>
       </v-overlay>
-      <v-card-actions>
+
+      <v-card-actions z-index="1">
         <v-list-item class="grow">
           <v-row align="center" justify="space-around">
             <v-btn
               text
               color="deep-purple accent-4"
-              :to="createLinToVideoLecture(videoLecture.videoLecture.value)"
+              v-on:click.prevent
+              v-on:click="overlay = !overlay"
             >
               More
             </v-btn>
+
             <v-spacer></v-spacer>
             <v-card-subtitle></v-card-subtitle>
           </v-row>
