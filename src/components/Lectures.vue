@@ -33,8 +33,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.hyphens {
-  hyphens: auto;
-}
-</style>
+<style scoped></style>

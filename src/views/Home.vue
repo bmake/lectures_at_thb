@@ -2,6 +2,8 @@
   <div>
     <background></background>
     <lectures></lectures>
+
+    <lectures></lectures>
   </div>
 </template>
 

@@ -1,33 +1,80 @@
 <template>
   <v-hover v-slot:default="{ hover }">
-    <v-card
-      :elevation="hover ? 16 : 2"
-      class="text-xs-center ma-2"
-      @click="flip"
-      @mouseleave="flipped = false"
-    >
+    <v-card class="text-xs-center ma-2">
+      <v-fade-transition>
+        <v-overlay v-if="hover" absolute color="grey" z-index="0" opacity="0">
+          <v-btn
+            color="red darken-4"
+            :to="createLinToVideoLecture(videoLecture.videoLecture.value)"
+          >
+            <v-icon>description</v-icon>
+          </v-btn>
+        </v-overlay>
+      </v-fade-transition>
       <v-img
         :src="require(`@/assets/logos/${videoLecture.thumbnailName.value}`)"
         height="16vh"
         contain
-        v-if="!flipped"
       >
       </v-img>
-      <v-card-title v-if="!flipped">
+      <v-card-title>
         <div class="heading">{{ videoLecture.label.value }}</div>
       </v-card-title>
       <v-card-text class="hyphens text-justify">
-        <v-clamp autoresize :max-lines="4" :expanded="flipped">
+        <v-clamp autoresize :max-lines="4">
           {{ videoLecture.description.value }}
         </v-clamp>
       </v-card-text>
-      <v-card-actions>
+      <v-overlay :value="overlay" z-index="1" opacity="0.75">
+        <v-card
+          class="text-xs-center ma-2"
+          max-width="400"
+          color="white"
+          elevation="24"
+        >
+          <v-img
+            :src="require(`@/assets/logos/${videoLecture.thumbnailName.value}`)"
+            height="16vh"
+            contain
+          >
+          </v-img>
+          <v-card-title>
+            <div class="black--text heading">
+              {{ videoLecture.label.value }}
+            </div>
+          </v-card-title>
+          <v-card-text class="hyphens text-justify black--text">
+            <v-clamp autoresize>
+              {{ videoLecture.description.value }}
+            </v-clamp>
+          </v-card-text>
+          <v-card-actions z-index="1">
+            <v-list-item class="grow">
+              <v-row align="center" justify="space-around">
+                <v-btn color="red darken-4" v-on:click="overlay = !overlay">
+                  <v-icon large dark>close</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="red darken-4"
+                  :to="createLinToVideoLecture(videoLecture.videoLecture.value)"
+                >
+                  <v-icon large dark>description</v-icon>
+                </v-btn>
+              </v-row>
+            </v-list-item>
+          </v-card-actions>
+        </v-card>
+      </v-overlay>
+
+      <v-card-actions z-index="1">
         <v-list-item class="grow">
           <v-row align="center" justify="space-around">
             <v-btn
+              x-small
               text
-              color="deep-purple accent-4"
-              :to="createLinToVideoLecture(videoLecture.videoLecture.value)"
+              color="red darken-4"
+              v-on:click="overlay = !overlay"
             >
               More
             </v-btn>
@@ -50,16 +97,13 @@ export default {
   },
   data() {
     return {
-      flipped: false
+      overlay: false
     };
   },
   components: {
     VClamp
   },
   methods: {
-    flip() {
-      this.flipped = !this.flipped;
-    },
     createLinToVideoLecture(videoLectureIRI) {
       const dashIndex = videoLectureIRI.search('#') + 1;
       return videoLectureIRI.substring(dashIndex, videoLectureIRI.length);
@@ -68,4 +112,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.hyphens {
+  hyphens: auto;
+}
+</style>
