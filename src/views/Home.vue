@@ -3,6 +3,8 @@
     <background></background>
     <video-lecture-filters></video-lecture-filters>
     <lectures></lectures>
+
+    <lectures></lectures>
   </div>
 </template>
 
