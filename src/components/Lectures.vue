@@ -10,8 +10,7 @@
           v-for="videoLecture in getVideoLectures"
           :key="videoLecture.label.value"
         >
-          <lecture-card :video-lecture="videoLecture">
-          </lecture-card>
+          <lecture-card :video-lecture="videoLecture"> </lecture-card>
         </v-flex>
       </v-layout>
     </v-layout>
@@ -30,12 +29,8 @@ export default {
     getVideoLectures() {
       return this.$store.getters.getVideoLectures;
     }
-  },
+  }
 };
 </script>
 
-<style scoped>
-.hyphens {
-  hyphens: auto;
-}
-</style>
+<style scoped></style>
