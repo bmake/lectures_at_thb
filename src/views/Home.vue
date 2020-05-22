@@ -1,6 +1,7 @@
 <template>
   <div>
     <background></background>
+    <video-lecture-filters></video-lecture-filters>
     <lectures></lectures>
   </div>
 </template>
@@ -8,15 +9,17 @@
 <script>
 import Background from '../components/THBImage';
 import Lectures from '../components/Lectures';
+import VideoLectureFilters from '../components/VideoLectureFilters';
 import axios from 'axios';
 import queries from '../../config';
 import store from '../store/store.js';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     Background,
+    VideoLectureFilters,
     Lectures
   },
   data() {

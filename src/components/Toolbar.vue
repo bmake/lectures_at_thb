@@ -9,34 +9,32 @@
 
     <v-spacer></v-spacer>
 
-    <template>
-      <div class="text-center">
-        <v-menu>
-          <template v-slot:activator="{ on: menu }">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on: tooltip }">
-                <v-btn icon dark v-on="{ ...tooltip, ...menu }">
-                  <flag :iso="$t(flag)" />
-                </v-btn>
-              </template>
-              <span>{{ $t(description) }}</span>
-            </v-tooltip>
-          </template>
-          <v-list>
-            <v-list-item
-              v-for="(item, index) in items"
-              :key="index"
-              v-on:click="setLocale(item.locale)"
-            >
-              <v-list-item-title>
-                <flag :iso="item.flag" />
-                {{ item.title }}
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
-    </template>
+    <div class="text-center">
+      <v-menu>
+        <template v-slot:activator="{ on: menu }">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on: tooltip }">
+              <v-btn icon dark v-on="{ ...tooltip, ...menu }">
+                <flag :iso="$t(flag)" />
+              </v-btn>
+            </template>
+            <span>{{ $t(description) }}</span>
+          </v-tooltip>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in items"
+            :key="index"
+            v-on:click="setLocale(item.locale)"
+          >
+            <v-list-item-title>
+              <flag :iso="item.flag" />
+              {{ item.title }}
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
 
     <v-btn icon>
       <v-icon>mdi-magnify</v-icon>
