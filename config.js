@@ -25,5 +25,23 @@ export default Object.freeze({
                         schema:isPartOf <%videoLecture%> ;
                         schema:duration ?clipDuration .
               }
-    `
+  `,
+  studyPrograms: `PREFIX vidp: <https://bmake.th-brandenburg.de/vidp#>
+                  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+                  SELECT DISTINCT ?studyProgram
+                  WHERE {
+                    ?studyProgramUri a vidp:StudyProgram ;
+                    rdfs:label ?studyProgram .
+                  }
+  `,
+  modules: `PREFIX vidp: <https://bmake.th-brandenburg.de/vidp#>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+            SELECT DISTINCT ?module
+            WHERE {
+              ?moduleUri a vidp:Module ;
+                rdfs:label ?module .
+            }
+  `
 });

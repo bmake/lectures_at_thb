@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProgressBar height="5"></ProgressBar>
+    <ProgressBar :height=toolbarHeight></ProgressBar>
     <v-toolbar dense dark>
       <v-app-bar-nav-icon @click="negateDrawer"></v-app-bar-nav-icon>
       <v-app-bar-nav-icon>
@@ -63,6 +63,7 @@ export default {
         { title: ' DE', locale: 'de', flag: 'de' },
         { title: ' EN', locale: 'en', flag: 'gb' }
       ],
+      toolbarHeight: 5,
       langs: ['de', 'en'],
       description: 'toolbar.description',
       flag: 'fl.current_flag'

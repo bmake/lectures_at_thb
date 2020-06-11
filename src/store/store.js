@@ -5,6 +5,8 @@ Vue.use(Vuex);
 
 const state = {
   videoLectures: [],
+  studyPrograms: [],
+  modules: [],
   loading: false,
   drawer: false,
   dropdown: false,
@@ -13,6 +15,12 @@ const state = {
 const mutations = {
   ADD_VIDEO_LECTURES(state, payload) {
     state.videoLectures = payload;
+  },
+  ADD_STUDY_PROGRAMS(state, payload) {
+    state.studyPrograms = payload;
+  },
+  ADD_MODULES(state, payload) {
+    state.modules = payload;
   },
   SET_LOADING(state, payload) {
     state.loading = payload;
@@ -28,6 +36,12 @@ const mutations = {
 const actions = {
   addVideoLectures(context, videoLecture) {
     context.commit('ADD_VIDEO_LECTURES', videoLecture);
+  },
+  addStudyPrograms(context, studyProgram) {
+    context.commit('ADD_STUDY_PROGRAMS', studyProgram);
+  },
+  addModules(context, module) {
+    context.commit('ADD_MODULES', module);
   },
   setLoading(context, boolean) {
     context.commit('SET_LOADING', boolean);
@@ -45,6 +59,12 @@ const actions = {
 const getters = {
   getVideoLectures(state) {
     return state.videoLectures;
+  },
+  getStudyPrograms(state) {
+    return state.studyPrograms;
+  },
+  getModules(state) {
+    return state.modules;
   },
   getLoading(state) {
     return state.loading;

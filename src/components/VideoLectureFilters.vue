@@ -29,7 +29,7 @@
         </v-flex>
         <v-flex xs12 sm6 md4 lg3>
           <searchable-list
-            :list-items="studyPrograms"
+            :list-items="modules"
             heading="Module"
           ></searchable-list>
         </v-flex>
@@ -41,25 +41,75 @@
 <script>
 import VideoCarousel from './VideoCarousel';
 import SearchableList from './SearchableList';
+import store from '../store/store';
+import axios from 'axios';
+import queries from '../../config';
+import { mapGetters } from 'vuex';
 export default {
   name: 'VideoLectureFilters',
   components: { SearchableList, VideoCarousel },
   data() {
+    this.getStudyPrograms();
+    this.getModules();
     return {
       departments: ['Wirtschaft', 'Informatik', 'Technik'],
-      studyPrograms: [
-        'Bachelor Business Administration',
-        'Master Business Administration',
-        'Bachelor Information Systems',
-        'Master Information Systems'
-      ],
-      activeDepartment: 0
+      activeDepartment: 0,
+      activeStudyProgram: 0,
+      activeModule: 0
     };
   },
   methods: {
     clearSearch() {
       this.search = '';
+    },
+    getStudyPrograms() {
+      store.dispatch('setLoading', true);
+      axios
+        .get('http://localhost:3030/lectures_at_thb/query', {
+          params: {
+            query: queries.studyPrograms
+          }
+        })
+        .then(response => {
+          let studyPrograms = this._.map(response.data.results.bindings, x => {
+            return x.studyProgram.value;
+          });
+          store.dispatch('addStudyPrograms', studyPrograms);
+          store.dispatch('setLoading', false);
+        })
+        .catch(function(error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+          // TODO: implement catch functionality
+        });
+    },
+    getModules() {
+      store.dispatch('setLoading', true);
+      axios
+        .get('http://localhost:3030/lectures_at_thb/query', {
+          params: {
+            query: queries.modules
+          }
+        })
+        .then(response => {
+          let modules = this._.map(response.data.results.bindings, x => {
+            return x.module.value;
+          });
+          store.dispatch('addModules', modules);
+          store.dispatch('setLoading', false);
+        })
+        .catch(function(error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+          // TODO: implement catch functionality
+        });
     }
+  },
+  computed: {
+    ...mapGetters({
+      studyPrograms: 'getStudyPrograms',
+      modules: 'getModules',
+    })
   }
 };
 </script>
