@@ -28,3 +28,10 @@ services:
     #TODO
     #healthcheck:
     #  test: ["CMD", "curl", "-f", "http://localhost:8080"]
+  api:
+    container_name: api
+    image: bmake/lectures_at_thb_rest_api:latest
+    ports:
+    - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]

@@ -48,8 +48,6 @@ const actions = {
   },
   negateDrawer(context) {
     context.commit('NEGATE_DRAWER');
-    // eslint-disable-next-line no-console
-    console.log(navigator.language.split("-")[0])
   },
   negateDropdown(context) {
     context.commit('NEGATE_DROPDOWN');
