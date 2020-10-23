@@ -3,7 +3,7 @@
 #########################
 DATA_DIRECTORY=data
 FUSEKI_DIRECTORY=fuseki
-LATEST_RDF_FILE=lectures_at_thb_2019_12_03.ttl
+LATEST_RDF_FILE=electures_at_thb.ttl
 
 #########################
 # TARGETS #
