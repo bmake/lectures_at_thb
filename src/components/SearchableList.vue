@@ -15,10 +15,10 @@
       @click:clear="clearSearch"
     ></v-text-field>
     <v-list>
-      <v-list-item-group color="primary">
-        <v-list-item v-for="(item, i) in filteredItems" :key="i">
-          <v-list-item-content>
-            <v-list-item-title v-text="item"></v-list-item-title>
+      <v-list-item-group color="primary" v-model="activeItem">
+        <v-list-item v-for="item in filteredItems" :key="item.iri">
+          <v-list-item-content @click="selectItem(item.iri)">
+            <v-list-item-title v-text="item.name"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -35,7 +35,8 @@ export default {
   },
   data() {
     return {
-      search: ''
+      search: '',
+      activeItem: null
     };
   },
   computed: {
@@ -49,6 +50,10 @@ export default {
   methods: {
     clearSearch() {
       this.search = '';
+    },
+    selectItem(i) {
+      this.activeItem = i;
+      this.$emit('activeItem', this.activeItem);
     }
   }
 };

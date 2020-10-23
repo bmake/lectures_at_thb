@@ -9,10 +9,11 @@
         v-model="activeDepartment"
       >
         <v-radio
-          v-for="n in this.departments"
-          :key="`radio_${n}`"
-          :label="`${n}`"
-          :value="n"
+          v-for="n in departments"
+          :key="`radio_${n['iri']}`"
+          :label="`${n['name']}`"
+          :value="n['iri']"
+          v-on:click="getStudyPrograms"
         ></v-radio>
       </v-radio-group>
     </v-system-bar>
@@ -21,16 +22,18 @@
         <v-flex xs12 sm6 md4 lg3>
           <video-carousel></video-carousel>
         </v-flex>
-        <v-flex xs12 sm6 md4 lg3>
+        <v-flex xs12 sm6 md4 lg3 v-on:click="this.getModules">
           <searchable-list
             :list-items="studyPrograms"
             heading="Study Program"
+            @activeItem="activeStudyProgramValue"
           ></searchable-list>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3>
           <searchable-list
             :list-items="modules"
             heading="Module"
+            @activeItem="activeModuleValue"
           ></searchable-list>
         </v-flex>
       </v-row>
@@ -43,72 +46,141 @@ import VideoCarousel from './VideoCarousel';
 import SearchableList from './SearchableList';
 import store from '../store/store';
 import axios from 'axios';
-import queries from '../../config';
 import { mapGetters } from 'vuex';
+import { eventBus } from '../main';
+
 export default {
   name: 'VideoLectureFilters',
   components: { SearchableList, VideoCarousel },
   data() {
-    this.getStudyPrograms();
-    this.getModules();
     return {
-      departments: ['Wirtschaft', 'Informatik', 'Technik'],
-      activeDepartment: 0,
-      activeStudyProgram: 0,
-      activeModule: 0
+      activeDepartment: 'THB_FBW',
+      activeStudyProgram: null,
+      activeModule: null
     };
+  },
+  beforeMount() {
+    this.getDepartments();
+    this.getStudyPrograms();
+  },
+  beforeUpdate() {
+    eventBus.$on('updateLocale', () => {
+      this.updateData();
+    });
   },
   methods: {
     clearSearch() {
       this.search = '';
     },
-    getStudyPrograms() {
-      store.dispatch('setLoading', true);
-      axios
-        .get('http://localhost:3030/lectures_at_thb/query', {
-          params: {
-            query: queries.studyPrograms
+    async getDepartments() {
+      await store.dispatch('incrementLoading');
+      return axios
+        .get('http://localhost:3000/v1/collegeOrUniversity', {
+          headers: {
+            'Accept-Language': this.$i18n.locale,
+            'Cache-Control': 'no-cache'
           }
         })
         .then(response => {
-          let studyPrograms = this._.map(response.data.results.bindings, x => {
-            return x.studyProgram.value;
+          let departments = this._.map(response.data.result, department => {
+            return {
+              iri: department.iri,
+              name: this.renameDepartment(department.name)
+            };
           });
-          store.dispatch('addStudyPrograms', studyPrograms);
-          store.dispatch('setLoading', false);
+          store.dispatch('addDepartments', departments);
         })
         .catch(function(error) {
           // eslint-disable-next-line no-console
           console.log(error);
           // TODO: implement catch functionality
-        });
-    },
-    getModules() {
-      store.dispatch('setLoading', true);
-      axios
-        .get('http://localhost:3030/lectures_at_thb/query', {
-          params: {
-            query: queries.modules
-          }
         })
+        .finally(() => store.dispatch('decrementLoading'));
+    },
+    async getStudyPrograms() {
+      await store.dispatch('incrementLoading');
+      return axios
+        .get(
+          'http://localhost:3000/v1/studyProgram/collegeOrUniversity/' +
+            this.activeDepartment,
+          {
+            headers: {
+              'Accept-Language': this.$i18n.locale,
+              'Cache-Control': 'no-cache'
+            }
+          }
+        )
         .then(response => {
-          let modules = this._.map(response.data.results.bindings, x => {
-            return x.module.value;
+          const studyPrograms = this._.map(
+            response.data.result,
+            studyProgram => {
+              return {
+                iri: studyProgram.iri,
+                name: studyProgram.name
+              };
+            }
+          );
+          store.dispatch('addStudyPrograms', studyPrograms);
+        })
+        .catch(function(error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+          // TODO: implement catch functionality
+        })
+        .finally(() => store.dispatch('decrementLoading'));
+    },
+    async getModules() {
+      await store.dispatch('incrementLoading');
+      return axios
+        .get(
+          'http://localhost:3000/v1/module/studyProgram/' +
+            this.activeStudyProgram,
+          {
+            headers: {
+              'Accept-Language': this.$i18n.locale,
+              'Cache-Control': 'no-cache'
+            }
+          }
+        )
+        .then(response => {
+          const modules = this._.map(response.data.result, module => {
+            return {
+              iri: module.iri,
+              name: module.name
+            };
           });
           store.dispatch('addModules', modules);
-          store.dispatch('setLoading', false);
         })
         .catch(function(error) {
           // eslint-disable-next-line no-console
           console.log(error);
           // TODO: implement catch functionality
-        });
+        })
+        .finally(() => store.dispatch('decrementLoading'));
+    },
+    activeStudyProgramValue: function(params) {
+      this.activeStudyProgram = params;
+    },
+    activeModuleValue: function(params) {
+      this.activeModule = params;
+      this.$emit('activeModule', this.activeModule);
+    },
+    updateData() {
+      return Promise.all([
+        this.getDepartments(),
+        this.getStudyPrograms(),
+        this.getModules()
+      ]);
+    },
+    renameDepartment(department) {
+      return this._.split(department, '-', 2)[1];
     }
   },
   computed: {
     ...mapGetters({
+      departments: 'getDepartments',
       studyPrograms: 'getStudyPrograms',
-      modules: 'getModules',
+      modules: 'getModules'
     })
   }
 };

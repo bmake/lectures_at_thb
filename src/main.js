@@ -11,6 +11,8 @@ Vue.config.productionTip = false;
 Vue.prototype._ = _;
 Vue.config.devtools = true;
 
+export const eventBus = new Vue();
+
 new Vue({
   router,
   store,
