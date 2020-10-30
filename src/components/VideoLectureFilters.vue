@@ -2,7 +2,7 @@
   <v-responsive>
     <v-system-bar height="50vh" color="#AE001C">
       <v-spacer></v-spacer>
-      <v-radio-group
+      <!--<v-radio-group
         prepend-icon="school"
         row
         mandatory
@@ -15,12 +15,19 @@
           :value="n['iri']"
           v-on:click="getStudyPrograms"
         ></v-radio>
-      </v-radio-group>
+      </v-radio-group>-->
     </v-system-bar>
     <v-container fluid grid-list-xl>
       <v-row class="mb-9" justify="center" align="start">
-        <v-flex xs12 sm6 md4 lg3>
+        <!--<v-flex xs12 sm6 md4 lg3>
           <video-carousel></video-carousel>
+        </v-flex>-->
+        <v-flex xs12 sm6 md4 lg3 v-on:click="this.getStudyPrograms">
+          <searchable-list
+            :list-items="departments"
+            heading="Departments"
+            @activeItem="activeDepartmentValue"
+          ></searchable-list>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3 v-on:click="this.getModules">
           <searchable-list
@@ -42,7 +49,7 @@
 </template>
 
 <script>
-import VideoCarousel from './VideoCarousel';
+//import VideoCarousel from './VideoCarousel';
 import SearchableList from './SearchableList';
 import store from '../store/store';
 import axios from 'axios';
@@ -51,10 +58,10 @@ import { eventBus } from '../main';
 
 export default {
   name: 'VideoLectureFilters',
-  components: { SearchableList, VideoCarousel },
+  components: { SearchableList},
   data() {
     return {
-      activeDepartment: 'THB_FBW',
+      activeDepartment: null,
       activeStudyProgram: null,
       activeModule: null
     };
@@ -157,6 +164,9 @@ export default {
           // TODO: implement catch functionality
         })
         .finally(() => store.dispatch('decrementLoading'));
+    },
+    activeDepartmentValue: function(params) {
+      this.activeDepartment = params;
     },
     activeStudyProgramValue: function(params) {
       this.activeStudyProgram = params;
