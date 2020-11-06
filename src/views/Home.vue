@@ -1,55 +1,82 @@
 <template>
   <div>
     <background></background>
-    <lectures></lectures>
-
-    <lectures></lectures>
+    <video-lecture-filters
+      @activeModule="activeModuleValue"
+      ref="filters"
+    ></video-lecture-filters>
+    <lectures
+      v-if="activeModuleValue !== null"
+      :video-lecture-iris="videoLectureIris"
+      ref="lectures"
+    ></lectures>
   </div>
 </template>
 
 <script>
 import Background from '../components/THBImage';
 import Lectures from '../components/Lectures';
+import VideoLectureFilters from '../components/VideoLectureFilters';
 import axios from 'axios';
-import queries from '../../config';
 import store from '../store/store.js';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     Background,
+    VideoLectureFilters,
     Lectures
   },
   data() {
-    this.getData();
-    return { data: this.videoLectures };
+    return {
+      activeModule: null
+    };
   },
   methods: {
-    getData() {
-      store.dispatch('setLoading', true);
-      axios
-        .get('http://localhost:3030/lectures_at_thb/query', {
-          params: {
-            query: queries.query
+    async getVideoLectureIris() {
+      await store.dispatch('incrementLoading');
+      await store.dispatch('resetVideoLectures');
+      return axios
+        .get(
+          'http://localhost:3000/v1/videoLecture/module/' + this.activeModule,
+          {
+            headers: {
+              'Accept-Language': this.$i18n.locale,
+              'Cache-Control': 'no-cache'
+            }
           }
-        })
+        )
         .then(response => {
-          let videoLectures = response.data.results.bindings;
-          store.dispatch('addVideoLectures', videoLectures);
-          store.dispatch('setLoading', false);
+          const videoLectureIris = this._.map(
+            response.data.result,
+            videoLecture => {
+              return videoLecture.iri;
+            }
+          );
+          store.dispatch('addVideoLectureIris', videoLectureIris);
         })
         .catch(function(error) {
           // eslint-disable-next-line no-console
           console.log(error);
           // TODO: implement catch functionality
-        });
+        })
+        .finally(() => store.dispatch('decrementLoading'));
+    },
+    scrollToLectures() {
+      this.$refs['lectures'].$el.scrollIntoView({ behavior: 'smooth' });
+    },
+    activeModuleValue: function(params) {
+      this.activeModule = params;
+      this.getVideoLectureIris();
     }
+  },
+  updated() {
+    setTimeout(() => this.scrollToLectures(), 750);
   },
   computed: {
     ...mapGetters({
-      videoLectures: 'getVideoLectures',
-      loading: 'getLoading'
+      videoLectureIris: 'getVideoLectureIris'
     })
   }
 };

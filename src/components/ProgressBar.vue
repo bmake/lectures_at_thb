@@ -1,7 +1,7 @@
 <template>
   <v-progress-linear
-    :indeterminate="$store.state.loading"
-    :active="$store.state.loading"
+    :indeterminate="$store.state.loading !== 0"
+    :active="$store.state.loading !== 0"
     color="red"
     :height="height"
   ></v-progress-linear>

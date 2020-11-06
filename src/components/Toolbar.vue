@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProgressBar height="5"></ProgressBar>
+    <ProgressBar :height="toolbarHeight"></ProgressBar>
     <v-toolbar dense dark>
       <v-app-bar-nav-icon @click="negateDrawer"></v-app-bar-nav-icon>
       <v-app-bar-nav-icon>
@@ -53,6 +53,7 @@
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import store from '../store/store';
 import ProgressBar from './ProgressBar';
+import { eventBus } from '../main';
 
 export default {
   name: 'Toolbar',
@@ -63,6 +64,7 @@ export default {
         { title: ' DE', locale: 'de', flag: 'de' },
         { title: ' EN', locale: 'en', flag: 'gb' }
       ],
+      toolbarHeight: 5,
       langs: ['de', 'en'],
       description: 'toolbar.description',
       flag: 'fl.current_flag'
@@ -76,6 +78,7 @@ export default {
       store.dispatch('negateDropdown');
     },
     setLocale(locale) {
+      eventBus.$emit('updateLocale');
       this.$i18n.locale = locale;
     }
   },

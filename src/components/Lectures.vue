@@ -7,10 +7,10 @@
           sm6
           md4
           lg3
-          v-for="videoLecture in getVideoLectures"
-          :key="videoLecture.label.value"
+          v-for="videoLectureIri in videoLectureIris"
+          :key="videoLectureIri"
         >
-          <lecture-card :video-lecture="videoLecture"> </lecture-card>
+          <lecture-card :video-lecture-iri="videoLectureIri"> </lecture-card>
         </v-flex>
       </v-layout>
     </v-layout>
@@ -22,13 +22,11 @@ import LectureCard from './LectureCard';
 
 export default {
   name: 'Lectures',
+  props: {
+    videoLectureIris: Array
+  },
   components: {
     LectureCard
-  },
-  computed: {
-    getVideoLectures() {
-      return this.$store.getters.getVideoLectures;
-    }
   }
 };
 </script>
