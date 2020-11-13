@@ -5316,7 +5316,7 @@ vide:BPMgt1     a  vidp:VideoLecture ;
                 schema:about module:WIB_GPMO ;
                 schema:name "BPMgt1" ;
                 schema:description "Zum Einstieg in das Thema Geschäftsprozessmanagement werden grundlegende Definitionen der Begriffe: Geschäftsprozess, Prozessmodell, Referenzprozess, Workflow und Prozessinstanz vorgenommen. Die Definitionen werden anhand von Beispielen reflektiert. In diesem Kontext wird auch der Digitalisierungsgrad von Workflows thematisiert und zwei Lebenszyklusmodelle für Prozesse vorgestellt."@de, "As an introduction to business process management, basic definitions of the terms: business process, process model, reference process, workflow and process instance are given. The definitions are reflected by means of examples. In this context, the degree of the digitalization of workflows is also discussed and two life cycle models for processes are presented."@en ;
-                schema:headline "Geschäftsprozessmanagement - Grundlegende Definitionen"@de, "Geschäftsprozessmanagement - Grundlegende Definitionen"@en ;
+                schema:headline "Geschäftsprozessmanagement - Grundlegende Definitionen"@de, "Business Process Management - Basic Definitions"@en ;
                 schema:inLanguage "de" ;
                 schema:keywords "Geschäftsprozess, Prozessmodell, Referenzprozess, Workflow, Lebenszyklus, Digitalisierung"@de, "Business process, process model, reference process, workflow, life cycle, digitization"@en ;
                 schema:url "http://univera.de/FHB/fbwTube/?id=BPMgt1" ;
