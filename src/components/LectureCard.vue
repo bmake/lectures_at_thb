@@ -4,7 +4,7 @@
       class="text-xs-center ma-2"
       :elevation="hover ? 12 : 2"
       :class="{ 'on-hover': hover }"
-      @click="toVideoPage(videoLecture.iri)"
+      @click="routeToVideoPage(videoLecture.iri)"
     >
       <v-img
         :src="require(`@/assets/logos/${videoLecture.thumbnail}`)"
@@ -35,7 +35,10 @@
               <v-list-item-subtitle>Lecturer(s)</v-list-item-subtitle>
               <v-list-item-title>
                 {{
-                  formatContributors(videoLecture.creator, videoLecture.contributors)
+                  formatContributors(
+                    videoLecture.creator,
+                    videoLecture.contributors
+                  )
                 }}
               </v-list-item-title>
             </v-list-item-content>
@@ -80,10 +83,6 @@ export default {
     VClamp
   },
   methods: {
-    createLinToVideoLecture(videoLectureIRI) {
-      const dashIndex = videoLectureIRI.search('#') + 1;
-      return videoLectureIRI.substring(dashIndex, videoLectureIRI.length);
-    },
     async getVideoLectureDetails() {
       await store.dispatch('incrementLoading');
       axios
@@ -134,8 +133,16 @@ export default {
       }
       return str;
     },
-    toVideoPage(iri) {
-      let routeData = this.$router.resolve({ name: 'video', params: { id: this.createLinToVideoLecture(iri) } });
+    routeToVideoPage(videoLectureIRI) {
+      const dashIndex = videoLectureIRI.search('#') + 1;
+      const localIRI = videoLectureIRI.substring(
+        dashIndex,
+        videoLectureIRI.length
+      );
+      let routeData = this.$router.resolve({
+        name: 'video',
+        params: { id: localIRI }
+      });
       window.open(routeData.href, '_blank');
     }
   },
