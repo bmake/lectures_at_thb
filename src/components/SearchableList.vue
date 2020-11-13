@@ -31,12 +31,13 @@ export default {
   name: 'SearchableList',
   props: {
     heading: String,
-    listItems: Array
+    listItems: Array,
+    selectedItemText: String
   },
   data() {
     return {
       search: '',
-      activeItem: null
+      activeItem: this.listItems.map(o => o.iri).indexOf(this.selectedItemText)
     };
   },
   computed: {
