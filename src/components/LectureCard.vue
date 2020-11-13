@@ -1,16 +1,11 @@
 <template>
-  <v-hover v-slot:default="{ hover }" v-if="this.videoLecture != null">
-    <v-card class="text-xs-center ma-2">
-      <v-fade-transition>
-        <v-overlay v-if="hover" absolute color="grey" z-index="0" opacity="0">
-          <v-btn
-            color="red darken-4"
-            :to="createLinToVideoLecture(videoLecture.iri)"
-          >
-            <v-icon>description</v-icon>
-          </v-btn>
-        </v-overlay>
-      </v-fade-transition>
+  <v-hover v-slot:="{ hover }" v-if="this.videoLecture != null">
+    <v-card
+      class="text-xs-center ma-2"
+      :elevation="hover ? 12 : 2"
+      :class="{ 'on-hover': hover }"
+      :to="createLinToVideoLecture(videoLecture.iri)"
+    >
       <v-img
         :src="require(`@/assets/logos/${videoLecture.thumbnail}`)"
         height="16vh"
@@ -18,71 +13,45 @@
       >
       </v-img>
       <v-card-title>
-        <div class="heading">{{ videoLecture.name }}</div>
+        <div class="hyphens text-justify" style="height:6vh">
+          <v-clamp autoresize :max-lines="2">
+            {{ videoLecture.headline }}
+          </v-clamp>
+        </div>
       </v-card-title>
       <v-card-text class="hyphens text-justify">
         <v-clamp autoresize :max-lines="4">
           {{ videoLecture.description }}
         </v-clamp>
       </v-card-text>
-      <v-overlay :value="overlay" z-index="1" opacity="0.75">
-        <v-card
-          class="text-xs-center ma-2"
-          max-width="400"
-          color="white"
-          elevation="24"
-        >
-          <v-img
-            :src="require(`@/assets/logos/${videoLecture.thumbnail}`)"
-            height="16vh"
-            contain
-          >
-          </v-img>
-          <v-card-title>
-            <div class="black--text heading">
-              {{ videoLecture.name }}
-            </div>
-          </v-card-title>
-          <v-card-text class="hyphens text-justify black--text">
-            <v-clamp autoresize>
-              {{ videoLecture.description }}
-            </v-clamp>
-          </v-card-text>
-          <v-card-actions z-index="1">
-            <v-list-item class="grow">
-              <v-row align="center" justify="space-around">
-                <v-btn color="red darken-4" v-on:click="overlay = !overlay">
-                  <v-icon large dark>close</v-icon>
-                </v-btn>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="red darken-4"
-                  :to="createLinToVideoLecture(videoLecture.iri)"
-                >
-                  <v-icon large dark>description</v-icon>
-                </v-btn>
-              </v-row>
-            </v-list-item>
-          </v-card-actions>
-        </v-card>
-      </v-overlay>
 
-      <v-card-actions z-index="1">
-        <v-list-item class="grow">
-          <v-row align="center" justify="space-around">
-            <v-btn
-              x-small
-              text
-              color="red darken-4"
-              v-on:click="overlay = !overlay"
-            >
-              More
-            </v-btn>
-            <v-spacer></v-spacer>
-            <v-chip>Duration: {{ formatDuration(videoLecture.duration) }} </v-chip>
-            <v-card-subtitle></v-card-subtitle>
-          </v-row>
-        </v-list-item>
+      <v-card-actions>
+        <v-list class="transparent">
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-teach</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-subtitle>Lecturer(s)</v-list-item-subtitle>
+              <v-list-item-title>
+                {{
+                  formatContributors(videoLecture.creator, videoLecture.contributors)
+                }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-clock</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-subtitle>Duration</v-list-item-subtitle>
+              <v-list-item-title v-text="formatDuration(videoLecture.duration)">
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-card-actions>
     </v-card>
   </v-hover>
@@ -97,11 +66,13 @@ import { eventBus } from '../main';
 export default {
   name: 'LectureCard',
   props: {
-    videoLectureIri: String
+    videoLectureIri: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
-      overlay: false,
       videoLecture: null
     };
   },
@@ -135,14 +106,33 @@ export default {
     updateData() {
       return Promise.all([this.getVideoLectureDetails()]);
     },
-    formatDuration(seconds) {
-      const hours = Math.floor(seconds / 3600);
-      const minutes = (seconds % 3600) / 60;
-      if (hours < 1) {
-        return Number(minutes / 60).toFixed(1) + 'h';
-      } else {
-        return Number(hours + (minutes / 60)).toFixed(1) + 'h';
+    formatDuration(totalSeconds) {
+      const hours = Math.floor(totalSeconds / 3600);
+      totalSeconds %= 3600;
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      let length = '';
+      if (hours > 0) {
+        length = length.concat(hours.toString());
+        length = length.concat(':');
       }
+      length = length.concat(String(minutes).padStart(2, '0'));
+      length = length.concat(':');
+      if (seconds > 0) {
+        length = length.concat(String(seconds).padStart(2, '0'));
+      }
+      return length;
+    },
+    formatContributors(creators, contributors) {
+      creators = this._.split(creators, ', ');
+      contributors = this._.split(contributors, ', ');
+      contributors = contributors.filter(c => creators.indexOf(c) === -1);
+      let str = creators.join(', ');
+      if (contributors[0] !== '') {
+        str = str.concat(', ');
+        str = str.concat(contributors.join(', '));
+      }
+      return str;
     }
   },
   beforeMount() {

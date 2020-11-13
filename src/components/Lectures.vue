@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-xl>
-    <v-layout wrap justify-space-around>
+    <v-layout row wrap align-start justify-space-betweend>
       <v-layout row wrap>
         <v-flex
           xs12
