@@ -2,31 +2,15 @@
   <v-responsive>
     <v-system-bar height="50vh" color="#AE001C">
       <v-spacer></v-spacer>
-      <!--<v-radio-group
-        prepend-icon="school"
-        row
-        mandatory
-        v-model="activeDepartment"
-      >
-        <v-radio
-          v-for="n in departments"
-          :key="`radio_${n['iri']}`"
-          :label="`${n['name']}`"
-          :value="n['iri']"
-          v-on:click="getStudyPrograms"
-        ></v-radio>
-      </v-radio-group>-->
     </v-system-bar>
     <v-container fluid grid-list-xl>
       <v-row class="mb-9" justify="center" align="start">
-        <!--<v-flex xs12 sm6 md4 lg3>
-          <video-carousel></video-carousel>
-        </v-flex>-->
         <v-flex xs12 sm6 md4 lg3 v-on:click="this.getStudyPrograms">
           <searchable-list
             :list-items="departments"
             heading="Departments"
             @activeItem="activeDepartmentValue"
+            :selected-item-text="activeDepartment"
           ></searchable-list>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3 v-on:click="this.getModules">
@@ -34,6 +18,7 @@
             :list-items="studyPrograms"
             heading="Study Program"
             @activeItem="activeStudyProgramValue"
+            :selected-item-text="activeStudyProgram"
           ></searchable-list>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3>
@@ -41,6 +26,7 @@
             :list-items="modules"
             heading="Module"
             @activeItem="activeModuleValue"
+            :selected-item-text="activeModule"
           ></searchable-list>
         </v-flex>
       </v-row>
@@ -49,26 +35,17 @@
 </template>
 
 <script>
-//import VideoCarousel from './VideoCarousel';
 import SearchableList from './SearchableList';
 import store from '../store/store';
 import axios from 'axios';
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import { eventBus } from '../main';
 
 export default {
   name: 'VideoLectureFilters',
   components: { SearchableList},
-  data() {
-    return {
-      activeDepartment: null,
-      activeStudyProgram: null,
-      activeModule: null
-    };
-  },
   beforeMount() {
     this.getDepartments();
-    this.getStudyPrograms();
   },
   beforeUpdate() {
     eventBus.$on('updateLocale', () => {
@@ -166,13 +143,13 @@ export default {
         .finally(() => store.dispatch('decrementLoading'));
     },
     activeDepartmentValue: function(params) {
-      this.activeDepartment = params;
+      store.dispatch('replaceActiveDepartment', params);
     },
     activeStudyProgramValue: function(params) {
-      this.activeStudyProgram = params;
+      store.dispatch('replaceActiveStudyProgram', params);
     },
     activeModuleValue: function(params) {
-      this.activeModule = params;
+      store.dispatch('replaceActiveModule', params);
       this.$emit('activeModule', this.activeModule);
     },
     updateData() {
@@ -187,6 +164,11 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      activeDepartment: 'activeDepartment',
+      activeStudyProgram: 'activeStudyProgram',
+      activeModule: 'activeModule'
+    }),
     ...mapGetters({
       departments: 'getDepartments',
       studyPrograms: 'getStudyPrograms',

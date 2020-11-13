@@ -16,7 +16,6 @@
 <script>
 import store from '../store/store';
 import axios from 'axios';
-import {eventBus} from "../main";
 
 export default {
   name: 'Video',
@@ -49,17 +48,6 @@ export default {
           // TODO: implement catch functionality
         })
         .finally(() => store.dispatch('decrementLoading'));
-    },
-    updateData() {
-      return Promise.all([this.getVideoLectureDetails()]);
-    },
-    beforeMount() {
-
-    },
-    beforeUpdate() {
-      eventBus.$on('updateLocale', () => {
-        this.updateData();
-      });
     }
   }
 };

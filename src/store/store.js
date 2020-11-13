@@ -4,6 +4,9 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
+  activeDepartment: null,
+  activeStudyProgram: null,
+  activeModule: null,
   videoLectureIris: [],
   studyPrograms: [],
   modules: [],
@@ -14,6 +17,15 @@ const state = {
 };
 
 const mutations = {
+  REPLACE_ACTIVE_DEPARTMENT(state, payload) {
+    state.activeDepartment = payload;
+  },
+  REPLACE_ACTIVE_STUDY_PROGRAM(state, payload) {
+    state.activeStudyProgram = payload;
+  },
+  REPLACE_ACTIVE_MODULE(state, payload) {
+    state.activeModule = payload;
+  },
   ADD_VIDEO_LECTURE_IRIS(state, payload) {
     state.videoLectureIris = payload;
   },
@@ -44,6 +56,15 @@ const mutations = {
 };
 
 const actions = {
+  replaceActiveDepartment(context, activeDepartment) {
+    context.commit('REPLACE_ACTIVE_DEPARTMENT', activeDepartment);
+  },
+  replaceActiveStudyProgram(context, activeStudyProgram) {
+    context.commit('REPLACE_ACTIVE_STUDY_PROGRAM', activeStudyProgram);
+  },
+  replaceActiveModule(context, activeModule) {
+    context.commit('REPLACE_ACTIVE_MODULE', activeModule);
+  },
   addVideoLectureIris(context, videoLectureIri) {
     context.commit('ADD_VIDEO_LECTURE_IRIS', videoLectureIri);
   },
@@ -74,6 +95,15 @@ const actions = {
 };
 
 const getters = {
+  getActiveDepartment(state) {
+    return state.activeDepartment;
+  },
+  getActiveStudyProgram(state) {
+    return state.activeStudyProgram;
+  },
+  getActiveModule(state) {
+    return state.activeModule;
+  },
   getVideoLectureIris(state) {
     return state.videoLectureIris;
   },
