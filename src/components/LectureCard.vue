@@ -5,7 +5,7 @@
         <v-overlay v-if="hover" absolute color="grey" z-index="0" opacity="0">
           <v-btn
             color="red darken-4"
-            :to="createLinToVideoLecture(videoLecture.iri)"
+            @click="toVideoPage(videoLecture.iri)"
           >
             <v-icon>description</v-icon>
           </v-btn>
@@ -143,6 +143,11 @@ export default {
       } else {
         return Number(hours + (minutes / 60)).toFixed(1) + 'h';
       }
+    },
+    toVideoPage(iri) {
+      //:to="{ name: 'video', params: { id: createLinToVideoLecture(videoLecture.iri) } }"
+      let routeData = this.$router.resolve({ name: 'video', params: { id: this.createLinToVideoLecture(iri) } });
+      window.open(routeData.href, '_blank');
     }
   },
   beforeMount() {
