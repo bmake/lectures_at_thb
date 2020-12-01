@@ -4,7 +4,7 @@
       class="text-xs-center ma-2"
       :elevation="hover ? 12 : 2"
       :class="{ 'on-hover': hover }"
-      @click="routeToVideoPage(videoLecture.iri)"
+      :to="{ name: 'video', params: { id: createLinToVideoLecture(videoLecture.iri) } }"
     >
       <v-img
         :src="require(`@/assets/logos/${videoLecture.thumbnail}`)"
@@ -83,6 +83,10 @@ export default {
     VClamp
   },
   methods: {
+    createLinToVideoLecture(videoLectureIRI) {
+      const dashIndex = videoLectureIRI.search('#') + 1;
+      return videoLectureIRI.substring(dashIndex, videoLectureIRI.length);
+    },
     async getVideoLectureDetails() {
       await store.dispatch('incrementLoading');
       axios

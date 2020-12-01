@@ -1,20 +1,20 @@
 <template>
-  <div class="grey lighten-4">
-    <v-card class="mx-auto white" elevation="3" max-width="80%" outlined>
+  <div class="grey lighten-3">
+    <v-card class="mx-auto white" elevation="3" max-width="80%" outlined v-if="this.videoLecture != null">
       <v-system-bar color="#AE001C">
         <v-spacer></v-spacer>
       </v-system-bar>
-      <v-card-title class="display-1 text--primary">{{
+      <v-card-title class="display-1 text--primary" style="padding: 2%">{{
         videoLecture.headline
       }}</v-card-title>
-      <!--<v-img height="700" src="../assets/fbw_image.jpg"></v-img>-->
-      <video-player configuration='{
+      <v-img height="700" src="../assets/fbw_image.jpg"></v-img>
+      <!--<video-player configuration='{
       "streams": [{"hd": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}]
-    }'></video-player>
+    }'></video-player>-->
 
       <v-container>
         <v-row no-gutters>
-          <v-col :key="1" cols="12" sm="2">
+          <v-col :key="1" cols="12" sm="2" >
             <v-img
               :src="require(`@/assets/logos/${videoLecture.thumbnail}`)"
               class="white--text align-end"
@@ -38,10 +38,10 @@
    </div>-->
     </v-card>
 
-    <v-container width="80vh">
-      <v-row no-gutters>
+    <v-container style="max-width: 81%" fluid>
+      <v-row dense>
         <v-col v-for="(n, index) in lectures" :key="index" cols="12" sm="3">
-          <v-card max-width="90%">
+          <v-card>
             <v-row align="center">
               <v-col cols="6" sm="2">
                 <v-card-title class="display-1">
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import store from '../store/store';
+/*import store from '../store/store';*/
 import axios from 'axios';
 
 export default {
@@ -94,7 +94,7 @@ export default {
   },
   methods: {
     async getVideoLectureDetails() {
-      await store.dispatch('incrementLoading');
+      /*await store.dispatch('incrementLoading');*/
       axios
         .get('http://localhost:3000/v1/videoLecture/' + this.videoLectureIri, {
           headers: {
@@ -109,8 +109,8 @@ export default {
           // eslint-disable-next-line no-console
           console.log(error);
           // TODO: implement catch functionality
-        })
-        .finally(() => store.dispatch('decrementLoading'));
+        });
+        /*.finally(() => store.dispatch('decrementLoading'));*/
     }
   }
 };
