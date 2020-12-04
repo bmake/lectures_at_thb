@@ -4,14 +4,11 @@
       <v-system-bar color="#AE001C">
         <v-spacer></v-spacer>
       </v-system-bar>
-      <v-card-title class="display-1 text--primary">{{
-        videoLecture.headline
-      }}</v-card-title>
-      <!--<v-img height="700" src="../assets/fbw_image.jpg"></v-img>-->
-      <video-player configuration='{
-      "streams": [{"hd": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}]
-    }'></video-player>
-
+      <v-card-title class="display-1 text--primary">
+        {{ videoLecture.headline }}
+      </v-card-title>
+      <video-player :configuration="playerConfiguration"></video-player>
+      <v-text>{{ this.$store.state.loading }}</v-text>
       <v-container>
         <v-row no-gutters>
           <v-col :key="1" cols="12" sm="2">
@@ -27,37 +24,24 @@
             </v-card-text>
           </v-col>
         </v-row>
+        <v-row class="mb-4" no-gutters>
+          <v-col v-for="(videoObject, index) in videoObjects" :key="index">
+            <div class="text-center">
+              <v-btn
+                class="mx-4"
+                fab
+                dark
+                medium
+                color="#AE001C"
+                @click="changeActiveVideo(index)"
+              >
+                {{ String(index + 1) }}
+              </v-btn>
+            </div>
+          </v-col>
+        </v-row>
       </v-container>
-      <!--<v-card-text class="text-md-body-1 font-weight-medium text&#45;&#45;primary">
-      {{ videoLecture.description }}
-    </v-card-text>-->
-      <!--<div>
-     <video-player configuration='{
-      "streams": [{"hd": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}]
-    }'></video-player>
-   </div>-->
     </v-card>
-
-    <v-container width="80vh">
-      <v-row no-gutters>
-        <v-col v-for="(n, index) in lectures" :key="index" cols="12" sm="3">
-          <v-card max-width="90%">
-            <v-row align="center">
-              <v-col cols="6" sm="2">
-                <v-card-title class="display-1">
-                  {{ index + 1 }}
-                </v-card-title>
-              </v-col>
-              <v-col cols="6" sm="4">
-                <v-card-text class="text--primary text-lg-body-1 font-weight-medium">
-                  {{ n }}
-                </v-card-text>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
   </div>
 </template>
 
@@ -69,16 +53,20 @@ export default {
   name: 'Video',
   data() {
     return {
-      videoLectureIri: null,
+      videoLectureIri: this.$route.params.id,
       videoLecture: null,
-      lectures: ['lecture 01', 'lecture 02', 'lecture 03', 'lecture 04']
+      videoObjects: null,
+      activeVideoData: {},
+      activeVideoObject: 0,
+      playerConfiguration: ''
     };
   },
   created() {
-    this.videoLectureIri = this.$route.params.id;
     this.getVideoLectureDetails();
+    this.getVideoObjects();
+    this.getActiveVideoConfig();
   },
-  mounted() {
+  beforeMount() {
     const pluginVideoPlayer = document.createElement('script');
     pluginVideoPlayer.setAttribute('src', '../js/video-player.js');
     pluginVideoPlayer.async = true;
@@ -111,6 +99,98 @@ export default {
           // TODO: implement catch functionality
         })
         .finally(() => store.dispatch('decrementLoading'));
+    },
+    async getVideoObjects() {
+      await store.dispatch('incrementLoading');
+      axios
+        .get(
+          'http://localhost:3000/v1/videoLecture/' +
+            this.videoLectureIri +
+            '/videoObjects',
+          {
+            headers: {
+              'Accept-Language': this.$i18n.locale,
+              'Cache-Control': 'no-cache'
+            }
+          }
+        )
+        .then(response => {
+          this.videoObjects = response.data.result;
+        })
+        .catch(function(error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+          // TODO: implement catch functionality
+        })
+        .finally(() => store.dispatch('decrementLoading'));
+    },
+    async getActiveVideoConfig() {
+      await store.dispatch('incrementLoading');
+      const lecturerQueryUrl =
+        'http://localhost:3000/v1/vimeo/' +
+        this.videoObjects[this.activeVideoObject].lecturerVideoID;
+      const screencastQueryUrl =
+        'http://localhost:3000/v1/vimeo/' +
+        this.videoObjects[this.activeVideoObject].screencastVideoID;
+      await axios
+        .get(lecturerQueryUrl)
+        .then(response => {
+          this.activeVideoData['lecturerVideo'] = response.data.result;
+        })
+        .catch(function(error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+          // TODO: implement catch functionality
+        })
+        .finally(() => store.dispatch('decrementLoading'));
+      await store.dispatch('incrementLoading');
+      await axios
+        .get(screencastQueryUrl)
+        .then(response => {
+          this.activeVideoData['screencastVideo'] = response.data.result;
+        })
+        .catch(function(error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+          // TODO: implement catch functionality
+        })
+        .finally(() => {
+          store.dispatch('decrementLoading');
+        });
+      await this.createPlayerConfiguration();
+    },
+    changeActiveVideo(index) {
+      this.activeVideoObject = index;
+    },
+    createPlayerConfiguration() {
+      let configuration = Object();
+      let lecturerStream = {};
+      let screencastStream = {};
+      if (this.activeVideoData['lecturerVideo'].length === 1) {
+        lecturerStream['hd'] = this.activeVideoData['lecturerVideo'][0].url;
+      } else if (this.activeVideoData['lecturerVideo'].length === 3) {
+        lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
+        lecturerStream['hd'] = this.activeVideoData['lecturerVideo'][2].url;
+      }
+      if (this.activeVideoData['screencastVideo'].length === 1) {
+        screencastStream['hd'] = this.activeVideoData['screencastVideo'][0].url;
+      } else if (this.activeVideoData['screencastVideo'].length === 3) {
+        screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
+        screencastStream['hd'] = this.activeVideoData['screencastVideo'][2].url;
+      }
+      configuration['streams'] = [lecturerStream, screencastStream];
+      configuration['initialState'] = {
+        playState: 'PAUSED',
+        position: 0,
+        resizerRatios: 0.5
+      };
+      this.playerConfiguration = JSON.stringify(configuration);
+      return JSON.stringify(configuration);
+    }
+  },
+  watch: {
+    activeVideoObject: function() {
+      this.getActiveVideoConfig();
     }
   }
 };
