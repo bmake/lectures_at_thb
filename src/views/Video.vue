@@ -1,14 +1,25 @@
 <template>
   <div class="grey lighten-4">
-    <v-card class="mx-auto white" elevation="3" max-width="80%" outlined>
+    <v-card
+      class="mx-auto white"
+      elevation="3"
+      max-width="80%"
+      outlined
+      v-if="videoLecture != null"
+    >
       <v-system-bar color="#AE001C">
         <v-spacer></v-spacer>
       </v-system-bar>
       <v-card-title class="display-1 text--primary">
         {{ videoLecture.headline }}
       </v-card-title>
-      <video-player :configuration="playerConfiguration"></video-player>
-      <v-text>{{ this.$store.state.loading }}</v-text>
+      <div v-if="playerConfiguration != ''">
+        <video-player :configuration="playerConfiguration"></video-player>
+        <!--<div>{{ this.$store.state.loading }}</div>
+        <div>{{ this.activeVideoData.lecturerVideo }}</div>
+        <div>{{ this.activeVideoData.screencastVideo }}</div>
+        <div>{{ this.playerConfiguration }}</div>-->
+      </div>
       <v-container>
         <v-row no-gutters>
           <v-col :key="1" cols="12" sm="2">
@@ -64,7 +75,6 @@ export default {
   created() {
     this.getVideoLectureDetails();
     this.getVideoObjects();
-    this.getActiveVideoConfig();
   },
   beforeMount() {
     const pluginVideoPlayer = document.createElement('script');
@@ -116,6 +126,7 @@ export default {
         )
         .then(response => {
           this.videoObjects = response.data.result;
+          this.getActiveVideoConfig();
         })
         .catch(function(error) {
           // eslint-disable-next-line no-console
@@ -135,7 +146,8 @@ export default {
       await axios
         .get(lecturerQueryUrl)
         .then(response => {
-          this.activeVideoData['lecturerVideo'] = response.data.result;
+          let arr = response.data.result;
+          this.activeVideoData['lecturerVideo'] = this.sortActiveVideoData(arr);
         })
         .catch(function(error) {
           // eslint-disable-next-line no-console
@@ -147,7 +159,8 @@ export default {
       await axios
         .get(screencastQueryUrl)
         .then(response => {
-          this.activeVideoData['screencastVideo'] = response.data.result;
+          let arr = response.data.result;
+          this.activeVideoData['screencastVideo'] = this.sortActiveVideoData(arr);
         })
         .catch(function(error) {
           // eslint-disable-next-line no-console
@@ -159,37 +172,55 @@ export default {
         });
       await this.createPlayerConfiguration();
     },
+    sortActiveVideoData(arr) {
+      arr.sort(function(a, b) {
+        let m = parseInt(a['quality'].slice(0, -1));
+        let n = parseInt(b['quality'].slice(0, -1));
+        return (m - n);
+      });
+      return arr;
+    },
     changeActiveVideo(index) {
       this.activeVideoObject = index;
     },
     createPlayerConfiguration() {
-      let configuration = Object();
+      let configuration = {};
       let lecturerStream = {};
       let screencastStream = {};
+
       if (this.activeVideoData['lecturerVideo'].length === 1) {
         lecturerStream['hd'] = this.activeVideoData['lecturerVideo'][0].url;
       } else if (this.activeVideoData['lecturerVideo'].length === 3) {
         lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
         lecturerStream['hd'] = this.activeVideoData['lecturerVideo'][2].url;
+      } else if (this.activeVideoData['lecturerVideo'].length > 3) {
+        lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
+        lecturerStream['hd'] = this.activeVideoData['lecturerVideo'][this.activeVideoData['lecturerVideo'].length - 1].url;
       }
+      lecturerStream['poster'] = this.activeVideoData['lecturerVideo'][0].thumbnail;
+
       if (this.activeVideoData['screencastVideo'].length === 1) {
         screencastStream['hd'] = this.activeVideoData['screencastVideo'][0].url;
       } else if (this.activeVideoData['screencastVideo'].length === 3) {
         screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
         screencastStream['hd'] = this.activeVideoData['screencastVideo'][2].url;
+      } else if (this.activeVideoData['screencastVideo'].length > 3) {
+        screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
+        screencastStream['hd'] = this.activeVideoData['screencastVideo'][this.activeVideoData['screencastVideo'].length - 1].url;
       }
+      screencastStream['poster'] = this.activeVideoData['screencastVideo'][0].thumbnail;
+
       configuration['streams'] = [lecturerStream, screencastStream];
       configuration['initialState'] = {
         playState: 'PAUSED',
-        position: 0,
-        resizerRatios: 0.5
+        position: 0
       };
       this.playerConfiguration = JSON.stringify(configuration);
-      return JSON.stringify(configuration);
     }
   },
   watch: {
     activeVideoObject: function() {
+      this.playerConfiguration = '';
       this.getActiveVideoConfig();
     }
   }
