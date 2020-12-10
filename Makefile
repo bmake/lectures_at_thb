@@ -20,6 +20,11 @@ stop:
 	docker-compose down && \
  	rm -f ${FUSEKI_DIRECTORY}/databases/lectures_at_thb/tdb.lock
 
+build:
+	docker-compose build
+
+pull:
+	docker-compose pull
 upload:
 	until [ "`docker inspect -f {{.State.Health.Status}} fuseki`"=="healthy" ]; \
 	do \
