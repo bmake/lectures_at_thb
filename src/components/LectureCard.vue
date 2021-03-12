@@ -54,6 +54,18 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-earth</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-subtitle>Language</v-list-item-subtitle>
+              <v-list-item-title v-text="videoLecture.language">
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
         </v-list>
       </v-card-actions>
     </v-card>
@@ -136,18 +148,6 @@ export default {
         str = str.concat(contributors.join(', '));
       }
       return str;
-    },
-    routeToVideoPage(videoLectureIRI) {
-      const dashIndex = videoLectureIRI.search('#') + 1;
-      const localIRI = videoLectureIRI.substring(
-        dashIndex,
-        videoLectureIRI.length
-      );
-      let routeData = this.$router.resolve({
-        name: 'video',
-        params: { id: localIRI }
-      });
-      window.open(routeData.href, '_blank');
     }
   },
   beforeMount() {

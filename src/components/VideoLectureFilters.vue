@@ -8,7 +8,7 @@
         <v-flex xs12 sm6 md4 lg3 v-on:click="this.getStudyPrograms">
           <searchable-list
             :list-items="departments"
-            heading="Departments"
+            :heading="$t('filter.heading')[0]"
             @activeItem="activeDepartmentValue"
             :selected-item-text="activeDepartment"
           ></searchable-list>
@@ -16,7 +16,7 @@
         <v-flex xs12 sm6 md4 lg3 v-on:click="this.getModules">
           <searchable-list
             :list-items="studyPrograms"
-            heading="Study Program"
+            :heading="$t('filter.heading')[1]"
             @activeItem="activeStudyProgramValue"
             :selected-item-text="activeStudyProgram"
           ></searchable-list>
@@ -24,7 +24,7 @@
         <v-flex xs12 sm6 md4 lg3>
           <searchable-list
             :list-items="modules"
-            heading="Module"
+            :heading="$t('filter.heading')[2]"
             @activeItem="activeModuleValue"
             :selected-item-text="activeModule"
           ></searchable-list>

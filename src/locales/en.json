@@ -1,6 +1,9 @@
 {
   "page": {
-    "description": "for students of Brandenburg University of Applied Sciences"
+    "description": " Brandenburg University of Applied Sciences "
+  },
+  "filter": {
+    "heading": ["Department", "Study Program", "Module"]
   },
   "toolbar": {
     "description": "Choose your language"
