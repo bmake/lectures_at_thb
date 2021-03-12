@@ -1,6 +1,7 @@
 {
   "page": {
-    "description": " Technischen Hochschule Brandenburg "
+    "title": "Videovorlesungen",
+    "description": " Technische Hochschule Brandenburg "
   },
   "filter": {
     "heading": ["Fachbereich", "Studiengang", "Modul"]
