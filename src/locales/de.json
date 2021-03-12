@@ -1,6 +1,9 @@
 {
   "page": {
-    "description": "für Studenten der Technischen Hochschule Brandenburg"
+    "description": " Technischen Hochschule Brandenburg "
+  },
+  "filter": {
+    "heading": ["Fachbereich", "Studiengang", "Modul"]
   },
   "toolbar": {
     "description": "Wähle deine Sprache aus"

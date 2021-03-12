@@ -59,7 +59,7 @@ export default {
   name: 'Toolbar',
   data() {
     return {
-      appTitle: 'lectures@THB',
+      appTitle: 'eLectures@THB',
       items: [
         { title: ' DE', locale: 'de', flag: 'de' },
         { title: ' EN', locale: 'en', flag: 'gb' }

@@ -54,6 +54,18 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-earth</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-subtitle>Language</v-list-item-subtitle>
+              <v-list-item-title v-text="videoLecture.language">
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
         </v-list>
       </v-card-actions>
     </v-card>
