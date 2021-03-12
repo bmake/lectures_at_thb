@@ -159,25 +159,7 @@ export default {
     }, 1000);
     setTimeout(() => {
       this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 1200);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 1500);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 1800);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
     }, 2000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 2200);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 2500);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 2800);
     setTimeout(() => {
       this.videoBoxHeight = this.$refs.videoBox.clientHeight;
     }, 3000);
@@ -187,6 +169,45 @@ export default {
     setTimeout(() => {
       this.videoBoxHeight = this.$refs.videoBox.clientHeight;
     }, 5000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 6000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 7000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 8000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 9000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 10000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 12000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 13000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 14000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 15000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 18000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 20000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 22000);
+    setTimeout(() => {
+      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+    }, 25000);
   },
   methods: {
     onResize() {
