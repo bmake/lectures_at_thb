@@ -1,18 +1,47 @@
 export default Object.freeze({
-  query:
-    'PREFIX vidp: <https://bmake.th-brandenburg.de/vidp#>\n' +
-    'PREFIX schema: <https://schema.org/>\n' +
-    'PREFIX vide: <https://bmake.th-brandenburg.de/vide#>\n' +
-    'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n' +
-    '\n' +
-    'SELECT ?url ?label ?thumbnailName ?description\n' +
-    'WHERE {\n' +
-    '\t?videoLecture\ta\tvidp:VideoLecture ;\n' +
-    '               schema:url ?url;\n' +
-    '               rdfs:label ?label ;\n' +
-    '               schema:thumbnail ?thumbnail;\n' +
-    '               schema:description ?description .\n' +
-    '  \t?thumbnail schema:name ?thumbnailName .\n' +
-    '  \tFILTER ( lang(?description) = "en" )\n' +
-    '}'
+  query: `PREFIX vidp: <https://bmake.th-brandenburg.de/vidp#>
+          PREFIX schema: <https://schema.org/>
+          PREFIX vide: <https://bmake.th-brandenburg.de/vide#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+          SELECT ?videoLecture ?url ?label ?thumbnailName ?description
+          WHERE {
+              ?videoLecture a vidp:VideoLecture ;
+                              schema:url ?url;
+                              rdfs:label ?label ;
+                              schema:thumbnail ?thumbnail;
+                              schema:description ?description .
+              ?thumbnail schema:name ?thumbnailName .
+              FILTER ( lang(?description) = "en" )
+          }
+  `,
+  clipCount: `PREFIX vidp: <https://bmake.th-brandenburg.de/vidp#>
+              PREFIX schema: <https://schema.org/>
+              PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+              SELECT (COUNT(?clip) AS ?clipCount)
+              WHERE {
+                ?clip a vidp:DoubleClip ;
+                        schema:isPartOf <%videoLecture%> ;
+                        schema:duration ?clipDuration .
+              }
+  `,
+  studyPrograms: `PREFIX vidp: <https://bmake.th-brandenburg.de/vidp#>
+                  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+                  SELECT DISTINCT ?studyProgram
+                  WHERE {
+                    ?studyProgramUri a vidp:StudyProgram ;
+                    rdfs:label ?studyProgram .
+                  }
+  `,
+  modules: `PREFIX vidp: <https://bmake.th-brandenburg.de/vidp#>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+            SELECT DISTINCT ?module
+            WHERE {
+              ?moduleUri a vidp:Module ;
+                rdfs:label ?module .
+            }
+  `
 });

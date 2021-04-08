@@ -1,0 +1,68 @@
+<template>
+  <v-card class="mx-auto" tile>
+    <v-card-title>
+      <div class="heading">{{ heading }}</div>
+    </v-card-title>
+    <v-text-field
+      v-if="listItems.length > 5"
+      class="mx-3"
+      flat
+      label="Search"
+      prepend-inner-icon="search"
+      solo-inverted
+      v-model="search"
+      clearable
+      @click:clear="clearSearch"
+    ></v-text-field>
+    <v-list>
+      <v-list-item-group color="primary" v-model="activeItem">
+        <v-list-item v-for="item in filteredItems" :key="item.iri" :disabled="item.iri == 'THB_FBT' || item.iri == 'THB_FBI'">
+          <v-list-item-content @click="selectItem(item.iri)">
+            <v-list-item-title v-text="item.name"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+  </v-card>
+</template>
+
+<script>
+export default {
+  name: 'SearchableList',
+  props: {
+    heading: String,
+    listItems: Array,
+    selectedItemText: String
+  },
+  data() {
+    return {
+      search: '',
+      activeItem: this.listItems.map(o => o.iri).indexOf(this.selectedItemText)
+    };
+  },
+  computed: {
+    filteredItems() {
+      return this.listItems.filter(listItem => {
+        if (!this.search) return this.listItems;
+        return listItem.toLowerCase().includes(this.search.toLowerCase());
+      });
+    }
+  },
+  methods: {
+    clearSearch() {
+      this.search = '';
+    },
+    selectItem(i) {
+      this.activeItem = i;
+      this.$emit('activeItem', this.activeItem);
+    }
+  }
+};
+</script>
+
+<style scoped>
+.v-list {
+  height: 30vh;
+  overflow-y: auto;
+}
+</style>
