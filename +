@@ -1,0 +1,16 @@
+ajust height of video player and playlist
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch feature/videoComponent
+# Your branch is up to date with 'origin/feature/videoComponent'.
+#
+# Changes to be committed:
+#	modified:   src/components/LectureCard.vue
+#	modified:   src/components/SearchableList.vue
+#	modified:   src/components/Toolbar.vue
+#	modified:   src/components/VideoLectureFilters.vue
+#	modified:   src/locales/de.json
+#	modified:   src/locales/en.json
+#	modified:   src/views/Video.vue
+#

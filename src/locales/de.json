@@ -1,0 +1,20 @@
+{
+  "page": {
+    "title": "Videovorlesungen",
+    "description": " Technische Hochschule Brandenburg "
+  },
+  "filter": {
+    "heading": ["Fachbereich", "Studiengang", "Modul"]
+  },
+  "toolbar": {
+    "description": "Wähle deine Sprache aus"
+  },
+  "navbar": {
+    "home": "Hauptseite",
+    "help": "Hilfe",
+    "contact": "Kontakt"
+  },
+  "fl": {
+    "current_flag": "de"
+  }
+}

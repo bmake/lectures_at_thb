@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  fuseki:
+    image: stain/jena-fuseki:latest
+    container_name: fuseki
+    volumes:
+      - "./fuseki/databases:/fuseki/databases"
+      - "./fuseki/configuration:/fuseki/configuration"
+      - "./fuseki/backups:/fuseki/backups"
+    ports:
+      - "3030:3030"
+    environment:
+      - ADMIN_PASSWORD=admin
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3030"]
+  nodejs:
+    container_name: nodejs
+    build:
+      context: .
+    volumes:
+      - '.:/app/'
+      - '/app/node_modules/'
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=truedo
+    #TODO
+    #healthcheck:
+    #  test: ["CMD", "curl", "-f", "http://localhost:8080"]
+  api:
+    container_name: api
+    image: bmake/lectures_at_thb_rest_api:latest
+    ports:
+    - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
