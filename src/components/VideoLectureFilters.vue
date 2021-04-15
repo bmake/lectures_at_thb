@@ -59,7 +59,7 @@ export default {
     async getDepartments() {
       await store.dispatch('incrementLoading');
       return axios
-        .get('http://localhost:3000/v1/collegeOrUniversity', {
+        .get('http://172.16.32.207:3000/v1/collegeOrUniversity', {
           headers: {
             'Accept-Language': this.$i18n.locale,
             'Cache-Control': 'no-cache'
@@ -85,7 +85,7 @@ export default {
       await store.dispatch('incrementLoading');
       return axios
         .get(
-          'http://localhost:3000/v1/studyProgram/collegeOrUniversity/' +
+          'http://172.16.32.207:3000/v1/studyProgram/collegeOrUniversity/' +
             this.activeDepartment,
           {
             headers: {
@@ -117,7 +117,7 @@ export default {
       await store.dispatch('incrementLoading');
       return axios
         .get(
-          'http://localhost:3000/v1/module/studyProgram/' +
+          'http://172.16.32.207:3000/v1/module/studyProgram/' +
             this.activeStudyProgram,
           {
             headers: {

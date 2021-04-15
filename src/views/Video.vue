@@ -229,7 +229,7 @@ export default {
     async getVideoLectureDetails() {
       await store.dispatch('incrementLoading');
       axios
-        .get('http://localhost:3000/v1/videoLecture/' + this.videoLectureIri, {
+        .get('http://172.16.32.207:3000/v1/videoLecture/' + this.videoLectureIri, {
           headers: {
             'Accept-Language': this.$i18n.locale,
             'Cache-Control': 'no-cache'
@@ -249,7 +249,7 @@ export default {
       await store.dispatch('incrementLoading');
       axios
         .get(
-          'http://localhost:3000/v1/videoLecture/' +
+          'http://172.16.32.207:3000/v1/videoLecture/' +
             this.videoLectureIri +
             '/videoObjects',
           {
@@ -273,10 +273,10 @@ export default {
     async getActiveVideoConfig() {
       await store.dispatch('incrementLoading');
       const lecturerQueryUrl =
-        'http://localhost:3000/v1/vimeo/' +
+        'http://172.16.32.207:3000/v1/vimeo/' +
         this.videoObjects[this.activeVideoObject].lecturerVideoID;
       const screencastQueryUrl =
-        'http://localhost:3000/v1/vimeo/' +
+        'http://172.16.32.207:3000/v1/vimeo/' +
         this.videoObjects[this.activeVideoObject].screencastVideoID;
       await axios
         .get(lecturerQueryUrl)
