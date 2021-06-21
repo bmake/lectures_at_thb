@@ -4,14 +4,19 @@
     <v-toolbar dense dark>
       <v-app-bar-nav-icon @click="negateDrawer"></v-app-bar-nav-icon>
       <v-app-bar-nav-icon>
-        <v-img
-          src="../assets/mstile-150x150.png"
-          height="50"
-          width="50"
-        ></v-img>
+        <router-link to="/">
+          <v-img
+            src="../assets/mstile-150x150.png"
+            height="50"
+            width="50"
+
+          ></v-img>
+        </router-link>
       </v-app-bar-nav-icon>
 
-      <v-toolbar-title>{{ appTitle }}</v-toolbar-title>
+      <router-link to="/" style="color: white; text-decoration: none">
+        <v-toolbar-title>{{ appTitle }}</v-toolbar-title>
+      </router-link>
 
       <v-spacer></v-spacer>
 

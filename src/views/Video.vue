@@ -12,10 +12,10 @@
         {{ videoLecture.headline }}
       </v-card-title>
       <v-card-subtitle class="subtitle-1 font-weight-medium">
-        von
-        {{
-          formatContributors(videoLecture.creator, videoLecture.contributors)
-        }}
+        <v-layout row>
+          <p style="padding-right: 1em; padding-left: 1em;"> von {{ formatContributors(videoLecture.creator, videoLecture.contributors)}}; </p>
+          <p> Sprache: {{ videoLecture.language }} </p>
+        </v-layout>
       </v-card-subtitle>
       <div>
         <v-card v-if="playerConfiguration != ''" outlined class="grey" tile>
@@ -41,9 +41,10 @@
                     <v-virtual-scroll
                       :items="videoObjects"
                       v-bind:height="
-                        videoBoxHeight == 0 ? 300 : videoBoxHeight - 83
+                        videoBoxHeight == 0 ? 300 : videoBoxHeight - 82
                       "
                       item-height="85"
+                      id="playlist"
                       ><!--v-bind:height="videoBoxHeight == 0 ? 300 : videoBoxHeight - 83"-->
                       <template v-slot:default="{ videoObject, index }">
                         <v-divider></v-divider>
@@ -54,6 +55,7 @@
                             'grey darken-1': index == activeVideoObject
                           }"
                           style="height: 85px"
+                          :ref="'video' + index"
                         >
                           <v-btn
                             fab
@@ -96,14 +98,18 @@
             </v-row>
           </v-responsive>
         </v-card>
-        <!--<div>videoObjects: {{videoObjects}}</div>
+        <div>videoObjects: {{videoObjects}}</div>
+        <br>
         <div>activeVideoData-lecturerVideo: {{activeVideoData['lecturerVideo']}}</div>
-        <div>activeVideoData-screencastVideo: {{activeVideoData['screencastVideo']}}</div>-->
+        <br>
+        <div>activeVideoData-screencastVideo: {{activeVideoData['screencastVideo']}}</div>
+        <br>
+        <div>activeVideoData-podcastVideo: {{activeVideoData['podcastVideo']}}</div>
         <div>
-          <v-row no-gutters style="padding: 1em">
+          <v-row no-gutters style="padding: 1em" ref="actions">
             <v-col :key="1" cols="12" sm="2">
               <v-img
-                :src="require(`@/assets/logos/${videoLecture.thumbnail}`)"
+                :src="'https://drive.google.com/uc?export=view&id=' + videoLecture.thumbnail"
                 class="white--text align-end"
               >
               </v-img>
@@ -215,6 +221,10 @@ export default {
         this.videoBoxHeight = this.$refs.videoBox.clientHeight;
       }, 1000);
     },
+    scrollToItem() {
+      var container = this.$el.querySelector("#playlist");
+      container.scrollTop = this.activeVideoObject * 85 ;
+    },
     formatContributors(creators, contributors) {
       creators = this._.split(creators, ', ');
       contributors = this._.split(contributors, ', ');
@@ -271,43 +281,79 @@ export default {
         .finally(() => store.dispatch('decrementLoading'));
     },
     async getActiveVideoConfig() {
-      await store.dispatch('incrementLoading');
-      const lecturerQueryUrl =
-        'http://localhost:3000/v1/vimeo/' +
-        this.videoObjects[this.activeVideoObject].lecturerVideoID;
-      const screencastQueryUrl =
-        'http://localhost:3000/v1/vimeo/' +
-        this.videoObjects[this.activeVideoObject].screencastVideoID;
-      await axios
-        .get(lecturerQueryUrl)
-        .then(response => {
-          let arr = response.data.result;
-          this.activeVideoData['lecturerVideo'] = this.sortActiveVideoData(arr);
-        })
-        .catch(function(error) {
-          // eslint-disable-next-line no-console
-          console.log(error);
-          // TODO: implement catch functionality
-        })
-        .finally(() => store.dispatch('decrementLoading'));
-      await store.dispatch('incrementLoading');
-      await axios
-        .get(screencastQueryUrl)
-        .then(response => {
-          let arr = response.data.result;
-          this.activeVideoData['screencastVideo'] = this.sortActiveVideoData(
-            arr
-          );
-        })
-        .catch(function(error) {
-          // eslint-disable-next-line no-console
-          console.log(error);
-          // TODO: implement catch functionality
-        })
-        .finally(() => {
-          store.dispatch('decrementLoading');
-        });
+      //Object.keys(this.videoObjects[this.activeVideoObject]).includes('lecturerVideoID');
+      if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('lecturerVideoID')) {
+        await store.dispatch('incrementLoading');
+        const lecturerQueryUrl =
+          'http://localhost:3000/v1/vimeo/' +
+          this.videoObjects[this.activeVideoObject].lecturerVideoID;
+
+        await axios
+          .get(lecturerQueryUrl)
+          .then(response => {
+            let arr = response.data.result;
+            this.activeVideoData['lecturerVideo'] = this.sortActiveVideoData(
+              arr
+            );
+          })
+          .catch(function(error) {
+            // eslint-disable-next-line no-console
+            console.log(error);
+            // TODO: implement catch functionality
+          })
+          .finally(() => store.dispatch('decrementLoading'));
+      }
+
+      if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('screencastVideoID')) {
+        await store.dispatch('incrementLoading');
+        const screencastQueryUrl =
+          'http://localhost:3000/v1/vimeo/' +
+          this.videoObjects[this.activeVideoObject].screencastVideoID;
+
+        await axios
+          .get(screencastQueryUrl)
+          .then(response => {
+            let arr = response.data.result;
+            this.activeVideoData['screencastVideo'] = this.sortActiveVideoData(
+              arr
+            );
+          })
+          .catch(function(error) {
+            // eslint-disable-next-line no-console
+            console.log(error);
+            // TODO: implement catch functionality
+          })
+          .finally(() => {
+            store.dispatch('decrementLoading');
+          });
+      }
+
+      if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('podcastVideoID')) {
+        await store.dispatch('incrementLoading');
+        const podcastQueryUrl =
+          'http://localhost:3000/v1/vimeo/' +
+          this.videoObjects[this.activeVideoObject].podcastVideoID;
+
+        await axios
+          .get(podcastQueryUrl)
+          .then(response => {
+            let arr = response.data.result;
+            this.activeVideoData['podcastVideo'] = this.sortActiveVideoData(
+              arr
+            );
+          })
+          .catch(function(error) {
+            // eslint-disable-next-line no-console
+            console.log(error);
+            // TODO: implement catch functionality
+          })
+          .finally(() => {
+            store.dispatch('decrementLoading');
+          });
+      }
+
       await this.createPlayerConfiguration();
+      this.scrollToItem();
     },
     getDuration(PTTime) {
       const formattedTime = PTTime.replace('PT', '')
@@ -331,37 +377,61 @@ export default {
       let configuration = {};
       let lecturerStream = {};
       let screencastStream = {};
-      if (this.activeVideoData['lecturerVideo'].length === 3) {
-        lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
-        lecturerStream['hd'] = this.activeVideoData['lecturerVideo'][2].url;
-      } else if (this.activeVideoData['lecturerVideo'].length > 3) {
-        lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
-        lecturerStream['hd'] = this.activeVideoData['lecturerVideo'][
-          this.activeVideoData['lecturerVideo'].length - 1
-        ].url;
-      } else {
-        lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
+      let podcastStream = {};
+
+      if (Object.keys(this.activeVideoData).includes('lecturerVideo')) {
+        if (this.activeVideoData['lecturerVideo'].length === 3) {
+          lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
+          lecturerStream['hd'] = this.activeVideoData['lecturerVideo'][2].url;
+        } else if (this.activeVideoData['lecturerVideo'].length > 3) {
+          lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
+          lecturerStream['hd'] = this.activeVideoData['lecturerVideo'][
+            this.activeVideoData['lecturerVideo'].length - 1
+          ].url;
+        } else {
+          lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
+        }
+        lecturerStream['poster'] = this.activeVideoData['lecturerVideo'][0].thumbnail;
       }
-      lecturerStream['poster'] = this.activeVideoData[
-        'lecturerVideo'
-      ][0].thumbnail;
-      if (this.activeVideoData['screencastVideo'].length === 3) {
-        screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
-        screencastStream['hd'] = this.activeVideoData['screencastVideo'][2].url;
-      } else if (this.activeVideoData['screencastVideo'].length > 3) {
-        screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
-        screencastStream['hd'] = this.activeVideoData['screencastVideo'][
-          this.activeVideoData['screencastVideo'].length - 1
-        ].url;
-      } else {
-        screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
+
+      if (Object.keys(this.activeVideoData).includes('screencastVideo')) {
+        if (this.activeVideoData['screencastVideo'].length === 3) {
+          screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
+          screencastStream['hd'] = this.activeVideoData['screencastVideo'][2].url;
+        } else if (this.activeVideoData['screencastVideo'].length > 3) {
+          screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
+          screencastStream['hd'] = this.activeVideoData['screencastVideo'][
+            this.activeVideoData['screencastVideo'].length - 1
+          ].url;
+        } else {
+          screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
+        }
+        screencastStream['poster'] = this.activeVideoData['screencastVideo'][0].thumbnail;
       }
-      screencastStream['poster'] = this.activeVideoData[
-        'screencastVideo'
-      ][0].thumbnail;
-      configuration['streams'] = [lecturerStream, screencastStream];
+
+      if (Object.keys(this.activeVideoData).includes('podcastVideo')) {
+        if (this.activeVideoData['podcastVideo'].length === 3) {
+          podcastStream['sd'] = this.activeVideoData['podcastVideo'][0].url;
+          podcastStream['hd'] = this.activeVideoData['podcastVideo'][2].url;
+        } else if (this.activeVideoData['podcastVideo'].length > 3) {
+          podcastStream['sd'] = this.activeVideoData['podcastVideo'][0].url;
+          podcastStream['hd'] = this.activeVideoData['podcastVideo'][
+          this.activeVideoData['podcastVideo'].length - 1
+            ].url;
+        } else {
+          podcastStream['sd'] = this.activeVideoData['podcastVideo'][0].url;
+        }
+        podcastStream['poster'] = this.activeVideoData['podcastVideo'][0].thumbnail;
+      }
+
+      if (Object.keys(this.activeVideoData).includes('podcastVideo')) {
+        configuration['streams'] = [podcastStream];
+      } else {
+        configuration['streams'] = [lecturerStream, screencastStream];
+      }
+
       configuration['initialState'] = {
-        playState: 'PAUSED',
+        playState: 'PLAYING',
         position: 0
       };
       this.playerConfiguration = JSON.stringify(configuration);
@@ -378,6 +448,7 @@ export default {
   watch: {
     activeVideoObject: function() {
       this.playerConfiguration = '';
+      this.activeVideoData = {},
       this.getActiveVideoConfig();
     }
   }

@@ -6,14 +6,17 @@
       :class="{ 'on-hover': hover }"
       :to="{ name: 'video', params: { id: createLinToVideoLecture(videoLecture.iri) } }"
     >
-      <v-img
-        :src="require(`@/assets/logos/${videoLecture.thumbnail}`)"
-        height="16vh"
-        contain
-      >
-      </v-img>
+     <!-- require(`@/assets/logos/${videoLecture.thumbnail}`)-->
+      <div style="padding-top: 0.5em">
+        <v-img
+          :src="'https://drive.google.com/uc?export=view&id=' + videoLecture.thumbnail"
+          height="16vh"
+          contain
+        >
+        </v-img>
+      </div>
       <v-card-title>
-        <div class="hyphens text-justify" style="height:6vh">
+        <div class="hyphens text-justify" style="height:10vh">
           <v-clamp autoresize :max-lines="2">
             {{ videoLecture.headline }}
           </v-clamp>
