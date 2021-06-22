@@ -25,6 +25,7 @@
               <v-col :key="1" cols="12" sm="9">
                 <div ref="videoBox">
                   <video-player
+                    ref="videoPlayer"
                     :configuration="playerConfiguration"
                   ></video-player>
                 </div>
@@ -41,7 +42,7 @@
                     <v-virtual-scroll
                       :items="videoObjects"
                       v-bind:height="
-                        videoBoxHeight == 0 ? 300 : videoBoxHeight - 82
+                        videoBoxHeight < 300 ? 300 : videoBoxHeight - 82
                       "
                       item-height="85"
                       id="playlist"
@@ -98,13 +99,6 @@
             </v-row>
           </v-responsive>
         </v-card>
-        <div>videoObjects: {{videoObjects}}</div>
-        <br>
-        <div>activeVideoData-lecturerVideo: {{activeVideoData['lecturerVideo']}}</div>
-        <br>
-        <div>activeVideoData-screencastVideo: {{activeVideoData['screencastVideo']}}</div>
-        <br>
-        <div>activeVideoData-podcastVideo: {{activeVideoData['podcastVideo']}}</div>
         <div>
           <v-row no-gutters style="padding: 1em" ref="actions">
             <v-col :key="1" cols="12" sm="2">
@@ -137,12 +131,32 @@ export default {
       videoLecture: null,
       videoObjects: null,
       activeVideoData: {},
-      activeVideoObject: 0,
+      activeVideoObject: parseInt(this.$route.query.pos),
       playerConfiguration: '',
-      videoBoxHeight: 0
+      videoBoxHeight: 0,
+      defaultConf: {
+        initialState: {
+          playState: 'PLAYING',
+          position: 0
+        },
+        userPreferences: {
+          playState: 'PLAYING',
+          position: 0
+        },
+        playlist: {
+          autoPlay: true,
+          currentPosition: parseInt(this.$route.query.pos),
+          entries: []
+        }
+      },
+      currPath: '',
+      toPath: '',
+      cre: 0,
+      actChange: 0
     };
   },
   created() {
+    this.cre = this.cre + 1;
     this.getVideoLectureDetails();
     this.getVideoObjects();
   },
@@ -195,12 +209,6 @@ export default {
     }, 12000);
     setTimeout(() => {
       this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 13000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 14000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
     }, 15000);
     setTimeout(() => {
       this.videoBoxHeight = this.$refs.videoBox.clientHeight;
@@ -214,8 +222,20 @@ export default {
     setTimeout(() => {
       this.videoBoxHeight = this.$refs.videoBox.clientHeight;
     }, 25000);
+
   },
   methods: {
+    createPlaylist() {
+      if (this.videoObjects.length > 0) {
+        let videoNum = this.videoObjects.length;
+        let urlPrefix = this.$route.path;
+        let arr = [];
+        for (let i = 0; i < videoNum; i++) {
+          arr.push({ url: urlPrefix + '?pos=' + i});
+        }
+        this.defaultConf.playlist.entries = arr;
+      }
+    },
     onResize() {
       setTimeout(() => {
         this.videoBoxHeight = this.$refs.videoBox.clientHeight;
@@ -271,6 +291,7 @@ export default {
         )
         .then(response => {
           this.videoObjects = response.data.result;
+          this.createPlaylist();
           this.getActiveVideoConfig();
         })
         .catch(function(error) {
@@ -351,6 +372,7 @@ export default {
             store.dispatch('decrementLoading');
           });
       }
+
       await this.createPlayerConfiguration();
       this.scrollToItem();
     },
@@ -371,9 +393,11 @@ export default {
     },
     changeActiveVideo(index) {
       this.activeVideoObject = index;
+      //this.addHiddenIndexToLocation(index);
+      this.$router.replace({ name: 'video', query: {pos: index} });
     },
     createPlayerConfiguration() {
-      let configuration = {};
+      let configuration = this.defaultConf;
       let lecturerStream = {};
       let screencastStream = {};
       let podcastStream = {};
@@ -429,25 +453,14 @@ export default {
         configuration['streams'] = [lecturerStream, screencastStream];
       }
 
-      configuration['initialState'] = {
-        playState: 'PLAYING',
-        position: 0
-      };
       this.playerConfiguration = JSON.stringify(configuration);
     }
-    /*nextVideo(index) {
-        if (index < this.videoObjects.length - 1) {
-          this.activeVideoObject = index + 1
-          return index + 1
-        } else {
-          return index
-        }
-      }*/
   },
   watch: {
     activeVideoObject: function() {
       this.playerConfiguration = '';
       this.activeVideoData = {},
+      this.defaultConf.playlist.currentPosition = this.activeVideoObject;
       this.getActiveVideoConfig();
     }
   }
