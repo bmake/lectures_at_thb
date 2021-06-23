@@ -131,7 +131,7 @@ export default {
       videoLecture: null,
       videoObjects: null,
       activeVideoData: {},
-      activeVideoObject: parseInt(this.$route.query.pos),
+      activeVideoObject: parseInt(this.$route.query.chapter),
       playerConfiguration: '',
       videoBoxHeight: 0,
       defaultConf: {
@@ -145,7 +145,7 @@ export default {
         },
         playlist: {
           autoPlay: true,
-          currentPosition: parseInt(this.$route.query.pos),
+          currentPosition: parseInt(this.$route.query.chapter),
           entries: []
         }
       },
@@ -231,7 +231,7 @@ export default {
         let urlPrefix = this.$route.path;
         let arr = [];
         for (let i = 0; i < videoNum; i++) {
-          arr.push({ url: urlPrefix + '?pos=' + i});
+          arr.push({ url: urlPrefix + '?chapter=' + i});
         }
         this.defaultConf.playlist.entries = arr;
       }
@@ -394,7 +394,7 @@ export default {
     changeActiveVideo(index) {
       this.activeVideoObject = index;
       //this.addHiddenIndexToLocation(index);
-      this.$router.replace({ name: 'video', query: {pos: index} });
+      this.$router.replace({ name: 'video', query: {chapter: index} });
     },
     createPlayerConfiguration() {
       let configuration = this.defaultConf;
