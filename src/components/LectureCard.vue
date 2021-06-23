@@ -4,7 +4,7 @@
       class="text-xs-center ma-2"
       :elevation="hover ? 12 : 2"
       :class="{ 'on-hover': hover }"
-      :to="{ name: 'video', params: { id: createLinToVideoLecture(videoLecture.iri)}, query: {pos: 0} }"
+      :to="{ name: 'video', params: { id: createLinToVideoLecture(videoLecture.iri)}, query: {chapter: 0} }"
     >
      <!-- require(`@/assets/logos/${videoLecture.thumbnail}`)-->
       <div style="padding-top: 0.5em">
