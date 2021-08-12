@@ -16,7 +16,7 @@
     ></v-text-field>
     <v-list>
       <v-list-item-group color="primary" v-model="activeItem">
-        <v-list-item v-for="item in filteredItems" :key="item.iri" :disabled="item.iri == 'THB_FBT' || item.iri == 'THB_FBI'">
+        <v-list-item v-for="item in filteredItems" :key="item.iri" :disabled="item.iri == 'THB_FBT'">
           <v-list-item-content @click="selectItem(item.iri)">
             <v-list-item-title v-text="item.name"></v-list-item-title>
           </v-list-item-content>
