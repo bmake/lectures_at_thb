@@ -22,12 +22,7 @@ export default {
     return {
       links: [
         { icon: 'mdi-view-dashboard', title: 'navbar.home', route: '/' },
-        { icon: 'mdi-view-dashboard', title: 'navbar.help', route: '/help' },
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'navbar.contact',
-          route: '/contact'
-        }
+        { icon: 'mdi-view-dashboard', title: 'navbar.about', route: '/about' }
       ]
     };
   }

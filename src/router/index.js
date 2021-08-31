@@ -3,6 +3,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Video from "../views/Video";
+import About from "../views/About";
+import Impressum from "../views/Impressum";
+import Privacy from "../views/Privacy";
 
 Vue.use(VueRouter);
 
@@ -23,9 +26,18 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    component: About
+  },
+  {
+    path: '/impressum',
+    name: 'impressum',
+    component: Impressum
+  },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: Privacy
+  },
 ];
 
 const router = new VueRouter({
