@@ -7,6 +7,7 @@
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix vidp:  <https://bmake.th-brandenburg.de/vidp/> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix thb-fbim: <https://www.th-brandenburg.de/mitarbeiterseiten/fbi/> .
 @prefix wd:    <http://www.wikidata.org/entity/> .
 @prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -6579,4 +6580,827 @@ vide:SPARQL_05_idl  a      schema:PropertyValue ;
 vide:SPARQL_05_ids  a      schema:PropertyValue ;
         schema:name        "screencast" ;
         schema:propertyID  "467821699" .
+
+module:BMZK  a                    module:StudyProgram ;
+        rdfs:label                "Bachelor Medizininformatik" ;
+        schema:accountablePerson  thb-fbim:eberhard-beck ;
+        schema:name               "Bachelor Medizininformatik"@de , "Bachelor Medical Informatics"@en ;
+        schema:provider           module:THB_FBI ;
+        schema:url                "https://informatik.th-brandenburg.de/studium/bachelorstudiengaenge/medizininformatik/" .
+
+thb-fbim:eberhard-beck
+        a                   module:Lecturer , module:Accountable ;
+        rdfs:label          "Prof. Dr. Eberhard Beck" ;
+        schema:affiliation  wd:Q1391182 ;
+        schema:email        "eberhard.beck@th-brandenburg.de" ;
+        schema:familyName   "Beck" ;
+        schema:givenName    "Eberhard" ;
+        schema:name         "Eberhard Beck" ;
+        schema:url          "https://www.th-brandenburg.de/mitarbeiterseiten/fbi/eberhard-beck/" .
+
+module:BIFK  a                    module:StudyProgram ;
+        rdfs:label                "Bachelor Informatik" ;
+        schema:accountablePerson  thb-fbim:martin-schaffoener ;
+        schema:name               "Bachelor Informatik"@de , "Bachelor Computer Science"@en ;
+        schema:provider           module:THB_FBI ;
+        schema:url                "https://informatik.th-brandenburg.de/studium/bachelorstudiengaenge/informatik/" .
+
+thb-fbim:martin-schaffoener
+        a                   module:Lecturer , module:Accountable ;
+        rdfs:label          "Prof. Dr.-Ing. Martin Schafföner" ;
+        schema:affiliation  wd:Q1391182 ;
+        schema:email        "martin.schaffoener@th-brandenburg.de" ;
+        schema:familyName   "Schafföner" ;
+        schema:givenName    "Martin" ;
+        schema:name         "Martin Schafföner" ;
+        schema:url          "https://www.th-brandenburg.de/mitarbeiterseiten/fbi/martin-schaffoener/" .
+
+module:BACS  a                    module:StudyProgram ;
+        rdfs:label                "Bachelor Applied Computer Science" ;
+        schema:accountablePerson  thb-fbim:martin-schaffoener ;
+        schema:name               "Bachelor Applied Computer Science"@de , "Bachelor Applied Computer Science"@en ;
+        schema:provider           module:THB_FBI ;
+        schema:url                "https://informatik.th-brandenburg.de/studium/bachelorstudiengaenge/applied-computer-science/" .
+
+module:MIK3  a                    module:Module ;
+        rdfs:label                "Mathematik III" ;
+        schema:accountablePerson  thb-fbim:rolf-socher ;
+        schema:isPartOf           module:BIFK , module:BACS ;
+        schema:name               "Mathematik III"@de , "Mathematics III"@en ;
+        schema:provider           module:THB_FBI ;
+        schema:url                "" .
+
+thb-fbim:rolf-socher  a     module:Lecturer ;
+        rdfs:label          "Prof. Dr. Rolf Socher" ;
+        schema:affiliation  wd:Q1391182 ;
+        schema:email        "rolf.socher@th-brandenburg.de" ;
+        schema:familyName   "Socher" ;
+        schema:givenName    "Rolf" ;
+        schema:name         "Rolf Socher" ;
+        schema:url          "https://www.th-brandenburg.de/mitarbeiterseiten/fbi/rolf-socher/" .
+
+vide:MIK32020  a                    vidp:LectureSeries ;
+        rdfs:label                  "MIK3 2020" ;
+        schema:encodesCreativeWork  module:MIK3 ;
+        schema:hasPart              vide:StoG , vide:BedW , vide:ZVdV , vide:DeSt ;
+        schema:headline             "Videovorlesungen zum Modul MIK3 ab Wintersemester 2020" ;
+        schema:name                 "MIK3 2020" .
+
+vide:StoG  a                vidp:VideoLecture ;
+        rdfs:label          "StoG" ;
+        schema:about        module:MIK3 , module:MIKM ;
+        schema:description  "Die Stochastik - auch bekannt als Wahrscheinlichkeitsrechnung - ist ein wichtiges Teilgebiet der Mathematik. In dieser Videoserie werden die wichtigsten Grundbegriffe eingeführt, erläutern und anhand von Beispielen verständlich gemacht."@de , "Stochastics - also known as the probability calculus - is an important discipline of mathematics. In this video series, the most important basic concepts are introduced, explained and made understandable with the help of examples."@en ;
+        schema:headline     "Stochastik Grundbegriffe"@de , "Stochastics Basic Concepts"@en ;
+        schema:inLanguage   "de" ;
+        schema:keywords     "Wahrscheinlichkeiten , Zufallsexperimente , Laplaceverteilung , Kombinatorik , Urnenmodelle"@de , "probabilities, random experiments, Laplace distribution, combinatorics, urn models"@en ;
+        schema:licence      "https://creativecommons.org/licenses/by-nc-sa/2.0/de/" ;
+        schema:name         "StoG" ;
+        schema:thumbnail    vide:Stoch_thn .
+
+vide:BedW  a                vidp:VideoLecture ;
+        rdfs:label          "BedW" ;
+        schema:about        module:MIK3 , module:MIKM ;
+        schema:description  "Die Videovorlesung widmet sich dem Thema der bedingten Wahrscheinlichkeiten. Anhand anschaulicher Anwendungsfälle werden Definitionen, Formeln und daraus ableitbare Theoreme für Zufallsereignisse dargestellt und schließlich auf Zufallsgrößen verallgemeinert. Das Wissen um bedingte Wahrscheinlichkeiten ist grundlegend, um stochastische Zusammenhänge in Wirtschaft, Gesellschaft und Wissenschaft zu verstehen. Aktuell von großer Relevanz sind Anwendungsfälle im Kontext medizinischer Tests."@de , "The video lecture is dedicated to the topic of conditional probabilities. On the basis of illustrative application cases, definitions, formulas and derivable theorems for random events are presented and finally generalized to random variables. The knowledge of conditional probabilities is fundamental to understand stochastic relations in economy, society and science. Currently of great relevance are applications in the context of medical testing."@en ;
+        schema:headline     "Bedingte Wahrscheinlichkeiten"@de , "Conditional probabilities"@en ;
+        schema:inLanguage   "de" ;
+        schema:keywords     "bedingte Wahrscheinlichkeit, stochastische Unabhängigkeit, totale Wahrscheinlichkeit, Satz von Bayes, Vierfeldertafel"@de , "conditional probability, stochastic independence, total probability, Bayes' theorem, Four-field chart"@en ;
+        schema:licence      "https://creativecommons.org/licenses/by-nc-sa/2.0/de/" ;
+        schema:name         "BedW" ;
+        schema:thumbnail    vide:Stoch_thn .
+
+vide:Stoch_thn  a          schema:ImageObject ;
+        schema:identifier  "1v2WMVI5O7BzUEqSkJFA0ZKJYGxj1otF_" ;
+        schema:name        "stochastik.png" ;
+        schema:url         "https://drive.google.com/open?id=1v2WMVI5O7BzUEqSkJFA0ZKJYGxj1otF_" .
+
+vide:BedW_00  a                    schema:VideoObject ;
+        rdfs:label                 "BedW Clip 00" ;
+        schema:additionalProperty  vide:BedW_00_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-11-12"^^xsd:date ;
+        schema:duration            "PT05M24S" ;
+        schema:encodingFormat      "mp4" ;
+        schema:headline            "Die bedingte Wahrscheinlichkeit" ;
+        schema:isPartOf            vide:BedW ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "BedW Clip 00" ;
+        schema:playerType          "single" .
+
+vide:BedW_00_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "478608009" .
+
+vide:BedW_01  a                    schema:VideoObject ;
+        rdfs:label                 "BedW Clip 01" ;
+        schema:additionalProperty  vide:BedW_01_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-11-12"^^xsd:date ;
+        schema:duration            "PT10M41S" ;
+        schema:encodingFormat      "mp4" ;
+        schema:headline            "Stochastische Unabhängigkeit" ;
+        schema:isPartOf            vide:BedW ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "BedW Clip 01" ;
+        schema:playerType          "single" .
+
+vide:BedW_01_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "478671815" .
+
+vide:BedW_02  a                    schema:VideoObject ;
+        rdfs:label                 "BedW Clip 02" ;
+        schema:additionalProperty  vide:BedW_02_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-11-12"^^xsd:date ;
+        schema:duration            "PT06M08S" ;
+        schema:encodingFormat      "mp4" ;
+        schema:headline            "Die totale Wahrscheinlichkeit" ;
+        schema:isPartOf            vide:BedW ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "BedW Clip 02" ;
+        schema:playerType          "single" .
+
+vide:BedW_02_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "478672085" .
+
+vide:BedW_03  a                    schema:VideoObject ;
+        rdfs:label                 "BedW Clip 03" ;
+        schema:additionalProperty  vide:BedW_03_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-11-12"^^xsd:date ;
+        schema:duration            "PT12M44S" ;
+        schema:encodingFormat      "mp4" ;
+        schema:headline            "Der Satz von Bayes" ;
+        schema:isPartOf            vide:BedW ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "BedW Clip 03" ;
+        schema:playerType          "single" .
+
+vide:BedW_03_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "478672194" .
+
+module:MIFK  a                    module:StudyProgram ;
+        rdfs:label                "Master Informatik" ;
+        schema:accountablePerson  thb-fbim:jochen-heinsohn ;
+        schema:name               "Master Informatik"@de , "Master Computer Science"@en ;
+        schema:provider           module:THB_FBI ;
+        schema:url                "https://informatik.th-brandenburg.de/studium/masterstudiengaenge/informatik/" .
+
+thb-fbim:jochen-heinsohn
+        a                   module:Lecturer , module:Accountable ;
+        rdfs:label          "Prof. Dr.-Ing. Jochen Heinsohn" ;
+        schema:affiliation  wd:Q1391182 ;
+        schema:email        "jochen.heinsohn@th-brandenburg.de" ;
+        schema:familyName   "Heinsohn" ;
+        schema:givenName    "Jochen" ;
+        schema:name         "Jochen Heinsohn" ;
+        schema:url          "https://www.th-brandenburg.de/mitarbeiterseiten/fbi/jochen-heinsohn/" .
+
+module:MIKM  a                    module:Module ;
+        rdfs:label                "Mathematik" ;
+        schema:accountablePerson  thb-fbim:rolf-socher ;
+        schema:isPartOf           module:MIFK ;
+        schema:name               "Mathematik"@de , "Mathematics"@en ;
+        schema:provider           module:THB_FBI ;
+        schema:url                "" .
+
+vide:ZVdV_00  a                    schema:VideoObject ;
+        rdfs:label                 "ZVdV Clip 00" ;
+        schema:additionalProperty  vide:ZVdV_00_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-28"^^xsd:date ;
+        schema:duration            "PT06M27S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Zufallsvariablen und Erwartungswert" ;
+        schema:isPartOf            vide:ZVdV ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "ZVdV Clip 00" ;
+        schema:playerType          "single" .
+
+vide:ZVdV  a                vidp:VideoLecture ;
+        rdfs:label          "ZVdV" ;
+        schema:about        module:MIK3 , module:MIKM ;
+        schema:description  "Nach Wikipedia ermöglicht die Verteilung einer Zufallsvariablen, aus einem „zu großen“ stochastischen Modell Informationen zu extrahieren und diesen wieder sinnvolle Wahrscheinlichkeiten zuzuordnen. Ein Beispiel hierfür ist eine Lotto-Ziehung: Dort ist man im Allgemeinen nicht an der Wahrscheinlichkeit interessiert, exakt eine bestimmte Zahlenfolge zu ziehen, sondern daran, wie groß die Wahrscheinlichkeit für „n Richtige“ ist. Man definiert dazu eine Zufallsvariable, welche die Informationen „Anzahl der Richtigen“ extrahiert. Die Verteilung dieser Zufallsvariablen gibt dann die Wahrscheinlichkeit an, dass man „n Richtige“ gezogen hat. In dieser Serie werden die beiden wichtigsten diskreten Verteilungen vorgestellt: Die Binomialverteilung und die hypergeometrische Verteilung."@de , "According to Wikipedia, the distribution of a random variable makes it possible to extract information from a „too large“ stochastic model and to assign meaningful probabilities to them again. An example for this is a lottery drawing: There, one is generally not interested in the probability of drawing exactly a certain sequence of numbers, but in how large the probability for „n rights“ is. For this purpose, one defines a random variable which extracts the information „number of rights“. The distribution of this random variable then gives the probability of drawing „n rights“. In this series, the two most important discrete distributions are presented: The Binomial Distribution and the Hypergeometric Distribution."@en ;
+        schema:headline     "Zufallsvariablen und diskrete Verteilungen"@de , "Random variables and discrete distributions"@en ;
+        schema:inLanguage   "de" ;
+        schema:keywords     "Zufallsvariablen , diskrete Verteilungen , Binomialverteilung , hypergeometrische Verteilung"@de , "random variables , discrete distributions , binomial distribution , hypergeometric distribution"@en ;
+        schema:licence      "https://creativecommons.org/licenses/by-nc-sa/2.0/de/" ;
+        schema:name         "ZVdV" ;
+        schema:thumbnail    vide:Stoch_thn .
+
+vide:ZVdV_00_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "452631745" .
+
+vide:ZVdV_01  a                    schema:VideoObject ;
+        rdfs:label                 "ZVdV Clip 01" ;
+        schema:additionalProperty  vide:ZVdV_01_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-28"^^xsd:date ;
+        schema:duration            "PT08M04S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Der Erwartungswert" ;
+        schema:isPartOf            vide:ZVdV ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "ZVdV Clip 01" ;
+        schema:playerType          "single" .
+
+vide:ZVdV_01_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "452631983" .
+
+vide:ZVdV_02  a                    schema:VideoObject ;
+        rdfs:label                 "ZVdV Clip 02" ;
+        schema:additionalProperty  vide:ZVdV_02_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-28"^^xsd:date ;
+        schema:duration            "PT05M10S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Varianz und Standardabweichung" ;
+        schema:isPartOf            vide:ZVdV ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "ZVdV Clip 02" ;
+        schema:playerType          "single" .
+
+vide:ZVdV_02_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "452632786" .
+
+vide:ZVdV_03  a                    schema:VideoObject ;
+        rdfs:label                 "ZVdV Clip 03" ;
+        schema:additionalProperty  vide:ZVdV_03_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-28"^^xsd:date ;
+        schema:duration            "PT09M25S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Die Binomialverteilung" ;
+        schema:isPartOf            vide:ZVdV ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "ZVdV Clip 03" ;
+        schema:playerType          "single" .
+
+vide:ZVdV_03_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "452633840" .
+
+vide:ZVdV_04  a                    schema:VideoObject ;
+        rdfs:label                 "ZVdV Clip 04" ;
+        schema:additionalProperty  vide:ZVdV_04_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-09-06"^^xsd:date ;
+        schema:duration            "PT02M41S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Der Erwartungswert der Binomialverteilung" ;
+        schema:isPartOf            vide:ZVdV ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "ZVdV Clip 04" ;
+        schema:playerType          "single" .
+
+vide:ZVdV_04_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "452633840" .
+
+vide:ZVdV_05  a                    schema:VideoObject ;
+        rdfs:label                 "ZVdV Clip 05" ;
+        schema:additionalProperty  vide:ZVdV_05_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-09-06"^^xsd:date ;
+        schema:duration            "PT09M37S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Die Hypergeometrische Verteilung" ;
+        schema:isPartOf            vide:ZVdV ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "ZVdV Clip 05" ;
+        schema:playerType          "single" .
+
+vide:ZVdV_05_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "455255646" .
+
+vide:Mathe_thn  a          schema:ImageObject ;
+        schema:identifier  "1EWwbUe8P9l8ez_OE-c3phDHCAE3V6ylt" ;
+        schema:name        "mathematik.png" ;
+        schema:url         "https://drive.google.com/open?id=1EWwbUe8P9l8ez_OE-c3phDHCAE3V6ylt" .
+
+vide:KoZa_00  a                    schema:VideoObject ;
+        rdfs:label                 "KoZa Clip 00" ;
+        schema:additionalProperty  vide:KoZa_00_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-11"^^xsd:date ;
+        schema:duration            "PT05M56S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Introduction" ;
+        schema:isPartOf            vide:KoZa ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "KoZa Clip 00" ;
+        schema:playerType          "single" .
+
+vide:KoZa  a                vidp:VideoLecture ;
+        rdfs:label          "KoZa" ;
+        schema:about        module:MIKM ;
+        schema:description  "In dieser Serie werden die Grundbegriffe und Operationen mit komplexen Zahlen erläutert. Komplexe Zahlen sind vor allem in der Elektrotechnik ein nützliches mathematisches Hilfsmittel. "@de , "In this series, the basic concepts and operations with complex numbers are explained. Complex numbers are a useful mathematical tool especially in electrical engineering. "@en ;
+        schema:headline     "Komplexe Zahlen"@de , "Complex Numbers"@en ;
+        schema:inLanguage   "en" ;
+        schema:keywords     "Komplexe Zahlen , Kartesische Form , Eulerform , Rechnen mit komplexen Zahlen , Einheitswurzeln"@de , "Complex numbers , Cartesian form , Euler form , Calculation with complex numbers , Unit roots"@en ;
+        schema:licence      "https://creativecommons.org/licenses/by-nc-sa/2.0/de/" ;
+        schema:name         "KoZa" ;
+        schema:thumbnail    vide:Mathe_thn .
+
+vide:KoZa_00_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "446813929" .
+
+vide:KoZa_01  a                    schema:VideoObject ;
+        rdfs:label                 "KoZa Clip 01" ;
+        schema:additionalProperty  vide:KoZa_01_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-11"^^xsd:date ;
+        schema:duration            "PT07M16S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Calculations" ;
+        schema:isPartOf            vide:KoZa ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "KoZa Clip 01" ;
+        schema:playerType          "single" .
+
+vide:KoZa_01_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "446815477" .
+
+vide:KoZa_02  a                    schema:VideoObject ;
+        rdfs:label                 "KoZa Clip 02" ;
+        schema:additionalProperty  vide:KoZa_02_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-11"^^xsd:date ;
+        schema:duration            "PT04M00S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "The Complex Number Plane" ;
+        schema:isPartOf            vide:KoZa ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "KoZa Clip 02" ;
+        schema:playerType          "single" .
+
+vide:KoZa_02_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "446817945" .
+
+vide:KoZa_03  a                    schema:VideoObject ;
+        rdfs:label                 "KoZa Clip 03" ;
+        schema:additionalProperty  vide:KoZa_03_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-11"^^xsd:date ;
+        schema:duration            "PT05M57S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Polar Coordinates" ;
+        schema:isPartOf            vide:KoZa ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "KoZa Clip 03" ;
+        schema:playerType          "single" .
+
+vide:KoZa_03_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "446875384" .
+
+vide:KoZa_04  a                    schema:VideoObject ;
+        rdfs:label                 "KoZa Clip 04" ;
+        schema:additionalProperty  vide:KoZa_04_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-11"^^xsd:date ;
+        schema:duration            "PT11M21S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Transformations between the representations" ;
+        schema:isPartOf            vide:KoZa ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "KoZa Clip 04" ;
+        schema:playerType          "single" .
+
+vide:KoZa_04_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "446876345" .
+
+vide:KoZa_05  a                    schema:VideoObject ;
+        rdfs:label                 "KoZa Clip 05" ;
+        schema:additionalProperty  vide:KoZa_05_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-11"^^xsd:date ;
+        schema:duration            "PT05M55S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Calculations in Polar Form" ;
+        schema:isPartOf            vide:KoZa ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "KoZa Clip 05" ;
+        schema:playerType          "single" .
+
+vide:KoZa_05_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "446890312" .
+
+vide:KoZa_06  a                    schema:VideoObject ;
+        rdfs:label                 "KoZa Clip 06" ;
+        schema:additionalProperty  vide:KoZa_06_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-12"^^xsd:date ;
+        schema:duration            "PT03M24S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Solving Equations" ;
+        schema:isPartOf            vide:KoZa ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "KoZa Clip 06" ;
+        schema:playerType          "single" .
+
+vide:KoZa_06_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "447104289" .
+
+vide:KoZa_07  a                    schema:VideoObject ;
+        rdfs:label                 "KoZa Clip 07" ;
+        schema:additionalProperty  vide:KoZa_07_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-12"^^xsd:date ;
+        schema:duration            "PT03M42S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Roots of Unity" ;
+        schema:isPartOf            vide:KoZa ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "KoZa Clip 07" ;
+        schema:playerType          "single" .
+
+vide:KoZa_07_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "447121351" .
+
+vide:StoG_00  a                    schema:VideoObject ;
+        rdfs:label                 "StoG Clip 00" ;
+        schema:additionalProperty  vide:StoG_00_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-16"^^xsd:date ;
+        schema:duration            "PT08M15S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Einführung und Beispiele" ;
+        schema:isPartOf            vide:StoG ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "StoG Clip 00" ;
+        schema:playerType          "single" .
+
+vide:StoG_00_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "448253005" .
+
+vide:StoG_01  a                    schema:VideoObject ;
+        rdfs:label                 "StoG Clip 01" ;
+        schema:additionalProperty  vide:StoG_01_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-09-11"^^xsd:date ;
+        schema:duration            "PT10M06S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Ereignisse und Wahrscheinlichkeiten" ;
+        schema:isPartOf            vide:StoG ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "StoG Clip 01" ;
+        schema:playerType          "single" .
+
+vide:StoG_01_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "456934727" .
+
+vide:StoG_02  a                    schema:VideoObject ;
+        rdfs:label                 "StoG Clip 02" ;
+        schema:additionalProperty  vide:StoG_02_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-16"^^xsd:date ;
+        schema:duration            "PT09M11S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Laplaceverteilung" ;
+        schema:isPartOf            vide:StoG ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "StoG Clip 02" ;
+        schema:playerType          "single" .
+
+vide:StoG_02_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "448259640" .
+
+vide:StoG_03  a                    schema:VideoObject ;
+        rdfs:label                 "StoG Clip 03" ;
+        schema:additionalProperty  vide:StoG_03_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-17"^^xsd:date ;
+        schema:duration            "PT09M58S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Mehrfachexperimente und Baumdiagramme" ;
+        schema:isPartOf            vide:StoG ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "StoG Clip 03" ;
+        schema:playerType          "single" .
+
+vide:StoG_03_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "448599309" .
+
+vide:StoG_04  a                    schema:VideoObject ;
+        rdfs:label                 "StoG Clip 04" ;
+        schema:additionalProperty  vide:StoG_04_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-23"^^xsd:date ;
+        schema:duration            "PT07M55S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Kombinatorik" ;
+        schema:isPartOf            vide:StoG ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "StoG Clip 04" ;
+        schema:playerType          "single" .
+
+vide:StoG_04_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "450850321" .
+
+vide:StoG_05  a                    schema:VideoObject ;
+        rdfs:label                 "StoG Clip 05" ;
+        schema:additionalProperty  vide:StoG_05_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-17"^^xsd:date ;
+        schema:duration            "PT05M28S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Geburtstagsparadoxon" ;
+        schema:isPartOf            vide:StoG ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "StoG Clip 05" ;
+        schema:playerType          "single" .
+
+vide:StoG_05_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "448525870" .
+
+vide:StoG_06  a                    schema:VideoObject ;
+        rdfs:label                 "StoG Clip 06" ;
+        schema:additionalProperty  vide:StoG_06_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-11-22"^^xsd:date ;
+        schema:duration            "PT07M05S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Die vier Urnenmodelle" ;
+        schema:isPartOf            vide:StoG ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "StoG Clip 06" ;
+        schema:playerType          "single" .
+
+vide:StoG_06_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "482317763" .
+
+vide:Codes_thn  a          schema:ImageObject ;
+        schema:identifier  "1l4-ZYmXbOU7Hu5qgMjCQRJIHJCBIfFDJ" ;
+        schema:name        "codes.png" ;
+        schema:url         "https://drive.google.com/open?id=1l4-ZYmXbOU7Hu5qgMjCQRJIHJCBIfFDJ" .
+
+vide:FEKC_00  a                    schema:VideoObject ;
+        rdfs:label                 "FEKC Clip 00" ;
+        schema:additionalProperty  vide:FEKC_00_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2021-04-26"^^xsd:date ;
+        schema:duration            "PT07M29S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Einführung" ;
+        schema:isPartOf            vide:FEKC ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "FEKC Clip 00" ;
+        schema:playerType          "single" .
+
+vide:FEKC  a                vidp:VideoLecture ;
+        rdfs:label          "FEKC" ;
+        schema:about        module:MIKM ;
+        schema:description  "Bei der Übertragung von Daten können Fehler passieren. Für eine effiziente Erkennung und Korrektur von Fehlern können Codes eingesetzt werden, wie z. B. der Paritätscode bei der Übertragung von Binärdaten. Die Vorlesungsserie führt in das Thema ein, stellt grundlegende Verfahren und Metriken vor und erläutert diese anhand von Beispielen."@de , "Errors can occur during the transmission of data. Codes can be used for efficient detection and correction of errors, such as the parity code in the transmission of binary data. The lecture series introduces the subject, presents basic procedures and metrics, and explains them based on examples."@en ;
+        schema:headline     "Fehlererkennende und -korrigierende Codes"@de , "Error detecting and correcting codes"@en ;
+        schema:inLanguage   "de" ;
+        schema:keywords     "lineare Codes , Binäre Blockcodes , Generatormatrix , Prüfmatrix , Minimaldistanz"@de , "linear codes , binary block codes , generator matrix , check matrix , minimum distance"@en ;
+        schema:licence      "https://creativecommons.org/licenses/by-nc-sa/2.0/de/" ;
+        schema:name         "FEKC" ;
+        schema:thumbnail    vide:Codes_thn .
+
+vide:FEKC_00_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "541725099" .
+
+vide:FEKC_01  a                    schema:VideoObject ;
+        rdfs:label                 "FEKC Clip 01" ;
+        schema:additionalProperty  vide:FEKC_01_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2021-04-26"^^xsd:date ;
+        schema:duration            "PT10M07S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Generatormatrix und Prüfmatrix" ;
+        schema:isPartOf            vide:FEKC ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "FEKC Clip 01" ;
+        schema:playerType          "single" .
+
+vide:FEKC_01_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "541725212" .
+
+vide:FEKC_02  a                    schema:VideoObject ;
+        rdfs:label                 "FEKC Clip 02" ;
+        schema:additionalProperty  vide:FEKC_02_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2021-04-26"^^xsd:date ;
+        schema:duration            "PT09M13S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Binäre Blockcodes" ;
+        schema:isPartOf            vide:FEKC ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "FEKC Clip 02" ;
+        schema:playerType          "single" .
+
+vide:FEKC_02_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "541725614" .
+
+vide:FEKC_03  a                    schema:VideoObject ;
+        rdfs:label                 "FEKC Clip 03" ;
+        schema:additionalProperty  vide:FEKC_03_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2021-04-26"^^xsd:date ;
+        schema:duration            "PT13M19S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Fehlerkorrektur und Minimaldistanz" ;
+        schema:isPartOf            vide:FEKC ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "FEKC Clip 03" ;
+        schema:playerType          "single" .
+
+vide:FEKC_03_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "541725770" .
+
+vide:FEKC_04  a                    schema:VideoObject ;
+        rdfs:label                 "FEKC Clip 04" ;
+        schema:additionalProperty  vide:FEKC_04_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2021-04-26"^^xsd:date ;
+        schema:duration            "PT09M36S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Lineare Codes" ;
+        schema:isPartOf            vide:FEKC ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "FEKC Clip 04" ;
+        schema:playerType          "single" .
+
+vide:FEKC_04_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "541726572" .
+
+vide:FEKC_05  a                    schema:VideoObject ;
+        rdfs:label                 "FEKC Clip 05" ;
+        schema:additionalProperty  vide:FEKC_05_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2021-04-26"^^xsd:date ;
+        schema:duration            "PT14M41S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Aufgaben zu linearen Codes" ;
+        schema:isPartOf            vide:FEKC ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "FEKC Clip 05" ;
+        schema:playerType          "single" .
+
+vide:FEKC_05_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "541726716" .
+
+vide:Stat_thn  a           schema:ImageObject ;
+        schema:identifier  "1jZLmgfRAF4wNxigzvXO-rCJMdLzTzB5p" ;
+        schema:name        "statistics.png" ;
+        schema:url         "https://drive.google.com/open?id=1jZLmgfRAF4wNxigzvXO-rCJMdLzTzB5p" .
+
+vide:DeSt_00  a                    schema:VideoObject ;
+        rdfs:label                 "DeSt Clip 00" ;
+        schema:additionalProperty  vide:DeSt_00_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-12"^^xsd:date ;
+        schema:duration            "PT09M27S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Merkmale, Ausprägungen und Häufigkeit" ;
+        schema:isPartOf            vide:DeSt ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "DeSt Clip 00" ;
+        schema:playerType          "single" .
+
+vide:DeSt  a                vidp:VideoLecture ;
+        rdfs:label          "DeSt" ;
+        schema:about        module:MIKM ;
+        schema:description  "Die Aufgabe der deskriptiven Statistik - auch beschreibende Statistik genannt - ist es, empirische Daten durch Kennzahlen, Tabellen oder Diagramme übersichtlich zu machen. Wichtige Kennzahlen sind die Mittelwerte und die Streuungsmaße. In dieser Vorlesungsserie werden die Grundbegriffe eingeführt und anhand von Beispielen erläutert."@de , "The task of descriptive statistics is to make empirical data clear by means of key figures, tables or diagrams. Important key figures are the mean values and the measures of dispersion. In this lecture series, the basic concepts are introduced and explained using examples."@en ;
+        schema:headline     "Deskriptive Statistik"@de , "Descriptive Statistics"@en ;
+        schema:inLanguage   "de" ;
+        schema:keywords     "Merkmale und Ausprägungen , absolute Häufigkeit , relative Häufigkeit , Median und Mittelwert , Varianz und Standardabweichung"@de , "Characteristics and expressions , absolute frequency , relative frequency , median and mean value , variance and standard deviation"@en ;
+        schema:licence      "https://creativecommons.org/licenses/by-nc-sa/2.0/de/" ;
+        schema:name         "DeSt" ;
+        schema:thumbnail    vide:Stat_thn .
+
+vide:DeSt_00_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "447214106" .
+
+vide:DeSt_01  a                    schema:VideoObject ;
+        rdfs:label                 "DeSt Clip 01" ;
+        schema:additionalProperty  vide:DeSt_01_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-12"^^xsd:date ;
+        schema:duration            "PT11M25S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Mittelwert und Median" ;
+        schema:isPartOf            vide:DeSt ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "DeSt Clip 01" ;
+        schema:playerType          "single" .
+
+vide:DeSt_01_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "447216971" .
+
+vide:DeSt_02  a                    schema:VideoObject ;
+        rdfs:label                 "DeSt Clip 02" ;
+        schema:additionalProperty  vide:DeSt_02_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-12"^^xsd:date ;
+        schema:duration            "PT06M54S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Streuungsmaße" ;
+        schema:isPartOf            vide:DeSt ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "DeSt Clip 02" ;
+        schema:playerType          "single" .
+
+vide:DeSt_02_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "447217505" .
+
+vide:FTPo_00  a                    schema:VideoObject ;
+        rdfs:label                 "FTPo Clip 00" ;
+        schema:additionalProperty  vide:FTPo_00_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-11"^^xsd:date ;
+        schema:duration            "PT04M16S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Polynomials" ;
+        schema:isPartOf            vide:FTPo ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "FTPo Clip 00" ;
+        schema:playerType          "single" .
+
+vide:FTPo  a                vidp:VideoLecture ;
+        rdfs:label          "FTPo" ;
+        schema:about        module:MIKM ;
+        schema:description  "Für die Ausführung von Operationen auf Polynomen am Computer ist die Fouriertransformation ein wirksames und weit verbreitetes Instrument. Diese kurze Vorlesungsserie führt in dieses Thema ein und erläutert die Methodik anhand einfacher Beispiele."@de , "For performing operations on polynomials on a computer, Fourier Transformation is an effective and widely used tool. This short lecture series introduces this topic and explains the methodology with simple examples."@en ;
+        schema:headline     "Fouriertransformationen und Polynome"@de , "Fourier Transformations and Polynomials"@en ;
+        schema:inLanguage   "en" ;
+        schema:keywords     "Allgemeine Form , Darstellung im Computer , Interpolation , Stützpunktdarstellung , Fourier-Matrix"@de , "General Form , representation in computer , interpolation , supporting point representation , fourier matrix"@en ;
+        schema:licence      "https://creativecommons.org/licenses/by-nc-sa/2.0/de/" ;
+        schema:name         "FTPo" ;
+        schema:thumbnail    vide:Mathe_thn .
+
+vide:FTPo_00_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "446803474" .
+
+vide:FTPo_01  a                    schema:VideoObject ;
+        rdfs:label                 "FTPo Clip 01" ;
+        schema:additionalProperty  vide:FTPo_01_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-11"^^xsd:date ;
+        schema:duration            "PT06M13S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "Fourier Transformation" ;
+        schema:isPartOf            vide:FTPo ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "FTPo Clip 01" ;
+        schema:playerType          "single" .
+
+vide:FTPo_01_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "446807278" .
+
+vide:FTPo_02  a                    schema:VideoObject ;
+        rdfs:label                 "FTPo Clip 02" ;
+        schema:additionalProperty  vide:FTPo_02_idp ;
+        schema:creator             thb-fbim:rolf-socher ;
+        schema:dateCreated         "2020-08-11"^^xsd:date ;
+        schema:duration            "PT05M49S" ;
+        schema:endcodingFormat     "mp4" ;
+        schema:headline            "An Application" ;
+        schema:isPartOf            vide:FTPo ;
+        schema:maintainer          wd:Q156376 ;
+        schema:name                "FTPo Clip 02" ;
+        schema:playerType          "single" .
+
+vide:FTPo_02_idp  a        schema:PropertyValue ;
+        schema:name        "podcast" ;
+        schema:propertyID  "446807620" .
+
+vide:MIKM2020  a                    vidp:LectureSeries ;
+        rdfs:label                  "MIKM 2020" ;
+        schema:encodesCreativeWork  module:MIKM ;
+        schema:hasPart              vide:StoG , vide:ZVdV , vide:KoZa , vide:FEKC , vide:DeSt , vide:FTPo ;
+        schema:headline             "Videovorlesungen zum Modul MIKM ab Wintersemester 2020" ;
+        schema:name                 "MIKM 2020" .
 

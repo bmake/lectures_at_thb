@@ -11,10 +11,58 @@
   },
   "navbar": {
     "home": "Home",
-    "help": "Help",
-    "contact": "Contact"
+    "about": "About us"
   },
   "fl": {
     "current_flag": "gb"
+  },
+  "aboutus": {
+    "title": "About us",
+    "text": ["Video lectures are a widely used learning tool. They can supplement or even replace classroom lectures. They offer learners and teachers greater flexibility in time and space. A video recording studio was set up in the THB Economics Department in 2015. Many courses are already supplemented today with video lectures, which are directly integrated via Moodle. eLectures@THB is intended to make these lectures findable and accessible in a structured way. It is supported by the project \"Vielfalt in Studium und Lehre\" (VSL) at the THB.", "Prof. Dr. Vera Meister is in charge of the technical and conceptual management. The software development and the maintenance of the video-lab is carried out by dedicated student assistants.", "Since mid 2020 we are working on an improved website oft he original version, which was called „fbwtube“. The new website uses semantic technologies and is an overall improved website."]
+  },
+  "address": ["Vera G. Meister", "Magdeburger Straße 50", "14770 Brandenburg an der Havel", "+49 3381 355 297", "vera.meister@th-brandenburg.de"],
+  "impressum": {
+    "title": "Impressum",
+    "subtitle": "Information according to §5 TMG:",
+    "content": {
+      "title": "Liability for contents",
+      "text": "As a service provider we are responsible according to § 7 par.1 TML for our own contents on these pages according to the general laws. According to §§ 8 to 10 TML, we are not obliged as a service provider to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity. Obligations to remove or block the use of information in accordance with general laws remain unaffected by this. However, liability in this respect is only possible from the time of knowledge of a concrete violation of the law. As soon as we become aware of such infringements, we will remove these contents immediately."
+    },
+    "link": {
+      "title": "Liability for links",
+      "text": "Our offer contains links to external websites of third parties, on whose contents we have no influence. Therefore, we cannot assume any liability for these external contents. The respective provider or operator of the pages is always responsible for the contents of the linked pages. The linked pages were checked for possible legal infringements at the time of linking. Illegal contents were not recognizable at the time of linking. However, a permanent control of the contents of the linked pages is not reasonable without concrete evidence of a violation of law. We will remove such links immediately upon becoming aware of any violations of the law."
+    },
+    "copyright": {
+      "title": "Copyright",
+      "text": "The contents and works on these pages created by the site operators are subject to German copyright law. Duplication, processing, distribution and any form of commercialization of such material beyond the scope of the copyright law shall require the prior written consent of its respective author or creator. Downloads and copies of these pages are only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator, the copyrights of third parties are respected. In particular, contents of third parties are marked as such. Should you nevertheless become aware of a copyright infringement, please inform us accordingly. As soon as we become aware of any infringements of the law, we will remove such content immediately. \nSource: http://www.e-recht24.de\n"
+    }
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "subtitle": "Responsible in the sense of the data protection act:",
+    "dataprotection": {
+      "title": "Data protection",
+      "text": ["As a website operator, we take the protection of all personal data very seriously. All personal information is treated confidentially and in accordance with the legal requirements, as explained in this privacy policy.", "Our website can, of course, be used without you providing any personal data. However, if at any time personal data such as name, address or e-mail is requested, this will be done on a voluntary basis. Never will data collected by us be passed on to third parties without your specific permission.", "Data transmission on the Internet, such as via e-mail, can always have security gaps. Complete protection of data is not possible on the Internet."]
+    },
+    "InfDelBlo": {
+      "title": "Information, deletion, blocking",
+      "text": "At any time you can inform yourself about the personal data, their origin and recipient and the use of the data processing and request free of charge a correction, blocking or deletion of this data. Please use the contact channels indicated in the imprint for this purpose. We are also available at any time to answer any further questions you may have on this subject."
+    },
+    "log": {
+      "title": "Server log files",
+      "text": ["The site provider automatically collects and stores data in server log files that are transmitted to us by your browser. This data includes:", "- Browser type/ browser version", "- Operating system of the computer", "- Referrer URL", "- Host name of the accessing computer", "- Time of the server request", "These data are not personal. This data is not merged with other data sources. If we become aware of concrete indications of illegal use, we reserve the right to check this data retrospectively."]
+    },
+    "cookie": {
+      "title": "Cookies",
+      "text": "Our privacy policy may be amended at irregular intervals in order to comply with current legal requirements or to implement changes to our services, e.g. when new offers are added. The new privacy policy will then automatically apply to your next visit."
+    },
+    "changeData": {
+      "title": "Change of the data protection regulations",
+      "text": "Our privacy policy may be amended at irregular intervals in order to comply with current legal requirements or to implement changes to our services, e.g. when new offers are added. The new privacy policy will then automatically apply to your next visit."
+    },
+    "contactData": {
+      "title": "Contacting the data protection officer",
+      "text": "If you have any questions about data protection, please send us a message with the subject \"Data protection\"."
+    }
   }
 }
