@@ -1,6 +1,7 @@
 {
   "page": {
-    "title": "Video Lectures",
+    "title": "eLectures",
+    "titleOld": "Video Lectures",
     "description": " Brandenburg University of Applied Sciences "
   },
   "filter": {
@@ -22,7 +23,7 @@
   },
   "address": ["Vera G. Meister", "Magdeburger Straße 50", "14770 Brandenburg an der Havel", "+49 3381 355 297", "vera.meister@th-brandenburg.de"],
   "impressum": {
-    "title": "Impressum",
+    "title": "Imprint",
     "subtitle": "Information according to §5 TMG:",
     "content": {
       "title": "Liability for contents",
