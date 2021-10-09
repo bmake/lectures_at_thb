@@ -39,7 +39,7 @@ export default {
       await store.dispatch('resetVideoLectures');
       return axios
         .get(
-          'http://172.16.32.212:3000/v1/videoLecture/module/' + this.activeModule,
+          '//172.16.32.212:3000/v1/videoLecture/module/' + this.activeModule,
           {
             headers: {
               'Accept-Language': this.$i18n.locale,
