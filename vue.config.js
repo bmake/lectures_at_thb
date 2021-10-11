@@ -10,7 +10,10 @@ module.exports = {
   devServer: {
     disableHostCheck: true,
     proxy: {
-      "^/api": "http://172.16.32.212:3000/"
-    }
+      '/api': {
+        target: 'http://172.16.32.212:3000',
+        pathRewrite: { '^/api': '' },
+      },
+    },
   }
 };
