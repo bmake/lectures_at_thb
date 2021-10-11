@@ -12,7 +12,7 @@ services:
     environment:
       - ADMIN_PASSWORD=admin
     healthcheck:
-      test: ["CMD", "curl", "-f", "//localhost:3030"]
+      test: ["CMD", "curl", "-f", "http://localhost:3030"]
   nodejs:
     container_name: nodejs
     build:
@@ -35,4 +35,4 @@ services:
     ports:
     - "3000:3000"
     healthcheck:
-      test: ["CMD", "curl", "-f", "//localhost:3000"]
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
