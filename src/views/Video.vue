@@ -259,7 +259,7 @@ export default {
     async getVideoLectureDetails() {
       await store.dispatch('incrementLoading');
       axios
-        .get('//172.16.32.212:3000/v1/videoLecture/' + this.videoLectureIri, {
+        .get('/api/v1/videoLecture/' + this.videoLectureIri, {
           headers: {
             'Accept-Language': this.$i18n.locale,
             'Cache-Control': 'no-cache'
@@ -279,7 +279,7 @@ export default {
       await store.dispatch('incrementLoading');
       axios
         .get(
-          '//172.16.32.212:3000/v1/videoLecture/' +
+          '/api/v1/videoLecture/' +
             this.videoLectureIri +
             '/videoObjects',
           {
@@ -306,7 +306,7 @@ export default {
       if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('lecturerVideoID')) {
         await store.dispatch('incrementLoading');
         const lecturerQueryUrl =
-          '//172.16.32.212:3000/v1/vimeo/' +
+          '/api/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].lecturerVideoID;
 
         await axios
@@ -328,7 +328,7 @@ export default {
       if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('screencastVideoID')) {
         await store.dispatch('incrementLoading');
         const screencastQueryUrl =
-          '//172.16.32.212:3000/v1/vimeo/' +
+          '/api/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].screencastVideoID;
 
         await axios
@@ -352,7 +352,7 @@ export default {
       if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('podcastVideoID')) {
         await store.dispatch('incrementLoading');
         const podcastQueryUrl =
-          '//172.16.32.212:3000/v1/vimeo/' +
+          '/api/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].podcastVideoID;
 
         await axios

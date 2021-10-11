@@ -8,6 +8,9 @@ module.exports = {
     }
   },
   devServer: {
-    disableHostCheck: true
+    disableHostCheck: true,
+    proxy: {
+      "^/api": "http://172.16.32.212:3000/"
+    }
   }
 };
