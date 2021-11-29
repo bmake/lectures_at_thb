@@ -1,6 +1,6 @@
 <template>
   <v-parallax
-    src="../assets/banner.png"
+    src="../assets/banner.jpg"
   >
     <v-row align="center" justify="center">
       <v-card color="rgb(255,255,255,0.6)">
