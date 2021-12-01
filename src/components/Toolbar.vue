@@ -3,14 +3,14 @@
     <ProgressBar :height="toolbarHeight"></ProgressBar>
     <v-toolbar dense dark>
       <v-app-bar-nav-icon @click="negateDrawer"></v-app-bar-nav-icon>
-      <v-app-bar-nav-icon>
+      <v-app-bar-nav-icon style="margin-right: 10px">
         <router-link to="/">
           <v-img
-            src="../assets/mstile-150x150.png"
-            height="50"
-            width="50"
-
-          ></v-img>
+            src="../assets/fbwTube_white.svg"
+            height="32"
+            width="32"
+            style="border-radius: 50%; background-color: white;"
+          ></v-img><!--style="border-radius: 50%; background-color: white"-->
         </router-link>
       </v-app-bar-nav-icon>
 
