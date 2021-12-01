@@ -4,12 +4,19 @@
       class="text-xs-center ma-2"
       :elevation="hover ? 12 : 2"
       :class="{ 'on-hover': hover }"
-      :to="{ name: 'video', params: { id: createLinToVideoLecture(videoLecture.iri)}, query: {chapter: 0} }"
+      :to="{
+        name: 'video',
+        params: { id: createLinToVideoLecture(videoLecture.iri) },
+        query: { chapter: 0 }
+      }"
     >
-     <!-- require(`@/assets/logos/${videoLecture.thumbnail}`)-->
+      <!-- require(`@/assets/logos/${videoLecture.thumbnail}`)-->
       <div style="padding-top: 0.5em">
         <v-img
-          :src="'https://drive.google.com/uc?export=view&id=' + videoLecture.thumbnail"
+          :src="
+            'https://drive.google.com/uc?export=view&id=' +
+              videoLecture.thumbnail
+          "
           height="16vh"
           contain
         >
@@ -22,7 +29,7 @@
           </v-clamp>
         </div>
       </v-card-title>
-      <v-card-text class="hyphens text-justify">
+      <v-card-text class="hyphens text-left">
         <v-clamp autoresize :max-lines="4">
           {{ videoLecture.description }}
         </v-clamp>
@@ -32,17 +39,19 @@
         <v-list class="transparent">
           <v-list-item>
             <v-list-item-icon>
-              <v-icon>mdi-teach</v-icon>
+              <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-subtitle>Lecturer(s)</v-list-item-subtitle>
-              <v-list-item-title>
-                {{
-                  formatContributors(
-                    videoLecture.creator,
-                    videoLecture.contributors
-                  )
-                }}
+              <v-list-item-title class="text-wrap">
+                <v-clamp autoresize :max-lines="1">
+                  {{
+                    formatContributors(
+                      videoLecture.creator,
+                      videoLecture.contributors
+                    )
+                  }}
+                </v-clamp>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -68,7 +77,6 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-
         </v-list>
       </v-card-actions>
     </v-card>
@@ -145,10 +153,10 @@ export default {
       creators = this._.split(creators, ', ');
       contributors = this._.split(contributors, ', ');
       contributors = contributors.filter(c => creators.indexOf(c) === -1);
-      let str = creators.join(', ');
+      let str = creators.join(',\n');
       if (contributors[0] !== '') {
-        str = str.concat(', ');
-        str = str.concat(contributors.join(', '));
+        str = str.concat(',\n');
+        str = str.concat(contributors.join(',\n'));
       }
       return str;
     }
