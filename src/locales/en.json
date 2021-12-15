@@ -4,6 +4,11 @@
     "titleOld": "Video Lectures",
     "description": " Brandenburg University of Applied Sciences "
   },
+  "cardsText": {
+    "lecturer": "Lecturer(s)",
+    "duration": "Duration",
+    "language": "Language"
+  },
   "filter": {
     "heading": ["Department", "Study Program", "Module"]
   },

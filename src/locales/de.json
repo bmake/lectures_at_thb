@@ -4,6 +4,11 @@
     "titleOld": "Videovorlesungen",
     "description": " Technische Hochschule Brandenburg "
   },
+  "cardsText": {
+    "lecturer": "Dozierende",
+    "duration": "Laufzeit",
+    "language": "Sprache"
+  },
   "filter": {
     "heading": ["Fachbereich", "Studiengang", "Modul"]
   },

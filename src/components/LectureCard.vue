@@ -23,7 +23,7 @@
         </v-img>
       </div>
       <v-card-title>
-        <div class="hyphens text-justify" style="height:10vh">
+        <div class="text-break" style="height:10vh">
           <v-clamp autoresize :max-lines="2">
             {{ videoLecture.headline }}
           </v-clamp>
@@ -42,7 +42,7 @@
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-subtitle>Lecturer(s)</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ $t('cardsText.lecturer') }}</v-list-item-subtitle>
               <v-list-item-title class="text-wrap">
                 <v-clamp autoresize :max-lines="1">
                   {{
@@ -61,7 +61,7 @@
               <v-icon>mdi-clock</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-subtitle>Duration</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ $t('cardsText.duration') }}</v-list-item-subtitle>
               <v-list-item-title v-text="formatDuration(videoLecture.duration)">
               </v-list-item-title>
             </v-list-item-content>
@@ -72,7 +72,7 @@
               <v-icon>mdi-earth</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-subtitle>Language</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ $t('cardsText.language') }}</v-list-item-subtitle>
               <v-list-item-title v-text="videoLecture.language">
               </v-list-item-title>
             </v-list-item-content>

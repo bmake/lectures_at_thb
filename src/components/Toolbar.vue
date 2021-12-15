@@ -6,7 +6,7 @@
       <v-app-bar-nav-icon style="margin-right: 10px">
         <router-link to="/">
           <v-img
-            src="../assets/fbwTube_white.svg"
+            src="../assets/fbwTube_white.png"
             height="32"
             width="32"
             style="border-radius: 50%; background-color: white;"
