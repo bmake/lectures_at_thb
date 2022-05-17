@@ -45,6 +45,9 @@ export default {
   name: 'VideoLectureFilters',
   components: { SearchableList},
   beforeMount() {
+    if(this.$i18n.locale != "de" && this.$i18n.locale != "en") {
+      this.setLocale("en");
+    };
     this.getDepartments();
   },
   beforeUpdate() {
@@ -161,6 +164,10 @@ export default {
     },
     renameDepartment(department) {
       return this._.split(department, '-', 2)[1];
+    },
+    setLocale(locale) {
+      eventBus.$emit('updateLocale');
+      this.$i18n.locale = locale;
     }
   },
   computed: {
