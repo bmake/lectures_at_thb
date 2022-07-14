@@ -377,10 +377,23 @@ export default {
       this.scrollToItem();
     },
     getDuration(PTTime) {
-      const formattedTime = PTTime.replace('PT', '')
+      const time = PTTime.replace('PT', '')
         .replace('H', ':')
         .replace('M', ':')
         .replace('S', '');
+      let second = time.substring(time.length - 3, time.length) ;
+      let min = time.substring(0, time.length - 3) ;
+      min = parseInt(min);
+      if (min > 59) {
+        let m = min % 60;
+        let h = (min - m) / 60;
+        if (m < 10) {
+          m = '0' + m.toString()
+        }
+        min = h.toString() + ":" + m;
+       //time.replace(time.substring(0, time.length - 3), t);
+      }
+      let formattedTime = min + second;
       return formattedTime;
     },
     sortActiveVideoData(arr) {
