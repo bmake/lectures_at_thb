@@ -1,37 +1,41 @@
 <template>
-  <v-responsive>
-    <v-system-bar height="50vh" color="#AE001C">
-      <v-spacer></v-spacer>
-    </v-system-bar>
-    <v-container fluid grid-list-xl>
-      <v-row class="mb-9" justify="center" align="start">
-        <v-flex xs12 sm6 md4 lg3 v-on:click="this.getStudyPrograms">
-          <searchable-list
-            :list-items="departments"
-            :heading="$t('filter.heading')[0]"
-            @activeItem="activeDepartmentValue"
-            :selected-item-text="activeDepartment"
-          ></searchable-list>
-        </v-flex>
-        <v-flex xs12 sm6 md4 lg3 v-on:click="this.getModules">
-          <searchable-list
-            :list-items="studyPrograms"
-            :heading="$t('filter.heading')[1]"
-            @activeItem="activeStudyProgramValue"
-            :selected-item-text="activeStudyProgram"
-          ></searchable-list>
-        </v-flex>
-        <v-flex xs12 sm6 md4 lg3>
-          <searchable-list
-            :list-items="modules"
-            :heading="$t('filter.heading')[2]"
-            @activeItem="activeModuleValue"
-            :selected-item-text="activeModule"
-          ></searchable-list>
-        </v-flex>
-      </v-row>
-    </v-container>
-  </v-responsive>
+  <div>
+    <v-responsive>
+      <v-system-bar height="50vh" color="#AE001C">
+        <p class="display-1 font-weight-bold mb-1" style="padding-left: 13%; color: white; padding-right: 0">eLectures@THB</p>
+        <p class="font-weight-medium mb-0" style="padding-left: 15px; color: white; max-width: 260px">{{ $t('page.description') }}</p>
+      </v-system-bar>
+      <v-container fluid grid-list-xl>
+        <v-row class="mb-9" justify="center" align="start">
+          <v-flex xs12 sm6 md4 lg3 v-on:click="this.getStudyPrograms">
+            <searchable-list
+              :list-items="departments"
+              :heading="$t('filter.heading')[0]"
+              @activeItem="activeDepartmentValue"
+              :selected-item-text="activeDepartment"
+            ></searchable-list>
+          </v-flex>
+          <v-flex xs12 sm6 md4 lg3 v-on:click="this.getModules">
+            <searchable-list
+              :list-items="studyPrograms"
+              :heading="$t('filter.heading')[1]"
+              @activeItem="activeStudyProgramValue"
+              :selected-item-text="activeStudyProgram"
+            ></searchable-list>
+          </v-flex>
+          <v-flex xs12 sm6 md4 lg3>
+            <searchable-list
+              :list-items="modules"
+              :heading="$t('filter.heading')[2]"
+              @activeItem="activeModuleValue"
+              :selected-item-text="activeModule"
+            ></searchable-list>
+          </v-flex>
+        </v-row>
+      </v-container>
+    </v-responsive>
+    <img src="../fbwTube_white.png" style="width: 130px;  position: absolute; right: 86%; top: 280px"/>
+  </div>
 </template>
 
 <script>

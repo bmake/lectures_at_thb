@@ -2,7 +2,7 @@
   "page": {
     "title": "eLectures",
     "titleOld": "Video Lectures",
-    "description": " Brandenburg University of Applied Sciences "
+    "description": "Video Lectures of Brandenburg University of Applied Sciences "
   },
   "cardsText": {
     "lecturer": "Lecturer(s)",
@@ -10,7 +10,7 @@
     "language": "Language"
   },
   "filter": {
-    "heading": ["Department", "Study Program", "Module"]
+    "heading": ["Scope", "Study Program", "Module"]
   },
   "toolbar": {
     "description": "Choose your language"
