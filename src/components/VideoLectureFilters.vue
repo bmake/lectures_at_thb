@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-responsive>
-      <v-system-bar height="50vh" color="#AE001C">
+      <v-system-bar height="50vh" color="rgb(204, 10, 47)">
         <p class="display-1 font-weight-bold mb-1" style="padding-left: 13%; color: white; padding-right: 0">eLectures@THB</p>
         <p class="font-weight-medium mb-0" style="padding-left: 15px; color: white; max-width: 260px">{{ $t('page.description') }}</p>
       </v-system-bar>
