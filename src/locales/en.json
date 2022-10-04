@@ -2,7 +2,8 @@
   "page": {
     "title": "eLectures",
     "titleOld": "Video Lectures",
-    "description": "Video Lectures of Brandenburg University of Applied Sciences "
+    "description": "Video Lectures of Brandenburg University of Applied Sciences ",
+    "videopage": ["from", "Language"]
   },
   "cardsText": {
     "lecturer": "Lecturer(s)",

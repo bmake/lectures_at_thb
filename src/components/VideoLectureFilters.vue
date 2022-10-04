@@ -185,6 +185,13 @@ export default {
       studyPrograms: 'getStudyPrograms',
       modules: 'getModules'
     })
+  },
+  watch: {
+    activeDepartment: function() {
+      if(this.modules.length > 0) {
+        store.dispatch('addModules', []);
+      }
+    }
   }
 };
 </script>

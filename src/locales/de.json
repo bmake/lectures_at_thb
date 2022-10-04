@@ -2,7 +2,8 @@
   "page": {
     "title": "eLectures",
     "titleOld": "Videovorlesungen",
-    "description": "Die Lehrvideo-Plattform der Technischen Hochschule Brandenburg "
+    "description": "Die Lehrvideo-Plattform der Technischen Hochschule Brandenburg ",
+    "videopage": ["von", "Sprache"]
   },
   "cardsText": {
     "lecturer": "Dozierende",
