@@ -47,9 +47,9 @@
         </v-menu>
       </div>
 
-      <v-btn icon disabled>
+      <!--<v-btn icon disabled>
         <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      </v-btn>-->
     </v-toolbar>
   </div>
 </template>
