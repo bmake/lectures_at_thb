@@ -32,6 +32,8 @@ services:
     container_name: api
     image: bmake/lectures_at_thb_rest_api:latest
     #image: rest:latest
+    volumes:
+      - './public/subtitles:/subtitles'
     ports:
     - "3000:3000"
     healthcheck:

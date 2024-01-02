@@ -24,7 +24,7 @@
             <v-row no-gutters>
               <v-col :key="1" cols="12" sm="9">
                 <div ref="videoBox">
-                  <video-player
+                  <video-player class="caption"
                     ref="videoPlayer"
                     :configuration="playerConfiguration"
                   ></video-player>
@@ -147,7 +147,8 @@ export default {
           autoPlay: true,
           currentPosition: parseInt(this.$route.query.chapter),
           entries: []
-        }
+        },
+        captions: []
       },
       currPath: '',
       toPath: '',
@@ -174,57 +175,27 @@ export default {
     document.head.appendChild(pluginVideoWebComponent);
   },
   mounted() {
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 1000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 2000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 3000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 4000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 5000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 6000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 7000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 8000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 9000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 10000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 12000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 15000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 18000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 20000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 22000);
-    setTimeout(() => {
-      this.videoBoxHeight = this.$refs.videoBox.clientHeight;
-    }, 25000);
-
+    for (let a = 0; a < 30; a++) {
+      setTimeout(() => {
+        this.videoBoxHeight = this.$refs.videoBox.clientHeight;
+      }, a * 1000);
+    }
   },
   methods: {
+    addCaptions(videoID) {
+      this.defaultConf.captions = [];
+      let lan = this.videoLecture.language;
+      let caption = JSON.parse('{"name": "", "language": "", "url": ""}');
+      if (lan === 'en') {
+        caption.name = 'English';
+        caption.language = 'en';
+      } else if (lan === 'de') {
+        caption.name = 'Deutsch';
+        caption.language = 'de';
+      }
+      caption.url = '/subtitles/' + videoID + '.vtt';
+      this.defaultConf.captions.push(caption);
+    },
     createPlaylist() {
       if (this.videoObjects.length > 0) {
         let videoNum = this.videoObjects.length;
@@ -259,7 +230,7 @@ export default {
     async getVideoLectureDetails() {
       await store.dispatch('incrementLoading');
       axios
-        .get('api/v1/videoLecture/' + this.videoLectureIri, {
+        .get('http://localhost:3000/v1/videoLecture/' + this.videoLectureIri, {
           headers: {
             'Accept-Language': this.$i18n.locale,
             'Cache-Control': 'no-cache'
@@ -279,7 +250,7 @@ export default {
       await store.dispatch('incrementLoading');
       axios
         .get(
-          'api/v1/videoLecture/' +
+          'http://localhost:3000/v1/videoLecture/' +
             this.videoLectureIri +
             '/videoObjects',
           {
@@ -306,8 +277,39 @@ export default {
       if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('lecturerVideoID')) {
         await store.dispatch('incrementLoading');
         const lecturerQueryUrl =
-          'api/v1/vimeo/' +
+          'http://localhost:3000/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].lecturerVideoID;
+
+        try {
+          // eslint-disable-next-line no-unused-vars
+          let file = require('../../public/subtitles/' + this.videoObjects[this.activeVideoObject].lecturerVideoID + '.vtt');
+          console.log('file found');
+          this.addCaptions(this.videoObjects[this.activeVideoObject].lecturerVideoID);
+        } catch (e) {
+          if (e.message.startsWith('Module parse failed')) {
+            console.log('file found');
+            this.addCaptions(this.videoObjects[this.activeVideoObject].lecturerVideoID);
+          } else {
+            console.log(e)
+            console.log('file not found2');
+            const lecturerSubtitleUrl =
+              'http://localhost:3000/v1/vimeo/subtitle/' +
+              this.videoObjects[this.activeVideoObject].lecturerVideoID;
+
+            await axios
+              .get(lecturerSubtitleUrl)
+              // eslint-disable-next-line no-unused-vars
+              .then(response => {
+                //let res = response.data.result;
+                this.addCaptions(this.videoObjects[this.activeVideoObject].lecturerVideoID);
+              })
+              .catch(function(error) {
+                // eslint-disable-next-line no-console
+                console.log(error);
+                // TODO: implement catch functionality
+              });
+          }
+        }
 
         await axios
           .get(lecturerQueryUrl)
@@ -328,7 +330,7 @@ export default {
       if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('screencastVideoID')) {
         await store.dispatch('incrementLoading');
         const screencastQueryUrl =
-          'api/v1/vimeo/' +
+          'http://localhost:3000/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].screencastVideoID;
 
         await axios
@@ -352,8 +354,34 @@ export default {
       if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('podcastVideoID')) {
         await store.dispatch('incrementLoading');
         const podcastQueryUrl =
-          'api/v1/vimeo/' +
+          'http://localhost:3000/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].podcastVideoID;
+
+        try {
+          // eslint-disable-next-line no-unused-vars
+          let file = require('../../public/subtitles/' + this.videoObjects[this.activeVideoObject].podcastVideoID + '.vtt');
+          this.addCaptions(this.videoObjects[this.activeVideoObject].podcastVideoID);
+        } catch (e) {
+          if (e.message.startsWith('Module parse failed')) {
+            this.addCaptions(this.videoObjects[this.activeVideoObject].podcastVideoID);
+          } else {
+            const podcastSubtitleUrl =
+              'http://localhost:3000/v1/vimeo/subtitle/' +
+              this.videoObjects[this.activeVideoObject].podcastVideoID;
+            await axios
+              .get(podcastSubtitleUrl)
+              // eslint-disable-next-line no-unused-vars
+              .then(response => {
+                //let res = response.data.result;
+                this.addCaptions(this.videoObjects[this.activeVideoObject].podcastVideoID);
+              })
+              .catch(function(error) {
+                // eslint-disable-next-line no-console
+                console.log(error);
+                // TODO: implement catch functionality
+              });
+          }
+        }
 
         await axios
           .get(podcastQueryUrl)
@@ -440,7 +468,7 @@ export default {
           podcastStream['sd'] = this.activeVideoData['podcastVideo'][0].url;
           podcastStream['hd'] = this.activeVideoData['podcastVideo'][
           this.activeVideoData['podcastVideo'].length - 1
-            ].url;
+          ].url;
         } else {
           podcastStream['sd'] = this.activeVideoData['podcastVideo'][0].url;
         }
@@ -467,4 +495,5 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+</style>

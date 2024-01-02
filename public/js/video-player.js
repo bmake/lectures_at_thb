@@ -1802,7 +1802,8 @@ class CaptionsDisplay extends(BindingHelpersMixin(IocRequesterMixin(PolymerEleme
           padding: 3px 10px;
           background-color: rgba(0,0,0,0.7);
           border-radius: 5px;
-          font-size: 18px;
+          /* font-size: 18px; */
+          font-size: x-large;
         }
 
         @media (max-width: 769px) {
@@ -2357,7 +2358,7 @@ class SpeedControl extends(BindingHelpersMixin(IocRequesterMixin(PolymerElement)
 
       <div id="container__speed_control">
         <select-control state="[[state]]" items="[[_items]]" selected-value="[[state.playbackRate]]"
-                        on-change="_selectionChanged" icon-prefix="fas" icon-name="tachometer-alt" 
+                        on-change="_selectionChanged" icon-prefix="fas" icon-name="tachometer-alt"
                         is-in-mobile-menu="[[isInMobileMenu]]">
         </select-control>
       </div>

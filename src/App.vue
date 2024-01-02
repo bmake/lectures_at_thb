@@ -20,4 +20,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+/*video-player.caption div#video-player-container div#video-container captions-display div#container__captions div.caption-cue-text {
+  font-size: x-large !important;
+}*/
+</style>
