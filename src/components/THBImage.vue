@@ -2,7 +2,7 @@
   <v-parallax
     src="../assets/banner.jpg"
   >
-    <v-row align="center" justify="center">
+    <!--<v-row align="center" justify="center">
       <v-card color="rgb(255,255,255,0.6)">
         <v-col class="text-center" cols="12">
           <h1 class="display-3 font-weight-bold mb-4">{{ $t('page.title') }}</h1>
@@ -11,7 +11,7 @@
           </h4>
         </v-col>
       </v-card>
-    </v-row>
+    </v-row>-->
   </v-parallax>
 </template>
 
@@ -24,5 +24,8 @@ export default {
 <style scoped>
 .text-center {
   color: #be0024;
+}
+.v-parallax {
+  height: 350px !important;
 }
 </style>

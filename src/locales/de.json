@@ -2,7 +2,8 @@
   "page": {
     "title": "eLectures",
     "titleOld": "Videovorlesungen",
-    "description": " Technische Hochschule Brandenburg "
+    "description": "Die Lehrvideo-Plattform der Technischen Hochschule Brandenburg ",
+    "videopage": ["von", "Sprache"]
   },
   "cardsText": {
     "lecturer": "Dozierende",
@@ -10,7 +11,7 @@
     "language": "Sprache"
   },
   "filter": {
-    "heading": ["Fachbereich", "Studiengang", "Modul"]
+    "heading": ["Bereich", "Studiengang", "Modul"]
   },
   "toolbar": {
     "description": "Wähle deine Sprache aus"

@@ -13,8 +13,16 @@
       </v-card-title>
       <v-card-subtitle class="subtitle-1 font-weight-medium">
         <v-layout row>
-          <p style="padding-right: 1em; padding-left: 1em;"> von {{ formatContributors(videoLecture.creator, videoLecture.contributors)}}; </p>
-          <p> Sprache: {{ videoLecture.language }} </p>
+          <p style="padding-right: 1em; padding-left: 1em;">
+            {{ $t('page.videopage')[0] }}
+            {{
+              formatContributors(
+                videoLecture.creator,
+                videoLecture.contributors
+              )
+            }};
+          </p>
+          <p>{{ $t('page.videopage')[1] }}: {{ videoLecture.language }}</p>
         </v-layout>
       </v-card-subtitle>
       <div>
@@ -103,7 +111,10 @@
           <v-row no-gutters style="padding: 1em" ref="actions">
             <v-col :key="1" cols="12" sm="2">
               <v-img
-                :src="'https://drive.google.com/uc?export=view&id=' + videoLecture.thumbnail"
+                :src="
+                  'https://drive.google.com/uc?export=view&id=' +
+                    videoLecture.thumbnail
+                "
                 class="white--text align-end"
               >
               </v-img>
@@ -123,6 +134,8 @@
 <script>
 import store from '../store/store';
 import axios from 'axios';
+import { eventBus } from '../main';
+
 export default {
   name: 'Video',
   data() {
@@ -202,7 +215,7 @@ export default {
         let urlPrefix = this.$route.path;
         let arr = [];
         for (let i = 0; i < videoNum; i++) {
-          arr.push({ url: urlPrefix + '?chapter=' + i});
+          arr.push({ url: urlPrefix + '?chapter=' + i });
         }
         this.defaultConf.playlist.entries = arr;
       }
@@ -213,8 +226,8 @@ export default {
       }, 1000);
     },
     scrollToItem() {
-      var container = this.$el.querySelector("#playlist");
-      container.scrollTop = this.activeVideoObject * 85 ;
+      var container = this.$el.querySelector('#playlist');
+      container.scrollTop = this.activeVideoObject * 85;
     },
     formatContributors(creators, contributors) {
       creators = this._.split(creators, ', ');
@@ -230,7 +243,7 @@ export default {
     async getVideoLectureDetails() {
       await store.dispatch('incrementLoading');
       axios
-        .get('http://localhost:3000/v1/videoLecture/' + this.videoLectureIri, {
+        .get('api/v1/videoLecture/' + this.videoLectureIri, {
           headers: {
             'Accept-Language': this.$i18n.locale,
             'Cache-Control': 'no-cache'
@@ -249,17 +262,12 @@ export default {
     async getVideoObjects() {
       await store.dispatch('incrementLoading');
       axios
-        .get(
-          'http://localhost:3000/v1/videoLecture/' +
-            this.videoLectureIri +
-            '/videoObjects',
-          {
-            headers: {
-              'Accept-Language': this.$i18n.locale,
-              'Cache-Control': 'no-cache'
-            }
+        .get('api/v1/videoLecture/' + this.videoLectureIri + '/videoObjects', {
+          headers: {
+            'Accept-Language': this.$i18n.locale,
+            'Cache-Control': 'no-cache'
           }
-        )
+        })
         .then(response => {
           this.videoObjects = response.data.result;
           this.createPlaylist();
@@ -274,10 +282,14 @@ export default {
     },
     async getActiveVideoConfig() {
       //Object.keys(this.videoObjects[this.activeVideoObject]).includes('lecturerVideoID');
-      if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('lecturerVideoID')) {
+      if (
+        Object.keys(this.videoObjects[this.activeVideoObject]).includes(
+          'lecturerVideoID'
+        )
+      ) {
         await store.dispatch('incrementLoading');
         const lecturerQueryUrl =
-          'http://localhost:3000/v1/vimeo/' +
+          'api/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].lecturerVideoID;
 
         try {
@@ -293,7 +305,7 @@ export default {
             console.log(e)
             console.log('file not found2');
             const lecturerSubtitleUrl =
-              'http://localhost:3000/v1/vimeo/subtitle/' +
+              'api/v1/vimeo/subtitle/' +
               this.videoObjects[this.activeVideoObject].lecturerVideoID;
 
             await axios
@@ -327,10 +339,14 @@ export default {
           .finally(() => store.dispatch('decrementLoading'));
       }
 
-      if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('screencastVideoID')) {
+      if (
+        Object.keys(this.videoObjects[this.activeVideoObject]).includes(
+          'screencastVideoID'
+        )
+      ) {
         await store.dispatch('incrementLoading');
         const screencastQueryUrl =
-          'http://localhost:3000/v1/vimeo/' +
+          'api/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].screencastVideoID;
 
         await axios
@@ -351,10 +367,14 @@ export default {
           });
       }
 
-      if (Object.keys(this.videoObjects[this.activeVideoObject]).includes('podcastVideoID')) {
+      if (
+        Object.keys(this.videoObjects[this.activeVideoObject]).includes(
+          'podcastVideoID'
+        )
+      ) {
         await store.dispatch('incrementLoading');
         const podcastQueryUrl =
-          'http://localhost:3000/v1/vimeo/' +
+          'api/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].podcastVideoID;
 
         try {
@@ -366,7 +386,7 @@ export default {
             this.addCaptions(this.videoObjects[this.activeVideoObject].podcastVideoID);
           } else {
             const podcastSubtitleUrl =
-              'http://localhost:3000/v1/vimeo/subtitle/' +
+              'api/v1/vimeo/subtitle/' +
               this.videoObjects[this.activeVideoObject].podcastVideoID;
             await axios
               .get(podcastSubtitleUrl)
@@ -409,17 +429,17 @@ export default {
         .replace('H', ':')
         .replace('M', ':')
         .replace('S', '');
-      let second = time.substring(time.length - 3, time.length) ;
-      let min = time.substring(0, time.length - 3) ;
+      let second = time.substring(time.length - 3, time.length);
+      let min = time.substring(0, time.length - 3);
       min = parseInt(min);
       if (min > 59) {
         let m = min % 60;
         let h = (min - m) / 60;
         if (m < 10) {
-          m = '0' + m.toString()
+          m = '0' + m.toString();
         }
-        min = h.toString() + ":" + m;
-       //time.replace(time.substring(0, time.length - 3), t);
+        min = h.toString() + ':' + m;
+        //time.replace(time.substring(0, time.length - 3), t);
       }
       let formattedTime = min + second;
       return formattedTime;
@@ -435,7 +455,7 @@ export default {
     changeActiveVideo(index) {
       this.activeVideoObject = index;
       //this.addHiddenIndexToLocation(index);
-      this.$router.replace({ name: 'video', query: {chapter: index} });
+      this.$router.replace({ name: 'video', query: { chapter: index } });
     },
     createPlayerConfiguration() {
       let configuration = this.defaultConf;
@@ -455,22 +475,34 @@ export default {
         } else {
           lecturerStream['sd'] = this.activeVideoData['lecturerVideo'][0].url;
         }
-        lecturerStream['poster'] = this.activeVideoData['lecturerVideo'][0].thumbnail;
+        lecturerStream['poster'] = this.activeVideoData[
+          'lecturerVideo'
+        ][0].thumbnail;
       }
 
       if (Object.keys(this.activeVideoData).includes('screencastVideo')) {
         if (this.activeVideoData['screencastVideo'].length === 3) {
-          screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
-          screencastStream['hd'] = this.activeVideoData['screencastVideo'][2].url;
+          screencastStream['sd'] = this.activeVideoData[
+            'screencastVideo'
+          ][0].url;
+          screencastStream['hd'] = this.activeVideoData[
+            'screencastVideo'
+          ][2].url;
         } else if (this.activeVideoData['screencastVideo'].length > 3) {
-          screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
+          screencastStream['sd'] = this.activeVideoData[
+            'screencastVideo'
+          ][0].url;
           screencastStream['hd'] = this.activeVideoData['screencastVideo'][
             this.activeVideoData['screencastVideo'].length - 1
           ].url;
         } else {
-          screencastStream['sd'] = this.activeVideoData['screencastVideo'][0].url;
+          screencastStream['sd'] = this.activeVideoData[
+            'screencastVideo'
+          ][0].url;
         }
-        screencastStream['poster'] = this.activeVideoData['screencastVideo'][0].thumbnail;
+        screencastStream['poster'] = this.activeVideoData[
+          'screencastVideo'
+        ][0].thumbnail;
       }
 
       if (Object.keys(this.activeVideoData).includes('podcastVideo')) {
@@ -480,12 +512,14 @@ export default {
         } else if (this.activeVideoData['podcastVideo'].length > 3) {
           podcastStream['sd'] = this.activeVideoData['podcastVideo'][0].url;
           podcastStream['hd'] = this.activeVideoData['podcastVideo'][
-          this.activeVideoData['podcastVideo'].length - 1
+            this.activeVideoData['podcastVideo'].length - 1
           ].url;
         } else {
           podcastStream['sd'] = this.activeVideoData['podcastVideo'][0].url;
         }
-        podcastStream['poster'] = this.activeVideoData['podcastVideo'][0].thumbnail;
+        podcastStream['poster'] = this.activeVideoData[
+          'podcastVideo'
+        ][0].thumbnail;
       }
 
       if (Object.keys(this.activeVideoData).includes('podcastVideo')) {
@@ -495,13 +529,24 @@ export default {
       }
 
       this.playerConfiguration = JSON.stringify(configuration);
+    },
+    updateData() {
+      return Promise.all([
+        this.getVideoLectureDetails(),
+        this.getVideoObjects()
+      ]);
     }
+  },
+  beforeUpdate() {
+    eventBus.$on('updateLocale', () => {
+      this.updateData()
+    });
   },
   watch: {
     activeVideoObject: function() {
       this.playerConfiguration = '';
-      this.activeVideoData = {},
-      this.defaultConf.playlist.currentPosition = this.activeVideoObject;
+      (this.activeVideoData = {}),
+        (this.defaultConf.playlist.currentPosition = this.activeVideoObject);
       this.getActiveVideoConfig();
     }
   }
