@@ -38,9 +38,9 @@ export default {
       await store.dispatch('incrementLoading');
       await store.dispatch('resetVideoLectures');
       return axios
-        .get('api/v1/videoLecture/module/' + this.activeModule, {
+        .get('http://localhost:3000/v1/videoLecture/module/' + this.activeModule, {
           headers: {
-            'Accept-Language': this.$i18n.locale,
+              'Accept-Language': this.$i18n.locale,
             'Cache-Control': 'no-cache'
           }
         })
