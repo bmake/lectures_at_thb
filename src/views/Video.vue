@@ -295,15 +295,15 @@ export default {
         try {
           // eslint-disable-next-line no-unused-vars
           let file = require('../../public/subtitles/' + this.videoObjects[this.activeVideoObject].lecturerVideoID + '.vtt');
-          console.log('file found');
+          //console.log('file found');
           this.addCaptions(this.videoObjects[this.activeVideoObject].lecturerVideoID);
         } catch (e) {
           if (e.message.startsWith('Module parse failed')) {
-            console.log('file found');
+            //console.log('file found');
             this.addCaptions(this.videoObjects[this.activeVideoObject].lecturerVideoID);
           } else {
-            console.log(e)
-            console.log('file not found2');
+            //console.log(e)
+            //console.log('file not found2');
             const lecturerSubtitleUrl =
               'api/v1/vimeo/subtitle/' +
               this.videoObjects[this.activeVideoObject].lecturerVideoID;
