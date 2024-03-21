@@ -103,7 +103,7 @@
           <v-row no-gutters style="padding: 1em" ref="actions">
             <v-col :key="1" cols="12" sm="2">
               <v-img
-                :src="'https://drive.google.com/uc?export=view&id=' + videoLecture.thumbnail"
+                :src=" 'https://drive.google.com/thumbnail?id=' + videoLecture.thumbnail +'&sz=w1000' "
                 class="white--text align-end"
               >
               </v-img>

@@ -14,8 +14,9 @@
       <div style="padding-top: 0.5em">
         <v-img
           :src="
-            'https://drive.google.com/uc?export=view&id=' +
-              videoLecture.thumbnail
+            'https://drive.google.com/thumbnail?id=' +
+              videoLecture.thumbnail +
+              '&sz=w1000'
           "
           height="16vh"
           contain
