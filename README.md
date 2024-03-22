@@ -17,3 +17,7 @@ Videoplattform für Videovorlesungen an der Technische Hochshcule Brandenburg.
 ## 3 Projekt Struktur
 Im Ordner `/src` findet man die richtigen Ressourcen / Codes für die Anwendung. Die Webseiten der Anwendung bestehen aus mehreren unterschiedlichen Vue-Komponenten, und die Komponenten findet man meistens in den Ordnern `/components` und `/views`.
 Im Ordner `/locales` werden die statischen Texte auf der Webseite zweisprachig als json Datei gespeichert. Namen der wichtigsten Komponenten werden im Bild angezeigt:
+
+![Homepage der eLectures](https://github.com/bmake/lectures_at_thb/blob/master/src/assets/Homepage.png)
+![lecture cards](https://github.com/bmake/lectures_at_thb/blob/master/src/assets/Lectures.png)
+![single video page](https://github.com/bmake/lectures_at_thb/blob/master/src/assets/Videopage.png)
