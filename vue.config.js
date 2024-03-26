@@ -27,7 +27,7 @@ module.exports = {
     disableHostCheck: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000/',
+        target: 'http://172.16.32.212:3000/',
         pathRewrite: { '^/api': '' }
       },
     },

@@ -114,7 +114,7 @@ export default {
     async getVideoLectureDetails() {
       await store.dispatch('incrementLoading');
       axios
-        .get('http://localhost:3000/v1/videoLecture/' + this.videoLectureIri, {
+        .get('api/v1/videoLecture/' + this.videoLectureIri, {
           headers: {
             'Accept-Language': this.$i18n.locale,
             'Cache-Control': 'no-cache'
