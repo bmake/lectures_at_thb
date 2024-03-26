@@ -16,4 +16,4 @@ Videoplattform für Videovorlesungen an der Technische Hochshcule Brandenburg.
 
 ## 3 Projekt Struktur
 Im Ordner `/src` findet man die richtigen Ressourcen / Codes für die Anwendung. Die Webseiten der Anwendung bestehen aus mehreren unterschiedlichen Vue-Komponenten, und die Komponenten findet man meistens in den Ordnern `/components` und `/views`.
-Im Ordner `/locales` werden die statischen Texte auf der Webseite zweisprachig als json Datei gespeichert. Namen der wichtigsten Komponenten werden im Bild angezeigt.
+Im Ordner `/locales` werden die statischen Texte auf der Webseite zweisprachig als json Datei gespeichert. Namen der wichtigsten Komponenten werden im Bild angezeigt:
