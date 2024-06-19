@@ -6,7 +6,7 @@
       ref="filters"
     ></video-lecture-filters>
     <lectures
-      v-if="activeModuleValue !== null"
+      v-if="activeModuleValue !== null || activeSearch !== null"
       :video-lecture-iris="videoLectureIris"
       ref="lectures"
     ></lectures>
@@ -38,12 +38,15 @@ export default {
       await store.dispatch('incrementLoading');
       await store.dispatch('resetVideoLectures');
       return axios
-        .get('api/v1/videoLecture/module/' + this.activeModule, {
-          headers: {
-            'Accept-Language': this.$i18n.locale,
-            'Cache-Control': 'no-cache'
+        .get(
+          'http://localhost:3000/v1/videoLecture/module/' + this.activeModule,
+          {
+            headers: {
+              'Accept-Language': this.$i18n.locale,
+              'Cache-Control': 'no-cache'
+            }
           }
-        })
+        )
         .then(response => {
           const videoLectureIris = this._.map(
             response.data.result,
@@ -66,6 +69,8 @@ export default {
     activeModuleValue: function(params) {
       this.activeModule = params;
       this.getVideoLectureIris();
+      // eslint-disable-next-line no-console
+      console.log('activeSearch:', this.activeSearch);
     }
   },
   updated() {
@@ -73,7 +78,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      videoLectureIris: 'getVideoLectureIris'
+      videoLectureIris: 'getVideoLectureIris',
+      activeSearch: 'getActiveSearch'
     })
   }
 };

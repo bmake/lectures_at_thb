@@ -7,6 +7,7 @@ const state = {
   activeDepartment: null,
   activeStudyProgram: null,
   activeModule: null,
+  activeSearch: null,
   videoLectureIris: [],
   studyPrograms: [],
   modules: [],
@@ -25,6 +26,9 @@ const mutations = {
   },
   REPLACE_ACTIVE_MODULE(state, payload) {
     state.activeModule = payload;
+  },
+  REPLACE_ACTIVE_SEARCH(state, payload) {
+    state.activeSearch = payload;
   },
   ADD_VIDEO_LECTURE_IRIS(state, payload) {
     state.videoLectureIris = payload;
@@ -65,6 +69,9 @@ const actions = {
   replaceActiveModule(context, activeModule) {
     context.commit('REPLACE_ACTIVE_MODULE', activeModule);
   },
+  replaceActiveSearch(context, activeSearch) {
+    context.commit('REPLACE_ACTIVE_SEARCH', activeSearch);
+  },
   addVideoLectureIris(context, videoLectureIri) {
     context.commit('ADD_VIDEO_LECTURE_IRIS', videoLectureIri);
   },
@@ -103,6 +110,9 @@ const getters = {
   },
   getActiveModule(state) {
     return state.activeModule;
+  },
+  getActiveSearch(state) {
+    return state.activeSearch;
   },
   getVideoLectureIris(state) {
     return state.videoLectureIris;

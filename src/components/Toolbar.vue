@@ -10,7 +10,8 @@
             height="32"
             width="32"
             style="border-radius: 50%; background-color: white;"
-          ></v-img><!--style="border-radius: 50%; background-color: white"-->
+          ></v-img
+          ><!--style="border-radius: 50%; background-color: white"-->
         </router-link>
       </v-app-bar-nav-icon>
 
@@ -46,10 +47,28 @@
           </v-list>
         </v-menu>
       </div>
-
-      <!--<v-btn icon disabled>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>-->
+      <div class="text-center fill-height">
+        <template>
+          <v-form class="fill-height" @submit.prevent="searchLectures">
+            <v-row class="fill-height" style="margin: 0">
+              <v-col class="fill-height" cols="12" sm="10" style="padding: 0">
+                <v-text-field
+                  style="margin-top: 0.25em"
+                  v-model="searchStr"
+                  label="Suchen..."
+                  solo
+                  dense
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="2" style="padding: 0">
+                <v-btn icon type="submit" style="">
+                  <v-icon>mdi-magnify</v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-form>
+        </template>
+      </div>
     </v-toolbar>
   </div>
 </template>
@@ -59,6 +78,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import store from '../store/store';
 import ProgressBar from './ProgressBar';
 import { eventBus } from '../main';
+import axios from 'axios';
 
 export default {
   name: 'Toolbar',
@@ -72,7 +92,9 @@ export default {
       toolbarHeight: 5,
       langs: ['de', 'en'],
       description: 'toolbar.description',
-      flag: 'fl.current_flag'
+      flag: 'fl.current_flag',
+      searchStr: '',
+      searchList: []
     };
   },
   methods: {
@@ -85,6 +107,42 @@ export default {
     setLocale(locale) {
       eventBus.$emit('updateLocale');
       this.$i18n.locale = locale;
+    },
+    async getVideoLectureAllRelatedInfo() {
+      await store.dispatch('incrementLoading');
+      return axios
+        .get('http://localhost:3000/v1/videoLectureAllRelatedInfo', {
+          headers: {
+            'Accept-Language': this.$i18n.locale,
+            'Cache-Control': 'no-cache'
+          }
+        })
+        .then(response => {
+          this.searchList = response.data.result;
+        })
+        .catch(function(error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+          // TODO: implement catch functionality
+        })
+        .finally(() => store.dispatch('decrementLoading'));
+    },
+    async searchLectures() {
+      await this.getVideoLectureAllRelatedInfo();
+      await store.dispatch('replaceActiveSearch', 'search');
+      const list = this.searchList;
+      const options = {
+        includeScore: true,
+        keys: ['headline', 'keywords', 'description']
+      };
+      // eslint-disable-next-line no-undef
+      const fuse = new Fuse(list, options);
+      const result = fuse.search(this.searchStr);
+      const videoLectureIris = this._.map(result, videoLecture => {
+        return videoLecture.item.iri;
+      });
+      await store.dispatch('addVideoLectureIris', videoLectureIris);
+      //console.log(videoLectureIris);
     }
   },
   components: {

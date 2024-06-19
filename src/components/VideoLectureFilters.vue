@@ -47,10 +47,10 @@ import { eventBus } from '../main';
 
 export default {
   name: 'VideoLectureFilters',
-  components: { SearchableList},
+  components: { SearchableList },
   beforeMount() {
     if(this.$i18n.locale != "de" && this.$i18n.locale != "en") {
-      this.setLocale("en");
+      this.setLocale('en');
     };
     this.getDepartments();
   },
@@ -66,7 +66,7 @@ export default {
     async getDepartments() {
       await store.dispatch('incrementLoading');
       return axios
-        .get('api/v1/collegeOrUniversity', {
+        .get('http://localhost:3000/v1/collegeOrUniversity', {
           headers: {
             'Accept-Language': this.$i18n.locale,
             'Cache-Control': 'no-cache'
@@ -92,7 +92,7 @@ export default {
       await store.dispatch('incrementLoading');
       return axios
         .get(
-          'api/v1/studyProgram/collegeOrUniversity/' +
+          'http://localhost:3000/v1/studyProgram/collegeOrUniversity/' +
             this.activeDepartment,
           {
             headers: {
@@ -124,7 +124,7 @@ export default {
       await store.dispatch('incrementLoading');
       return axios
         .get(
-          'api/v1/module/studyProgram/' +
+          'http://localhost:3000/v1/module/studyProgram/' +
             this.activeStudyProgram,
           {
             headers: {
@@ -157,6 +157,7 @@ export default {
     },
     activeModuleValue: function(params) {
       store.dispatch('replaceActiveModule', params);
+      store.dispatch('replaceActiveSearch', null);
       this.$emit('activeModule', this.activeModule);
     },
     updateData() {

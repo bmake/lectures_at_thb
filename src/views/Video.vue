@@ -32,7 +32,8 @@
             <v-row no-gutters>
               <v-col :key="1" cols="12" sm="9">
                 <div ref="videoBox">
-                  <video-player class="caption"
+                  <video-player
+                    class="caption"
                     ref="videoPlayer"
                     :configuration="playerConfiguration"
                   ></video-player>
@@ -111,7 +112,11 @@
           <v-row no-gutters style="padding: 1em" ref="actions">
             <v-col :key="1" cols="12" sm="2">
               <v-img
-                :src=" 'https://drive.google.com/thumbnail?id=' + videoLecture.thumbnail +'&sz=w1000' "
+                :src="
+                  'https://drive.google.com/thumbnail?id=' +
+                    videoLecture.thumbnail +
+                    '&sz=w1000'
+                "
                 class="white--text align-end"
               >
               </v-img>
@@ -240,7 +245,7 @@ export default {
     async getVideoLectureDetails() {
       await store.dispatch('incrementLoading');
       axios
-        .get('api/v1/videoLecture/' + this.videoLectureIri, {
+        .get('http://localhost:3000/v1/videoLecture/' + this.videoLectureIri, {
           headers: {
             'Accept-Language': this.$i18n.locale,
             'Cache-Control': 'no-cache'
@@ -259,12 +264,17 @@ export default {
     async getVideoObjects() {
       await store.dispatch('incrementLoading');
       axios
-        .get('api/v1/videoLecture/' + this.videoLectureIri + '/videoObjects', {
-          headers: {
-            'Accept-Language': this.$i18n.locale,
-            'Cache-Control': 'no-cache'
+        .get(
+          'http://localhost:3000/v1/videoLecture/' +
+            this.videoLectureIri +
+            '/videoObjects',
+          {
+            headers: {
+              'Accept-Language': this.$i18n.locale,
+              'Cache-Control': 'no-cache'
+            }
           }
-        })
+        )
         .then(response => {
           this.videoObjects = response.data.result;
           this.createPlaylist();
@@ -286,23 +296,29 @@ export default {
       ) {
         await store.dispatch('incrementLoading');
         const lecturerQueryUrl =
-          'api/v1/vimeo/' +
+          'http://localhost:3000/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].lecturerVideoID;
 
         try {
           // eslint-disable-next-line no-unused-vars
-          let file = require('../../public/subtitles/' + this.videoObjects[this.activeVideoObject].lecturerVideoID + '.vtt');
+          let file = require('../../public/subtitles/' +
+            this.videoObjects[this.activeVideoObject].lecturerVideoID +
+            '.vtt');
           //console.log('file found');
-          this.addCaptions(this.videoObjects[this.activeVideoObject].lecturerVideoID);
+          this.addCaptions(
+            this.videoObjects[this.activeVideoObject].lecturerVideoID
+          );
         } catch (e) {
           if (e.message.startsWith('Module parse failed')) {
             //console.log('file found');
-            this.addCaptions(this.videoObjects[this.activeVideoObject].lecturerVideoID);
+            this.addCaptions(
+              this.videoObjects[this.activeVideoObject].lecturerVideoID
+            );
           } else {
             //console.log(e)
             //console.log('file not found2');
             const lecturerSubtitleUrl =
-              'api/v1/vimeo/subtitle/' +
+              'http://localhost:3000/v1/vimeo/subtitle/' +
               this.videoObjects[this.activeVideoObject].lecturerVideoID;
 
             await axios
@@ -310,7 +326,9 @@ export default {
               // eslint-disable-next-line no-unused-vars
               .then(response => {
                 //let res = response.data.result;
-                this.addCaptions(this.videoObjects[this.activeVideoObject].lecturerVideoID);
+                this.addCaptions(
+                  this.videoObjects[this.activeVideoObject].lecturerVideoID
+                );
               })
               .catch(function(error) {
                 // eslint-disable-next-line no-console
@@ -343,7 +361,7 @@ export default {
       ) {
         await store.dispatch('incrementLoading');
         const screencastQueryUrl =
-          'api/v1/vimeo/' +
+          'http://localhost:3000/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].screencastVideoID;
 
         await axios
@@ -371,26 +389,34 @@ export default {
       ) {
         await store.dispatch('incrementLoading');
         const podcastQueryUrl =
-          'api/v1/vimeo/' +
+          'http://localhost:3000/v1/vimeo/' +
           this.videoObjects[this.activeVideoObject].podcastVideoID;
 
         try {
           // eslint-disable-next-line no-unused-vars
-          let file = require('../../public/subtitles/' + this.videoObjects[this.activeVideoObject].podcastVideoID + '.vtt');
-          this.addCaptions(this.videoObjects[this.activeVideoObject].podcastVideoID);
+          let file = require('../../public/subtitles/' +
+            this.videoObjects[this.activeVideoObject].podcastVideoID +
+            '.vtt');
+          this.addCaptions(
+            this.videoObjects[this.activeVideoObject].podcastVideoID
+          );
         } catch (e) {
           if (e.message.startsWith('Module parse failed')) {
-            this.addCaptions(this.videoObjects[this.activeVideoObject].podcastVideoID);
+            this.addCaptions(
+              this.videoObjects[this.activeVideoObject].podcastVideoID
+            );
           } else {
             const podcastSubtitleUrl =
-              'api/v1/vimeo/subtitle/' +
+              'http://localhost:3000/v1/vimeo/subtitle/' +
               this.videoObjects[this.activeVideoObject].podcastVideoID;
             await axios
               .get(podcastSubtitleUrl)
               // eslint-disable-next-line no-unused-vars
               .then(response => {
                 //let res = response.data.result;
-                this.addCaptions(this.videoObjects[this.activeVideoObject].podcastVideoID);
+                this.addCaptions(
+                  this.videoObjects[this.activeVideoObject].podcastVideoID
+                );
               })
               .catch(function(error) {
                 // eslint-disable-next-line no-console
@@ -536,7 +562,7 @@ export default {
   },
   beforeUpdate() {
     eventBus.$on('updateLocale', () => {
-      this.updateData()
+      this.updateData();
     });
   },
   watch: {
@@ -550,5 +576,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
