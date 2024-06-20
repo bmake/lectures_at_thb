@@ -6,7 +6,7 @@
       ref="filters"
     ></video-lecture-filters>
     <lectures
-      v-if="activeModuleValue !== null"
+      v-if="activeModuleValue !== null || activeSearch !== null"
       :video-lecture-iris="videoLectureIris"
       ref="lectures"
     ></lectures>
@@ -73,7 +73,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      videoLectureIris: 'getVideoLectureIris'
+      videoLectureIris: 'getVideoLectureIris',
+      activeSearch: 'getActiveSearch'
     })
   }
 };
